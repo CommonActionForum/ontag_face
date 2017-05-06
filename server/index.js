@@ -3,7 +3,7 @@ import path from 'path'
 import http from 'http'
 import core from 'liqen'
 import router from './router'
-import client from './client-middleware'
+import { setLiqenCore } from './middlewares'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -31,9 +31,9 @@ app.use('/static', express.static('public'))
 
 if (process.env.NODE_ENV === 'development') {
   const localCore = require('./local-liqen').default
-  app.use(client(localCore))
+  app.use(setLiqenCore(localCore))
 } else {
-  app.use(client(core))
+  app.use(setLiqenCore(core))
 }
 
 app.use('/', router)
