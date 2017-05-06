@@ -38,7 +38,7 @@
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "extract-text-webpack-plugin": "^2.1.0",
-    "liqen": "^0.1.1",
+    "liqen": "^0.2.0",
     "node-sass": "^4.5.2",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
