@@ -1,6 +1,6 @@
 {
   "name": "liqen-face",
-  "version": "0.1.0-0",
+  "version": "0.2.0-0",
   "description": "Web application for Liqen (a.k.a. the Frontend)",
   "main": "server/index.js",
   "scripts": {
