@@ -48,21 +48,25 @@ export default class MultiList extends React.Component {
             </li>
           </ul>
         </div>
-        {
-          this.state.show === 'annotations' && (
-            <AnnotationsList
-              annotations={annotations}
-              onSelect={(e) => console.log(e)}
-            />
-          )
-        }
-        {
-          this.state.show === 'liqens' && (
-            <LiqensList
-              liqens={liqens}
-            />
-          )
-        }
+        <div>
+          {
+            this.state.show === 'annotations' && (
+              <AnnotationsList
+                annotations={annotations}
+                onSelect={(e) => console.log(e)}
+              />
+            )
+          }
+        </div>
+        <div>
+          {
+            this.state.show === 'liqens' && (
+              <LiqensList
+                liqens={liqens}
+              />
+            )
+          }
+        </div>
       </div>
     )
   }

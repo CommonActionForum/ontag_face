@@ -3563,9 +3563,9 @@ liqen-scrapper@^2.1.0:
     request "^2.79.0"
     request-promise "^4.1.1"
 
-liqen@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/liqen/-/liqen-0.5.0.tgz#d8fd1db2004bdff82c769a2b49ebc378e8a5eed2"
+liqen@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/liqen/-/liqen-0.5.4.tgz#9eb93f7074bfabe45525be6801807cf4536e0105"
   dependencies:
     isomorphic-fetch "^2.2.1"
 

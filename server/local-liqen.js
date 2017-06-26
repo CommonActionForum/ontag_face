@@ -91,6 +91,52 @@ const localLiqen = token => ({
   },
 
   annotations: {
+    index () {
+      return Promise.resolve([
+        {id: 2, author: 1, article_id: 2},
+        {id: 31, author: 1, article_id: 2}
+      ])
+    },
+
+    show (id) {
+      switch (id) {
+        case 2:
+          return Promise.resolve({
+            id: 2,
+            author: 1,
+            article_id: 2,
+            target: {
+              type: 'TextQuoteSelector',
+              prefix: 'Hace más de cinco años que se fue de Colombia, y afirma que no tiene intención de regresar, porque “',
+              exact: 'aquí se te valora más como profesional',
+              suffix: '”.'
+            },
+            tags: [
+              {title: 'Reason', id: 2}
+            ]
+          })
+
+        case 31:
+          return Promise.resolve({
+            id: 31,
+            author: 1,
+            article_id: 2,
+            target: {
+              type: 'TextQuoteSelector',
+              prefix: 'El colombiano Stefano Badalacchi es uno de ellos. Son las 7 AM de un húmedo día de otoño en ',
+              exact: 'París',
+              suffix: '. Badalacchi, de 24 años, se ajusta la corbata al cuello mientras echa llave a la puerta de casa, acomoda en su hombro la bolsa con la ‘compu’, y se dirige hacia el metro que le llevará a su nuevo puesto de trabajo en Ivry Sur Senne, como analista económico en una organización no gubernamental.'
+            },
+            tags: [
+              {title: 'Destination', id: 3}
+            ]
+          })
+
+        default:
+          return Promise.resolve({})
+      }
+    },
+
     create (obj) {
       return Promise.resolve(Object.assign({
         id: Math.floor(Math.random() * 1000)
@@ -99,6 +145,23 @@ const localLiqen = token => ({
   },
 
   liqens: {
+    index () {
+      return Promise.resolve([
+        {question_id: 1, id: 97}
+      ])
+    },
+
+    show () {
+      return Promise.resolve({
+        id: 97,
+        question_id: 1,
+        annotations: [
+          {id: 31},
+          {id: 2}
+        ]
+      })
+    },
+
     create (obj) {
       return Promise.resolve(Object.assign({
         id: Math.floor(Math.random() * 1000)

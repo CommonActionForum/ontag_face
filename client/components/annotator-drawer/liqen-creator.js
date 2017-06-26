@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 export default function LiqenCreator ({ onSubmit, answer, question }) {
   const tags = answer.map(
     (a, i) => a.title && a.exact
-          ? <mark><strike>{a.title}</strike></mark>
-          : <mark>{a.title}</mark>
+          ? <mark key={i}><strike>{a.title}</strike></mark>
+          : <mark key={i}>{a.title}</mark>
   )
 
   const pluralize = (tags) => {

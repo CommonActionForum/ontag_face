@@ -118,19 +118,80 @@ router.get('/annotate', checkSession, async function (req, res, next) {
     }
   }
 
+  // Take the annotations
+  async function getAnnotations () {
+    try {
+      const list = await req.core.annotations.index({article_id: articleId})
+
+      const annotations = await Promise.all(list.map(async ({id, author, article_id}) => {
+        const annotation = await req.core.annotations.show(id)
+        return annotation
+      }))
+
+      const annotations2 = {}
+
+      for (let annotation of annotations) {
+        if (annotation.tags.length > 0) {
+          annotations2[annotation.id] = {
+            tag: annotation.tags[0].id,
+            target: {
+              prefix: annotation.target.prefix,
+              exact: annotation.target.exact,
+              suffix: annotation.target.suffix
+            },
+            checked: false,
+            pending: false
+          }
+        }
+      }
+
+      return annotations2
+    } catch (e) {
+      console.log('error 3')
+      console.log(e)
+    }
+  }
+
+  async function getLiqens () {
+    try {
+      const list = await req.core.liqens.index({question_id: questionId})
+
+      const liqens = await Promise.all(list.map(async ({question_id, id}) => {
+        const liqen = await req.core.liqens.show(id)
+        return liqen
+      }))
+
+      const liqens2 = {}
+
+      for (let liqen of liqens) {
+        liqens2[liqen.id] = {
+          answer: liqen.annotations.map(a => a.id),
+          pending: false
+        }
+      }
+
+      return liqens2
+    } catch (e) {
+      console.log('error 4')
+      console.log(e)
+    }
+  }
+
   // Paralelize
   try {
-    const [{question, tags}, article] = await Promise.all([
+    const [{question, tags}, article, annotations, liqens] = await Promise.all([
       getQuestionAndTags(),
-      getArticle()
+      getArticle(),
+      getAnnotations(),
+      getLiqens()
     ])
 
     const state = {
       question,
       article,
       tags,
-      annotations: {},
-      liqens: {},
+      annotations,
+      liqens,
       newLiqen: {
         answer: question.answer.map(a => null)
       }
