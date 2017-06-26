@@ -25,6 +25,7 @@ router.get('/', checkSession, (req, res, next) => {
 
 router.get('/parseArticle', parseArticle)
 router.get('/annotate', checkSession, annotate)
+
 router.get('/about', (req, res, next) => {
   res.render('about')
 })

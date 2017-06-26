@@ -33,9 +33,12 @@ class ArticleList extends React.Component {
 
   componentWillMount () {
     core.articles.index()
-      .then(articles => {
-        console.log(articles); this.setState({articles})
-      })
+        .then(articles => {
+          console.log(articles); this.setState({articles})
+        })
+        .catch(e => {
+          console.log(e)
+        })
   }
 
   render () {

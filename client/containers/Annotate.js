@@ -116,15 +116,21 @@ const mapStateToLiqens = (state) => {
     const {answer, pending} = state.liqens[ref]
 
     ret.push({
-      answer: answer.map(a => {
-        const {tag, target} = state.annotations[a]
+      answer: answer
+        .map(a => {
+          if (!state.annotations[a]) {
+            return null
+          }
 
-        return {
-          target,
-          ref: a,
-          tag: state.tags[tag]
-        }
-      }),
+          const {tag, target} = state.annotations[a]
+
+          return {
+            target,
+            ref: a,
+            tag: state.tags[tag]
+          }
+        })
+        .filter(a => a !== null),
       ref,
       pending
     })
