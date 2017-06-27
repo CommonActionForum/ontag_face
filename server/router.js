@@ -16,7 +16,7 @@ router.get('/', checkSession, index)
 router.get('/parseArticle', parseArticle)
 router.get('/annotate', checkSession, annotate)
 
-router.get('/about', (req, res, next) => {
+router.get('/about', (req, res) => {
   res.render('about')
 })
 
@@ -28,7 +28,7 @@ router.get('/login', (req, res) => {
   res.render('index')
 })
 
-router.get('*', (req, res, next) => {
+router.get('*', (req, res) => {
   res.send('404 Not found')
 })
 

@@ -1,6 +1,6 @@
 import { downloadArticle } from 'liqen-scrapper'
 
-export default function (req, res, next) {
+export default function (req, res) {
   if (!req.query.uri) {
     return res.send({})
   }
