@@ -5,24 +5,14 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { checkSession, login } from './middlewares'
 
+import index from './endpoints/index'
 import parseArticle from './endpoints/parseArticle'
 import annotate from './endpoints/annotate'
 
 const router = express.Router()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.get('/', checkSession, (req, res, next) => {
-  console.log('Calling core.questions.show')
-  req.core.questions.show(1)
-    .then(question => {
-      res.render('dashboard', {question})
-    })
-    .catch(e => {
-      console.log('Call failed. Showing error ', e)
-      res.redirect('/login')
-    })
-})
-
+router.get('/', checkSession, index)
 router.get('/parseArticle', parseArticle)
 router.get('/annotate', checkSession, annotate)
 
