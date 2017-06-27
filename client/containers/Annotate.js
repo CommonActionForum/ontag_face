@@ -74,9 +74,13 @@ export class Annotate extends React.Component {
 const mapStateToAnswer = (state) => {
   const annotationsArray = []
 
-  state.newLiqen.answer.forEach(ref => {
-    annotationsArray.push(state.annotations[ref])
-  })
+  for (let ref in state.annotations) {
+    annotationsArray.push({
+      target: state.annotations[ref].target,
+      tag: state.annotations[ref].tag,
+      active: state.newLiqen.answer.indexOf(ref) !== -1
+    })
+  }
 
   return state.question.answer.map(
     ({tag, required}) => ({
@@ -86,8 +90,9 @@ const mapStateToAnswer = (state) => {
           annotation => annotation.tag === tag
         )
         .map(
-          ({target}) => ({
-            fragment: target.exact
+          ({target, active}) => ({
+            fragment: target.exact,
+            active
           })
         ),
       required
