@@ -117,7 +117,7 @@ export default async function annotate (req, res, next) {
       annotations,
       liqens,
       newLiqen: {
-        answer: question.answer.map(a => null)
+        answer: []
       }
     }
 
