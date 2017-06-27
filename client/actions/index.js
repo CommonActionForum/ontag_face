@@ -6,6 +6,7 @@ export const CREATE_ANNOTATION_PENDING = 'CREATE_ANNOTATION_PENDING'
 export const CREATE_ANNOTATION_FAILURE = 'CREATE_ANNOTATION_FAILURE'
 
 export const ADD_ANNOTATION_TO_LIQEN = 'ADD_ANNOTATION_TO_LIQEN'
+export const REMOVE_ANNOTATION_TO_LIQEN = 'REMOVE_ANNOTATION_TO_LIQEN'
 
 export const CREATE_LIQEN = 'CREATE_LIQEN'
 export const CREATE_LIQEN_SUCCESS = 'CREATE_LIQEN_SUCCESS'
@@ -36,13 +37,17 @@ export function createAnnotation (target, tag) {
   }
 }
 
-// annotation = integer (annotation ref)
-// tag = integer (tag ID)
-export function addAnnotationToLiqen (annotation, tag) {
+export function addAnnotationToLiqen (ref) {
   return {
     type: ADD_ANNOTATION_TO_LIQEN,
-    annotation,
-    tag
+    ref
+  }
+}
+
+export function removeAnnotationToLiqen (ref) {
+  return {
+    type: REMOVE_ANNOTATION_TO_LIQEN,
+    ref
   }
 }
 

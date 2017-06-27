@@ -64,6 +64,16 @@ export default function reducer (state = initialState, action = {}) {
 
 function newLiqenReducer (newLiqen, action, state) {
   switch (action.type) {
+    case ActionTypes.ADD_ANNOTATION_TO_LIQEN:
+      return {
+        answer: newLiqen.answer.concat(action.ref)
+      }
+
+    case ActionTypes.REMOVE_ANNOTATION_TO_LIQEN:
+      return {
+        answer: newLiqen.answer.filter(a => a !== action.ref)
+      }
+
     case ActionTypes.CREATE_ANNOTATION_PENDING:
       return {
         answer: newLiqen.answer.concat(action.ref)
