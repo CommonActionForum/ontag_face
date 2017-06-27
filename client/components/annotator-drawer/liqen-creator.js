@@ -76,6 +76,20 @@ LiqenCreator.propTypes = {
 }
 
 class AnnotationList extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {expanded: false}
+    this.expand = this.expand.bind(this)
+  }
+
+  expand () {
+    this.setState({expanded: true})
+  }
+
+  compress () {
+    this.setState({expanded: false})
+  }
+
   render () {
     return (
       <div className='w-100'>
@@ -94,8 +108,37 @@ class AnnotationList extends React.Component {
           )
         }
         {
-          this.props.annotations.length > 1 && (
-            <blockquote>Multiple annotations</blockquote>
+          this.props.annotations.length > 1 && !this.state.expanded && (
+            <blockquote>
+              <span>{this.props.annotations.length} annotations </span>
+              <a
+                className='btn btn-sm btn-link'
+                href='javascript:void(0)'
+                onClick={() => this.expand()}
+              >
+                Show
+              </a>
+            </blockquote>
+          )
+        }
+        {
+          this.props.annotations.length > 1 && this.state.expanded && (
+            <div>
+              <ol>
+                {
+                  this.props.annotations.map(({fragment}, i) => (
+                    <li key={i}>{fragment}</li>
+                  ))
+                }
+              </ol>
+              <a
+                className='btn btn-sm btn-link'
+                href='javascript:void(0)'
+                onClick={() => this.compress()}
+              >
+                Hide
+              </a>
+            </div>
           )
         }
       </div>
