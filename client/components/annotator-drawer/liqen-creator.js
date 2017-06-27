@@ -124,13 +124,25 @@ class AnnotationList extends React.Component {
         {
           this.props.annotations.length > 1 && this.state.expanded && (
             <div>
-              <ol>
+              <div>
                 {
-                  this.props.annotations.map(({fragment}, i) => (
-                    <li key={i}>{fragment}</li>
+                  this.props.annotations.map(({fragment, active}, i) => (
+                    <div
+                      key={i}
+                      className='form-check'
+                    >
+                      <label className='form-check-label'>
+                        <input
+                          className='form-check-input'
+                          type='checkbox'
+                          checked={active}
+                        />
+                        &nbsp;{fragment}
+                      </label>
+                    </div>
                   ))
                 }
-              </ol>
+              </div>
               <a
                 className='btn btn-sm btn-link'
                 href='javascript:void(0)'
