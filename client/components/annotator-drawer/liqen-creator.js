@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 export default function LiqenCreator ({ onSubmit, answer, question }) {
   const tags = answer.map(
-    (a, i) => a.title && a.exact
-          ? <mark key={i}><strike>{a.title}</strike></mark>
-          : <mark key={i}>{a.title}</mark>
+    (a, i) => a.annotations.length > 0
+          ? <mark key={i}><strike>{a.tag}</strike></mark>
+          : <mark key={i}>{a.tag}</mark>
   )
 
   const pluralize = (tags) => {
@@ -28,7 +28,7 @@ export default function LiqenCreator ({ onSubmit, answer, question }) {
       <div className='card-block'>
         <h4 className='card-title'>{question}</h4>
         <p className='card-text small'>
-          <span>Highlight </span>
+          <span>Highlight at least one </span>
           {
             tags.length === 1 ? tags : pluralize(tags)
           }
@@ -38,12 +38,12 @@ export default function LiqenCreator ({ onSubmit, answer, question }) {
       <div>
         <ul className='list-group list-group-flush'>
           {
-            answer.map(({title, exact}, i) => (
+            answer.map(({tag, annotations}, i) => (
               <li
                 className='list-group-item'
                 key={i}
               >
-                <span className='badge badge-default'># {title}</span>
+                <span className='badge badge-default'># {tag}</span>
                 <blockquote
                   className='w-100'
                   style={{
@@ -53,7 +53,7 @@ export default function LiqenCreator ({ onSubmit, answer, question }) {
                     height: '1.5em'
                   }}
                 >
-                {exact}
+                  Annotations with this tag: {annotations.length}
                 </blockquote>
               </li>
             ))
@@ -74,8 +74,12 @@ LiqenCreator.propTypes = {
   question: PropTypes.string.isRequired,
   answer: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      exact: PropTypes.string.isRequired
+      tag: PropTypes.string.isRequired,
+      annotations: PropTypes.arrayOf(
+        PropTypes.shape({
+          fragment: PropTypes.string.isRequired
+        })
+      )
     })
   ).isRequired,
   onSubmit: PropTypes.func

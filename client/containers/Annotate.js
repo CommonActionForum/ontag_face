@@ -73,22 +73,27 @@ export class Annotate extends React.Component {
 }
 
 const mapStateToAnswer = (state) => {
-  const questionAnswer = state.question.answer.map(
+  const annotationsArray = []
+
+  state.newLiqen.answer.forEach(ref => {
+    annotationsArray.push(state.annotations[ref])
+  })
+
+  return state.question.answer.map(
     ({tag, required}) => ({
       tag: state.tags[tag].title,
+      annotations: annotationsArray
+        .filter(
+          annotation => annotation.tag === tag
+        )
+        .map(
+          ({target}) => ({
+            fragment: target.exact
+          })
+        ),
       required
     })
   )
-
-  const liqenAnswer = state.newLiqen.answer.map(
-    a => state.annotations[a] || null
-  )
-
-  const zipper = (qa, la) => ({
-    title: qa.tag,
-    exact: (la && la.target && la.target.exact) || ''
-  })
-  return zipWith(zipper, questionAnswer, liqenAnswer)
 }
 
 const mapStateToAnnotations = (state) => {
