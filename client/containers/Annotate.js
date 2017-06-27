@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import zipWith from 'lodash/fp/zipWith'
 import fetch from 'isomorphic-fetch'
 
 import Article from '../components/annotator/article'
