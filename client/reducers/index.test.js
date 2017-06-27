@@ -62,7 +62,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {}, // No annotation
       newLiqen: {
-        answer: [null, null, null] // Everything null
+        answer: [] // empty
       }
     }
 
@@ -78,7 +78,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1}, // The created annotation
       newLiqen: {
-        answer: ['a1', null, null]
+        answer: ['a1']
       }
     }
 
@@ -92,7 +92,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1}, // We've created only one annotation
       newLiqen: {
-        answer: ['a1', null, null] // That annotation is part of the answer
+        answer: ['a1'] // That annotation is part of the answer
       }
     }
 
@@ -108,7 +108,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1, a2}, // Now two annotations
       newLiqen: {
-        answer: ['a2', null, null] // a2 replaces a1
+        answer: ['a1', 'a2'] // a2 adds to a1
       }
     }
 
