@@ -44,17 +44,7 @@ export default function LiqenCreator ({ onSubmit, answer, question }) {
                 key={i}
               >
                 <span className='badge badge-default'># {tag}</span>
-                <blockquote
-                  className='w-100'
-                  style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    height: '1.5em'
-                  }}
-                >
-                  Annotations with this tag: {annotations.length}
-                </blockquote>
+                <AnnotationList annotations={annotations} />
               </li>
             ))
           }
@@ -83,4 +73,32 @@ LiqenCreator.propTypes = {
     })
   ).isRequired,
   onSubmit: PropTypes.func
+}
+
+class AnnotationList extends React.Component {
+  render () {
+    return (
+      <div className='w-100'>
+        {
+          this.props.annotations.length === 1 && (
+            <blockquote
+              style={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                height: '1.5em'
+              }}
+            >
+              {this.props.annotations[0].fragment}
+            </blockquote>
+          )
+        }
+        {
+          this.props.annotations.length > 1 && (
+            <blockquote>Multiple annotations</blockquote>
+          )
+        }
+      </div>
+    )
+  }
 }
