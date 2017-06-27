@@ -3,7 +3,8 @@
  */
 import express from 'express'
 import bodyParser from 'body-parser'
-import { checkSession, login } from './middlewares'
+import checkSession from './middlewares/check-session'
+import login from './middlewares/login'
 
 import index from './endpoints/index'
 import parseArticle from './endpoints/parseArticle'
