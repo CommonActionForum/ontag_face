@@ -5,7 +5,10 @@ import fetch from 'isomorphic-fetch'
 import Article from '../components/annotator/article'
 import MultiList from '../components/annotator-drawer/multi-list'
 import LiqenCreator from '../components/annotator-drawer/liqen-creator'
-import { createAnnotation, createLiqen } from '../actions/index'
+import { createAnnotation,
+         createLiqen,
+         addAnnotationToLiqen,
+         removeAnnotationToLiqen } from '../actions/index'
 
 const article = window.__ARTICLE__
 
@@ -37,7 +40,9 @@ export class Annotate extends React.Component {
       liqens,
       tags,
       onCreateAnnotation,
-      onCreateLiqen
+      onCreateLiqen,
+      onAddAnnotationToLiqen,
+      onRemoveAnnotationToLiqen
     } = this.props
 
     return (
@@ -48,6 +53,8 @@ export class Annotate extends React.Component {
             question={question}
             answer={answer}
             onSubmit={onCreateLiqen}
+            onAddAnnotation={onAddAnnotationToLiqen}
+            onRemoveAnnotation={onRemoveAnnotationToLiqen}
           />
           <MultiList
             annotations={annotations}
@@ -76,6 +83,7 @@ const mapStateToAnswer = (state) => {
 
   for (let ref in state.annotations) {
     annotationsArray.push({
+      ref,
       target: state.annotations[ref].target,
       tag: state.annotations[ref].tag,
       active: state.newLiqen.answer.indexOf(ref) !== -1
@@ -90,8 +98,9 @@ const mapStateToAnswer = (state) => {
           annotation => annotation.tag === tag
         )
         .map(
-          ({target, active}) => ({
+          ({target, active, ref}) => ({
             fragment: target.exact,
+            ref,
             active
           })
         ),
@@ -162,7 +171,9 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
-  onCreateLiqen: () => dispatch(createLiqen())
+  onCreateLiqen: () => dispatch(createLiqen()),
+  onAddAnnotationToLiqen: (ref) => dispatch(addAnnotationToLiqen(ref)),
+  onRemoveAnnotationToLiqen: (ref) => dispatch(removeAnnotationToLiqen(ref))
 })
 const mergeProps = (stateProps, dispatchProps) =>
   Object.assign({}, stateProps, dispatchProps, {

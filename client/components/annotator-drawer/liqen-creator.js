@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function LiqenCreator ({ onSubmit, answer, question }) {
+export default function LiqenCreator ({
+  onSubmit,
+  onAddAnnotation,
+  onRemoveAnnotation,
+  answer,
+  question
+}) {
   const tags = answer.map(
     (a, i) => a.annotations.length > 0
           ? <mark key={i}><strike>{a.tag}</strike></mark>
@@ -44,7 +50,11 @@ export default function LiqenCreator ({ onSubmit, answer, question }) {
                 key={i}
               >
                 <span className='badge badge-default'># {tag}</span>
-                <AnnotationList annotations={annotations} />
+                <AnnotationList
+                  annotations={annotations}
+                  onAdd={onAddAnnotation}
+                  onRemove={onRemoveAnnotation}
+                />
               </li>
             ))
           }
@@ -80,6 +90,8 @@ class AnnotationList extends React.Component {
     super(props)
     this.state = {expanded: false}
     this.expand = this.expand.bind(this)
+    this.compress = this.compress.bind(this)
+    this.change = this.change.bind(this)
   }
 
   expand () {
@@ -90,69 +102,112 @@ class AnnotationList extends React.Component {
     this.setState({expanded: false})
   }
 
+  change (ref, activate) {
+    console.log(ref, activate)
+
+    if (activate) {
+      this.props.onAdd(ref)
+    } else {
+      this.props.onRemove(ref)
+    }
+  }
+
   render () {
+    const totalAnnotations = this.props.annotations
+    const activeAnnotations = totalAnnotations.filter(a => a.active)
+
     return (
       <div className='w-100'>
-        {
-          this.props.annotations.length === 1 && (
-            <blockquote
-              style={{
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                height: '1.5em'
-              }}
-            >
-              {this.props.annotations[0].fragment}
-            </blockquote>
-          )
-        }
-        {
-          this.props.annotations.length > 1 && !this.state.expanded && (
-            <blockquote>
-              <span>{this.props.annotations.length} annotations </span>
-              <a
-                className='btn btn-sm btn-link'
-                href='javascript:void(0)'
-                onClick={() => this.expand()}
-              >
-                Show
-              </a>
-            </blockquote>
-          )
-        }
-        {
-          this.props.annotations.length > 1 && this.state.expanded && (
-            <div>
+        <div>
+          {
+            totalAnnotations.length === 0 && activeAnnotations.length === 0 && (
+              <blockquote
+                style={{
+                  height: '1.5em'
+                }}
+              />
+            )
+          }
+        </div>
+        <div>
+          {
+            (totalAnnotations.length > 0 || activeAnnotations.length > 0) &&
+            !this.state.expanded && (
               <div>
-                {
-                  this.props.annotations.map(({fragment, active}, i) => (
-                    <div
-                      key={i}
-                      className='form-check'
-                    >
-                      <label className='form-check-label'>
-                        <input
-                          className='form-check-input'
-                          type='checkbox'
-                          checked={active}
-                        />
-                        &nbsp;{fragment}
-                      </label>
-                    </div>
-                  ))
-                }
+                <blockquote
+                  style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    height: '1.5em',
+                    marginBottom: '0.5rem'
+                  }}
+                >
+                  {
+                    activeAnnotations.length === 0 &&
+                    <span>
+                      No annotations selected. &nbsp;
+
+                    </span>
+                  }
+                  {
+                    activeAnnotations.length === 1 &&
+                    <span>{activeAnnotations[0].fragment}</span>
+
+                  }
+                  {
+                    activeAnnotations.length > 1 &&
+                    <span>{totalAnnotations.length} annotations </span>
+                  }
+                </blockquote>
+                <div className='small text-right'>
+                  <a
+                    href='javascript:void(0)'
+                    onClick={() => this.expand()}
+                  >
+                    Add/remove annotations
+                  </a>
+                </div>
               </div>
-              <a
-                className='btn btn-sm btn-link'
-                href='javascript:void(0)'
-                onClick={() => this.compress()}
-              >
-                Hide
-              </a>
-            </div>
-          )
-        }
+            )
+          }
+        </div>
+        <div>
+          {
+            (totalAnnotations.length > 0 || activeAnnotations.length > 0) &&
+            this.state.expanded && (
+              <div>
+                <div>
+                  {
+                    totalAnnotations.map(({fragment, active, ref}) => (
+                      <div
+                        key={ref}
+                        className='form-check'
+                      >
+                        <label className='form-check-label'>
+                          <input
+                            className='form-check-input'
+                            type='checkbox'
+                            checked={active}
+                            onChange={() => this.change(ref, !active)}
+                          />
+                          &nbsp;{fragment}
+                        </label>
+                      </div>
+                    ))
+                  }
+                </div>
+                <a
+                  className='btn btn-sm btn-link'
+                  href='javascript:void(0)'
+                  onClick={() => this.compress()}
+                >
+                  Confirm selection
+                </a>
+              </div>
+            )
+          }
+        </div>
       </div>
     )
   }
