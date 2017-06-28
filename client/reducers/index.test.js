@@ -256,6 +256,83 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
   })
 })
 
+describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
+  const annotations = {
+    a1: {
+      id: '9210',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a2: {
+      id: '9210',
+      tag: 'tag-1',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a3: {
+      id: '9210',
+      tag: 'tag-2',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    }
+  }
+
+  it('should create the new Liqen', () => {
+    const oldState = {
+      question,
+      tags,
+      annotations,
+      liqens: {
+        l1: {
+          answer: ['a1', 'a2', 'a3'],
+          pending: true
+        }
+      },
+      newLiqen: {
+        answer: ['a1', 'a2', 'a3']
+      }
+    }
+
+    const action = {
+      type: actions.CREATE_LIQEN_SUCCESS,
+      ref: 'l1'
+    }
+
+    const newState = {
+      question,
+      tags,
+      annotations,
+      liqens: {
+        l1: {
+          answer: ['a1', 'a2', 'a3'],
+          pending: false
+        }
+      },
+      newLiqen: {
+        answer: []
+      }
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
 describe('Reducer when ADD_ANNOTATION_TO_LIQEN', () => {
   const annotations = {
     a1: {
