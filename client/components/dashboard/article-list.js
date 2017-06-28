@@ -1,7 +1,7 @@
 import React from 'react'
 import Article from './article'
 import liqen from 'liqen'
-import fakeLiqen from '../../server/local-liqen'
+import fakeLiqen from '../../../server/local-liqen'
 import cookies from 'cookies-js'
 
 const token = cookies.get('access_token')

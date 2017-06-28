@@ -12,7 +12,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TaggerTooltip = ({ list, selected, onSelect, onUnselect, position }) => (
+const Tooltip = ({ list, selected, onSelect, onUnselect, position }) => (
   <div
     className='tooltip tooltip-bottom'
     style={{
@@ -78,7 +78,7 @@ const TaggerTooltip = ({ list, selected, onSelect, onUnselect, position }) => (
   </div>
 )
 
-TaggerTooltip.propTypes = {
+Tooltip.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
       ref: PropTypes.oneOfType([
@@ -93,4 +93,4 @@ TaggerTooltip.propTypes = {
   onUnselect: PropTypes.func
 }
 
-export default TaggerTooltip
+export default Tooltip

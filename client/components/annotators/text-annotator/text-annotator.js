@@ -12,10 +12,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Highlighter from './highlighter'
-import TaggerTooltip from './tagger-tooltip'
+import Marker from './marker'
+import Tooltip from './tag-tooltip'
 
-export default class Annotator extends React.Component {
+export default class TextAnnotator extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -77,18 +77,18 @@ export default class Annotator extends React.Component {
     return (
       <div>
         <div ref={node => (this.paragraph = node)}>
-          <Highlighter
+          <Marker
             onHighlight={(fragment, range) =>
               this.handleHighlight(fragment, range)}
             onUnhighlight={() => this.handleUnhighlight()}
             fragment={selectedFragment}
           >
             {this.props.children}
-          </Highlighter>
+          </Marker>
         </div>
         <div ref={node => (this.tooltip = node)}>
           {(selectedTag || this.state.newAnnotation.target) &&
-           <TaggerTooltip
+           <Tooltip
              list={this.props.tags}
              selected={selectedTag}
              position={this.state.newAnnotation.range}
@@ -101,7 +101,7 @@ export default class Annotator extends React.Component {
   }
 }
 
-Annotator.propTypes = {
+TextAnnotator.propTypes = {
   annotations: PropTypes.array,
   tags: PropTypes.array,
   children: PropTypes.node,
