@@ -81,7 +81,10 @@ const TaggerTooltip = ({ list, selected, onSelect, onUnselect, position }) => (
 TaggerTooltip.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.string.isRequired,
+      ref: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]).isRequired,
       title: PropTypes.string.isRequired
     })
   ),
