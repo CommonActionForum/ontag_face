@@ -20,7 +20,8 @@
     "test:lint": "eslint client server dashboard",
     "test:jest": "jest",
     "test:jest-cov": "jest --coverage",
-    "ci:coveralls": "cat ./coverage/lcov.info | coveralls"
+    "ci:coveralls": "cat ./coverage/lcov.info | coveralls",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "repository": {
     "type": "git",
@@ -70,6 +71,7 @@
     "webpack": "^2.3.3"
   },
   "devDependencies": {
+    "@storybook/react": "^3.1.6",
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
