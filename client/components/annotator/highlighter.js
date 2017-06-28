@@ -186,6 +186,6 @@ Highlighter.propTypes = {
     exact: PropTypes.string,
     suffix: PropTypes.string
   }),
-  onHighlight: PropTypes.func.isRequired,
+  onHighlight: PropTypes.func,
   onUnhighlight: PropTypes.func
 }
