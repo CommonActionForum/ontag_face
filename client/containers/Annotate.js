@@ -177,7 +177,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 const mergeProps = (stateProps, dispatchProps) =>
   Object.assign({}, stateProps, dispatchProps, {
-    onCreateLiqen: stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen
+    onCreateLiqen: (stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen) || undefined
   })
 
 export default connect(
