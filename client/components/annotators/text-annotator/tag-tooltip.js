@@ -11,57 +11,68 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const UnstyledContainer = ({ className, children, style }) => (
+  <div
+    className={`tooltip tooltip-bottom ${className}`}
+    style={style}
+  >
+    {children}
+  </div>
+)
+
+const Container = styled(UnstyledContainer)`
+  opacity: 1;
+  position: fixed;
+  transform: translateX(-50%);
+`
+
+const List = styled.ul`
+  padding: 0;
+  margin: 0;
+  list-style: none;
+`
+
+const ListItem = styled.li`
+  padding: 5px;
+`
+
+const Button = styled.button`
+  color: #FFF;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  width: 100%;
+`
 
 const Tooltip = ({ list, onSelect, position }) => (
-  <div
-    className='tooltip tooltip-bottom'
+  <Container
     style={{
-      opacity: 1,
-      position: 'fixed',
       top: (position.top + position.height) + 'px',
-      left: (position.left + position.width / 2) + 'px',
-      transform: 'translateX(-50%)'
+      left: (position.left + position.width / 2) + 'px'
     }}
   >
     <div className="tooltip-arrow"></div>
     <div className='tooltip-inner'>
-      <ul
-        style={{
-          padding: 0,
-          margin: 0,
-          listStyle: 'none'
-        }}
-      >
+      <List>
         {
           list.map(({ref, title}) => (
-            <li
-              key={ref}
-              style={{
-                padding: '5px'
-              }}
-            >
-              <button
-                style={{
-                  color: '#FFF',
-                  fontFamily: 'sans-serif',
-                  fontWeight: 'bold',
-                  padding: '5px',
-                  background: 'none',
-                  border: 0,
-                  cursor: 'pointer',
-                  outline: 'none',
-                  textAlign: 'left'
-                }}
-                onClick={() => onSelect(ref)}
-              >
+            <ListItem key={ref}>
+              <Button onClick={() => onSelect(ref)}>
                 {title}
-              </button>
-            </li>
+              </Button>
+            </ListItem>
           ))
         }
-      </ul>
+      </List>
     </div>
-  </div>
+  </Container>
 )
 
 Tooltip.propTypes = {
