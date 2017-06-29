@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import zip from 'lodash/zipWith'
-import split from './lib/split'
+import split from './split'
 
 /**
  * Highlight a text and handles the highlighting action
@@ -13,7 +13,7 @@ import split from './lib/split'
  * Outputs
  * - onHighlight(fragment, position)
  */
-export default class Highlighter extends React.Component {
+export default class Marker extends React.Component {
   constructor (props) {
     super(props)
     this.handleSelection = this.handleSelection.bind(this)
@@ -115,7 +115,7 @@ export default class Highlighter extends React.Component {
         return React.createElement(
           e.type,
           e.props,
-          <Highlighter fragment={fragments}>{e.props.children}</Highlighter>
+          <Marker fragment={fragments}>{e.props.children}</Marker>
         )
       } else {
         return 'You are trying to render something not-valid :('
@@ -127,10 +127,10 @@ export default class Highlighter extends React.Component {
         const arr1 = React.Children.toArray(arr)
 
         return zip(arr1, fragments, (child, fragment) => (
-          <Highlighter fragment={fragment}>{child}</Highlighter>
+          <Marker fragment={fragment}>{child}</Marker>
         ))
       } else {
-        return React.Children.map(arr, child => <Highlighter>{child}</Highlighter>)
+        return React.Children.map(arr, child => <Marker>{child}</Marker>)
       }
     }
 
@@ -175,7 +175,7 @@ function childrenToString (e, flatten = false) {
   }
 }
 
-Highlighter.propTypes = {
+Marker.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
@@ -186,6 +186,6 @@ Highlighter.propTypes = {
     exact: PropTypes.string,
     suffix: PropTypes.string
   }),
-  onHighlight: PropTypes.func.isRequired,
+  onHighlight: PropTypes.func,
   onUnhighlight: PropTypes.func
 }

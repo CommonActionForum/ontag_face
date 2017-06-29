@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 
-import Article from '../components/annotator/article'
-import MultiList from '../components/annotator-drawer/multi-list'
-import LiqenCreator from '../components/annotator-drawer/liqen-creator'
+import Article from '../components/annotators/article-annotator'
+import MultiList from '../components/lists/multi-list'
+import LiqenCreator from '../components/liqen-creator/liqen-creator'
 import { createAnnotation,
          createLiqen,
          addAnnotationToLiqen,
@@ -177,7 +177,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 const mergeProps = (stateProps, dispatchProps) =>
   Object.assign({}, stateProps, dispatchProps, {
-    onCreateLiqen: stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen
+    onCreateLiqen: (stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen) || undefined
   })
 
 export default connect(

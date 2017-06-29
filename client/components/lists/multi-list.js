@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import AnnotationsList from './annotations-list'
-import LiqensList from './liqens-list'
+import AnnotationList from './annotation-list'
+import LiqenList from './liqen-list'
 
 export default class MultiList extends React.Component {
   constructor (props) {
@@ -34,7 +34,7 @@ export default class MultiList extends React.Component {
                 href='#'
                 onClick={() => this.handleChangeView('annotations')}
               >
-                Annotations
+                Annotation
               </a>
             </li>
             <li className='nav-item'>
@@ -43,7 +43,7 @@ export default class MultiList extends React.Component {
                 href='#'
                 onClick={() => this.handleChangeView('liqens')}
               >
-                Liqens
+                Liqen
               </a>
             </li>
           </ul>
@@ -51,7 +51,7 @@ export default class MultiList extends React.Component {
         <div>
           {
             this.state.show === 'annotations' && (
-              <AnnotationsList
+              <AnnotationList
                 annotations={annotations}
                 onSelect={(e) => console.log(e)}
               />
@@ -61,7 +61,7 @@ export default class MultiList extends React.Component {
         <div>
           {
             this.state.show === 'liqens' && (
-              <LiqensList
+              <LiqenList
                 liqens={liqens}
               />
             )
