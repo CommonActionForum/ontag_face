@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import SelectableAnnotation from './selectable-annotation'
+import AnnotationItem from './annotation-item'
 
 export default function Selector ({ annotations, onSelect }) {
   return (
@@ -11,7 +11,7 @@ export default function Selector ({ annotations, onSelect }) {
             className='list-group-item'
             key={annotation.ref}
           >
-            <SelectableAnnotation
+            <AnnotationItem
               tag={annotation.tag}
               target={annotation.target}
               pending={annotation.pending}

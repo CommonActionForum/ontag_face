@@ -1,12 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import zipWith from 'lodash/fp/zipWith'
 import fetch from 'isomorphic-fetch'
 
-import Article from '../components/annotator/article'
-import MultiList from '../components/annotator-drawer/multi-list'
-import LiqenCreator from '../components/annotator-drawer/liqen-creator'
-import { createAnnotation, createLiqen } from '../actions/index'
+import Article from '../components/annotators/article-annotator'
+import MultiList from '../components/lists/multi-list'
+import LiqenCreator from '../components/liqen-creator/liqen-creator'
+import { createAnnotation,
+         createLiqen,
+         addAnnotationToLiqen,
+         removeAnnotationToLiqen } from '../actions/index'
 
 const article = window.__ARTICLE__
 
@@ -38,7 +40,9 @@ export class Annotate extends React.Component {
       liqens,
       tags,
       onCreateAnnotation,
-      onCreateLiqen
+      onCreateLiqen,
+      onAddAnnotationToLiqen,
+      onRemoveAnnotationToLiqen
     } = this.props
 
     return (
@@ -49,6 +53,8 @@ export class Annotate extends React.Component {
             question={question}
             answer={answer}
             onSubmit={onCreateLiqen}
+            onAddAnnotation={onAddAnnotationToLiqen}
+            onRemoveAnnotation={onRemoveAnnotationToLiqen}
           />
           <MultiList
             annotations={annotations}
@@ -73,22 +79,34 @@ export class Annotate extends React.Component {
 }
 
 const mapStateToAnswer = (state) => {
-  const questionAnswer = state.question.answer.map(
+  const annotationsArray = []
+
+  for (let ref in state.annotations) {
+    annotationsArray.push({
+      ref,
+      target: state.annotations[ref].target,
+      tag: state.annotations[ref].tag,
+      active: state.newLiqen.answer.indexOf(ref) !== -1
+    })
+  }
+
+  return state.question.answer.map(
     ({tag, required}) => ({
       tag: state.tags[tag].title,
+      annotations: annotationsArray
+        .filter(
+          annotation => annotation.tag === tag
+        )
+        .map(
+          ({target, active, ref}) => ({
+            fragment: target.exact,
+            ref,
+            active
+          })
+        ),
       required
     })
   )
-
-  const liqenAnswer = state.newLiqen.answer.map(
-    a => state.annotations[a] || null
-  )
-
-  const zipper = (qa, la) => ({
-    title: qa.tag,
-    exact: (la && la.target && la.target.exact) || ''
-  })
-  return zipWith(zipper, questionAnswer, liqenAnswer)
 }
 
 const mapStateToAnnotations = (state) => {
@@ -153,11 +171,13 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
-  onCreateLiqen: () => dispatch(createLiqen())
+  onCreateLiqen: () => dispatch(createLiqen()),
+  onAddAnnotationToLiqen: (ref) => dispatch(addAnnotationToLiqen(ref)),
+  onRemoveAnnotationToLiqen: (ref) => dispatch(removeAnnotationToLiqen(ref))
 })
 const mergeProps = (stateProps, dispatchProps) =>
   Object.assign({}, stateProps, dispatchProps, {
-    onCreateLiqen: stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen
+    onCreateLiqen: (stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen) || undefined
   })
 
 export default connect(

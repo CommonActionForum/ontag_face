@@ -3,30 +3,21 @@
  */
 import express from 'express'
 import bodyParser from 'body-parser'
-import { checkSession, login } from './middlewares'
+import checkSession from './middlewares/check-session'
+import login from './middlewares/login'
 
+import index from './endpoints/index'
 import parseArticle from './endpoints/parseArticle'
 import annotate from './endpoints/annotate'
 
 const router = express.Router()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-router.get('/', checkSession, (req, res, next) => {
-  console.log('Calling core.questions.show')
-  req.core.questions.show(1)
-    .then(question => {
-      res.render('dashboard', {question})
-    })
-    .catch(e => {
-      console.log('Call failed. Showing error ', e)
-      res.redirect('/login')
-    })
-})
-
+router.get('/', checkSession, index)
 router.get('/parseArticle', parseArticle)
 router.get('/annotate', checkSession, annotate)
 
-router.get('/about', (req, res, next) => {
+router.get('/about', (req, res) => {
   res.render('about')
 })
 
@@ -38,17 +29,7 @@ router.get('/login', (req, res) => {
   res.render('index')
 })
 
-// Temporal backend.
-//
-// In a future, replace this with a GraphQL endpoint
-router.get('/backend', (req, res) => {
-  req
-    .core.articles.index()
-    .then(articles => res.json(articles))
-    .catch(err => res.json(err))
-})
-
-router.get('*', (req, res, next) => {
+router.get('*', (req, res) => {
   res.send('404 Not found')
 })
 

@@ -1,4 +1,4 @@
-export default async function annotate (req, res, next) {
+export default async function annotate (req, res) {
   if (!req.query.article || !req.query.question) {
     return res.redirect('/')
   }
@@ -117,7 +117,7 @@ export default async function annotate (req, res, next) {
       annotations,
       liqens,
       newLiqen: {
-        answer: question.answer.map(a => null)
+        answer: []
       }
     }
 

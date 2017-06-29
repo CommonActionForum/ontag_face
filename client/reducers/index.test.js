@@ -62,7 +62,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {}, // No annotation
       newLiqen: {
-        answer: [null, null, null] // Everything null
+        answer: [] // empty
       }
     }
 
@@ -78,7 +78,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1}, // The created annotation
       newLiqen: {
-        answer: ['a1', null, null]
+        answer: ['a1']
       }
     }
 
@@ -92,7 +92,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1}, // We've created only one annotation
       newLiqen: {
-        answer: ['a1', null, null] // That annotation is part of the answer
+        answer: ['a1'] // That annotation is part of the answer
       }
     }
 
@@ -108,7 +108,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       tags,
       annotations: {a1, a2}, // Now two annotations
       newLiqen: {
-        answer: ['a2', null, null] // a2 replaces a1
+        answer: ['a1', 'a2'] // a2 adds to a1
       }
     }
 
@@ -249,6 +249,140 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
       newLiqen: {
         answer: ['a1', 'a2', 'a3'],
         pending: true
+      }
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
+describe('Reducer when ADD_ANNOTATION_TO_LIQEN', () => {
+  const annotations = {
+    a1: {
+      id: '9210',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a2: {
+      id: '9211',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a3: {
+      id: '9212',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    }
+  }
+
+  it('should add an annotation', () => {
+    const oldState = {
+      question,
+      tags,
+      annotations,
+      liqens: {},
+      newLiqen: {
+        answer: []
+      }
+    }
+
+    const action = {
+      type: actions.ADD_ANNOTATION_TO_LIQEN,
+      ref: 'a1'
+    }
+
+    const newState = {
+      question,
+      tags,
+      annotations,
+      liqens: {},
+      newLiqen: {
+        answer: ['a1']
+      }
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
+describe('Reducer when REMOVE_ANNOTATION_TO_LIQEN', () => {
+  const annotations = {
+    a1: {
+      id: '9210',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a2: {
+      id: '9211',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    },
+    a3: {
+      id: '9212',
+      tag: 'tag-0',
+      target: {
+        prefix: 'my-prefix',
+        exact: 'my-exact',
+        suffix: 'my-suffix'
+      },
+      checked: false,
+      pending: false
+    }
+  }
+
+  it('should remove an annotation', () => {
+    const oldState = {
+      question,
+      tags,
+      annotations,
+      liqens: {},
+      newLiqen: {
+        answer: ['a1']
+      }
+    }
+
+    const action = {
+      type: actions.REMOVE_ANNOTATION_TO_LIQEN,
+      ref: 'a1'
+    }
+
+    const newState = {
+      question,
+      tags,
+      annotations,
+      liqens: {},
+      newLiqen: {
+        answer: []
       }
     }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Annotator from './annotator'
+import TextAnnotator from './text-annotator/text-annotator'
 
 function convertObjectToReact (obj, key) {
   if (typeof obj === 'string') {
@@ -15,19 +15,19 @@ function convertObjectToReact (obj, key) {
   }
 }
 
-export default function Article ({ body, onCreateAnnotation, tags }) {
+export default function ArticleAnnotator ({ body, onCreateAnnotation, tags }) {
   return (
     <div>
       {
         body.children.map((child, i) => (
-          <Annotator
+          <TextAnnotator
             key={i}
             annotations={[]}
             tags={tags}
             onCreateAnnotation={onCreateAnnotation}
           >
             {convertObjectToReact(child)}
-          </Annotator>
+          </TextAnnotator>
         ))
       }
     </div>
