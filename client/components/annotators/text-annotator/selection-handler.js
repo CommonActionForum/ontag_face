@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 /**
  * Handles the Select action in a DOM element
  */
