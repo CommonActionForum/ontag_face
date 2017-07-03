@@ -28,11 +28,15 @@ SelectionMarker.propTypes = {
   })
 }
 
-// Convert an array of nodes into a single string
+// Convert an array of nodes into a string or an array of strings
 function nodeToString (node) {
   const arr = React.Children.toArray(node)
 
-  return arr.map(e => nodeToFlatString(e))
+  if (arr.length > 1) {
+    return arr.map(e => nodeToFlatString(e))
+  } else {
+    return nodeToFlatString(node)
+  }
 }
 
 function nodeToFlatString (node) {
@@ -40,7 +44,7 @@ function nodeToFlatString (node) {
     return React.Children.toArray(node)
       .map(e => nodeToFlatString(e))
       .join('')
-  } else if (typeof nodes === 'string') {
+  } else if (typeof node === 'string') {
     return node
   } else if (node.type && node.props && node.props.children) {
     return nodeToFlatString(node.props.children)
@@ -63,9 +67,9 @@ function render (e, fragments) {
 function renderString (string, fragments) {
   if (fragments) {
     return [
-      <span key={0}>fragments.prefix</span>,
+      <span key={0}>{fragments.prefix}</span>,
       <mark key={1}>{fragments.exact}</mark>,
-      <span key={2}>fragment.suffix</span>
+      <span key={2}>{fragments.suffix}</span>
     ]
   } else {
     return string
