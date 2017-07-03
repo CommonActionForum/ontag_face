@@ -5,6 +5,11 @@ import PropTypes from 'prop-types'
  */
 
 export default class SelectionHandler extends React.Component {
+  constructor (props) {
+    super(props)
+    this.handleSelect = this.handleSelect.bind(this)
+  }
+
   componentDidMount () {
     if (this.props.onSelect) {
       document.addEventListener('keyup', this.handleSelect)
