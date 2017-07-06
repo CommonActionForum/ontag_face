@@ -4,6 +4,7 @@ import { action } from '@storybook/addon-actions'
 
 import SelectionMarker from '../client/components/annotators/text-annotator/selection-marker'
 import SelectionHandler from '../client/components/annotators/text-annotator/selection-handler'
+import SelectionMultiMarker from '../client/components/annotators/text-annotator/selection-multi-marker'
 
 storiesOf('Selection', module)
   .add('Marker', () => (
@@ -22,3 +23,105 @@ storiesOf('Selection', module)
       This is a text that can be selected
     </SelectionHandler>
   ))
+
+storiesOf('SelectionMultimarker', module)
+  .add('plain text with 1 fragment', () => {
+    const frg = [
+      {
+        prefix: 'Hola ',
+        exact: 'multi',
+        suffix: 'mundo',
+        ref: action('ref 1.1')
+      }
+    ]
+    return (
+      <SelectionMultiMarker fragments={frg}>
+        Hola multimundo
+      </SelectionMultiMarker>
+    )
+  })
+  .add('plain text with 1+ fragments', () => {
+    const frg = [
+      {
+        prefix: 'Hola ',
+        exact: 'multi',
+        suffix: 'mundo',
+        ref: action('ref 2.1')
+      },
+      {
+        prefix: '',
+        exact: 'Hola',
+        suffix: ' multimundo',
+        ref: action('ref 2.2')
+      },
+      {
+        prefix: 'Hola multi',
+        exact: 'mundo',
+        suffix: '',
+        ref: action('ref 2.3')
+      }
+    ]
+    return (
+      <SelectionMultiMarker fragments={frg}>
+        Hola multimundo
+      </SelectionMultiMarker>
+    )
+  })
+  .add('node with 1 fragment', () => {
+    const frg = [
+      {
+        prefix: 'Hola ',
+        exact: 'multi',
+        suffix: 'mundo',
+        ref: action('ref 3.1')
+      }
+    ]
+    return (
+      <SelectionMultiMarker fragments={frg}>
+        <p>Hola multimundo</p>
+      </SelectionMultiMarker>
+    )
+  })
+  .add('array with 1 fragment', () => {
+    const frg = [
+      {
+        prefix: 'Hola ',
+        exact: 'multi',
+        suffix: 'mundo',
+        ref: action('ref 4.1')
+      }
+    ]
+    return (
+      <SelectionMultiMarker fragments={frg}>
+        <p>Hola <strong>mul</strong>timundo</p>
+      </SelectionMultiMarker>
+    )
+  })
+  .add('array with 1+ fragment', () => {
+    const frg = [
+      {
+        prefix: 'Hola ',
+        exact: 'multi',
+        suffix: 'mundo',
+        ref: action('ref 4.1')
+      },
+      {
+        prefix: '',
+        exact: 'Hola',
+        suffix: ' multimundo',
+        ref: action('ref 4.2')
+      },
+      {
+        prefix: 'Hola multi',
+        exact: 'mundo',
+        suffix: '',
+        ref: action('ref 4.3')
+      }
+    ]
+
+    return (
+      <SelectionMultiMarker fragments={frg}>
+        <p>Hola <strong>mul</strong>timundo</p>
+      </SelectionMultiMarker>
+    )
+  })
