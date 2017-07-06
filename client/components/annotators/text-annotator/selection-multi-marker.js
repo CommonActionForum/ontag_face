@@ -36,28 +36,35 @@ export function renderSimple (thing, fragments) {
 
   const str = '' + thing
   const arr = fragments
+    .filter(f => f.prefix + f.exact + f.suffix === thing)
     .map(f => ({
       ref: f.ref,
       size: (f.prefix + f.exact).length
     }))
     .sort((a, b) => a.size - b.size)
 
-  const result = []
-  result.push(str.slice(0, arr[0].size))
+  let result
 
-  if (arr[0].ref) {
-    result.push(<Ball key={0} nodeRef={arr[0].ref} />)
-  }
+  if (arr.length > 0) {
+    result = []
+    result.push(str.slice(0, arr[0].size))
 
-  for (let i = 1; i < arr.length; i++) {
-    result.push(str.slice(arr[i - 1].size, arr[i].size))
-
-    if (arr[i].ref) {
-      result.push(<Ball key={i} nodeRef={arr[i].ref} />)
+    if (arr[0].ref) {
+      result.push(<Ball key={0} nodeRef={arr[0].ref} />)
     }
-  }
 
-  result.push(str.slice(arr[arr.length - 1].size))
+    for (let i = 1; i < arr.length; i++) {
+      result.push(str.slice(arr[i - 1].size, arr[i].size))
+
+      if (arr[i].ref) {
+        result.push(<Ball key={i} nodeRef={arr[i].ref} />)
+      }
+    }
+
+    result.push(str.slice(arr[arr.length - 1].size))
+  } else {
+    result = thing
+  }
 
   return (<span className='xxxx-root'>{result}</span>)
 }
