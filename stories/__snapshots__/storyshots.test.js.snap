@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Selection Handler 1`] = `
+<span>
+  This is a text that can be selected
+</span>
+`;
+
+exports[`Storyshots Selection Marker 1`] = `
+<span>
+  <p>
+    <span>
+      <span>
+        Hello 
+      </span>
+      <mark>
+        Button
+      </mark>
+      <span>
+        
+      </span>
+    </span>
+  </p>
+</span>
+`;
+
+exports[`Storyshots SelectionMultimarker array with 1 fragment 1`] = `
+<p>
+  <span
+    className="xxxx--array"
+  >
+    <span
+      className="xxxx-root"
+    >
+      Hola 
+      
+    </span>
+    <strong>
+      <span
+        className="xxxx-root"
+      >
+        mul
+        
+      </span>
+    </strong>
+    <span
+      className="xxxx-root"
+    >
+      ti
+      <span>
+        BALL
+      </span>
+      mundo
+    </span>
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
+<p>
+  <span
+    className="xxxx--array"
+  >
+    <span
+      className="xxxx-root"
+    >
+      Hola
+      <span>
+        BALL
+      </span>
+       
+      
+      
+    </span>
+    <strong>
+      <span
+        className="xxxx-root"
+      >
+        
+        mul
+        
+        
+      </span>
+    </strong>
+    <span
+      className="xxxx-root"
+    >
+      
+      ti
+      <span>
+        BALL
+      </span>
+      mundo
+      <span>
+        BALL
+      </span>
+      
+    </span>
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker node with 1 fragment 1`] = `
+<p>
+  <span
+    className="xxxx-root"
+  >
+    Hola multi
+    <span>
+      BALL
+    </span>
+    mundo
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker plain text with 1 fragment 1`] = `
+<span
+  className="xxxx-root"
+>
+  Hola multi
+  <span>
+    BALL
+  </span>
+  mundo
+</span>
+`;
+
+exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
+<span
+  className="xxxx-root"
+>
+  Hola
+  <span>
+    BALL
+  </span>
+   multi
+  <span>
+    BALL
+  </span>
+  mundo
+  <span>
+    BALL
+  </span>
+  
+</span>
+`;
