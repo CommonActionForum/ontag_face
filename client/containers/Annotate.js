@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 
-import Article from '../components/annotators/article-annotator'
+import Article from '../components/annotators/article-container'
 import MultiList from '../components/lists/multi-list'
 import LiqenCreator from '../components/liqen-creator/liqen-creator'
 import { createAnnotation,
@@ -67,9 +67,10 @@ export class Annotate extends React.Component {
           </header>
           <main className='article-body'>
             <Article
+              annotations={annotations.map(a => a.target)}
               body={this.state.articleBody}
               tags={tags}
-              onCreateAnnotation={onCreateAnnotation}
+              onAnnotate={onCreateAnnotation}
             />
           </main>
         </div>
