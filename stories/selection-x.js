@@ -6,8 +6,8 @@ import SelectionMarker from '../client/components/annotators/text-annotator/sele
 import SelectionHandler from '../client/components/annotators/text-annotator/selection-handler'
 import SelectionMultiMarker from '../client/components/annotators/text-annotator/selection-multi-marker'
 
-storiesOf('Selection', module)
-  .add('Marker', () => (
+storiesOf('SelectionMarker', module)
+  .add('Normal behaviour', () => (
     <SelectionMarker
       fragment={{
         prefix: 'Hello ',
@@ -18,7 +18,9 @@ storiesOf('Selection', module)
       <p>Hello Button</p>
     </SelectionMarker>
   ))
-  .add('Handler', () => (
+
+storiesOf('SelectionHandler', module)
+  .add('Normal behaviour', () => (
     <SelectionHandler onSelect={action('select')}>
       This is a text that can be selected
     </SelectionHandler>

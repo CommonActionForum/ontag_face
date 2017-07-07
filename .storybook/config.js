@@ -1,8 +1,10 @@
 import { configure } from '@storybook/react'
 
 function loadStories () {
-  require('../stories/liqen-is-a-graph.js')
-  require('../stories/article-with-lines.js')
+  require('../stories/index.js')
+  require('../stories/selection-x.js')
+  require('../stories/article.js')
+  require('../stories/article-container.js')
 }
 
 configure(loadStories, module)

@@ -1,43 +1,10 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 
-import ArticleBackground from '../client/components/annotators/article-background'
 import ArticleContainer from '../client/components/annotators/article-container'
-import SelectionMultiMarker from '../client/components/annotators/text-annotator/selection-multi-marker'
 
-storiesOf('Article', module)
-  .add('ArticleBackground', () => {
-    const paths = [
-      {
-        nodes: [
-          {x: 20, y: 30},
-          {x: 30, y: 50},
-          {x: 20, y: 70},
-          {x: 50, y: 90},
-          {x: 60, y: 100}
-        ]
-      },
-      {
-        nodes: [
-          {x: 50, y: 50},
-          {x: 80, y: 20},
-          {x: 90, y: 100},
-          {x: 100, y: 30},
-          {x: 130, y: 40}
-        ]
-      }
-    ]
-
-    return (
-      <ArticleBackground
-        paths={paths}
-        width={300}
-        height={200}
-      />
-    )
-  })
-  .add('ArticleContainer', () => {
+storiesOf('ArticleContainer', module)
+  .add('basic usage', () => {
     const ff1 = [
       {
         prefix: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. Nulla cursus urna eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. ',
