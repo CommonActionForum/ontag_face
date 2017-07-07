@@ -105,19 +105,25 @@ storiesOf('SelectionMultimarker', module)
         prefix: 'Hola ',
         exact: 'multi',
         suffix: 'mundo',
-        ref: action('ref 4.1')
+        ref: console.log
       },
       {
         prefix: '',
         exact: 'Hola',
         suffix: ' multimundo',
-        ref: action('ref 4.2')
+        ref: console.log
       },
       {
         prefix: 'Hola multi',
         exact: 'mundo',
         suffix: '',
-        ref: action('ref 4.3')
+        ref: console.log
+      },
+      {
+        prefix: 'inexistent',
+        exact: 'inexistent',
+        suffix: 'inexistent',
+        ref: console.log
       }
     ]
 

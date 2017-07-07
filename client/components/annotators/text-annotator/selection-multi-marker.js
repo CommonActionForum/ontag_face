@@ -82,6 +82,9 @@ export function renderElement (element, fragments) {
 export function renderArray (node, fragments) {
   const strArr = nodeToArray(node)
   const fragmentsArray = fragments
+    .filter(
+      ({prefix, exact, suffix}) => prefix + exact + suffix === strArr.join('')
+    )
     .map(fragment => {
       const arr = fragmentArray(strArr, fragment)
 
