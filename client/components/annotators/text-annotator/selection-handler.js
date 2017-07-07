@@ -32,6 +32,10 @@ export default class SelectionHandler extends React.Component {
       document.removeEventListener('dblclick', this.handleSelect)
       document.removeEventListener('scroll', this.handleSelect)
     }
+
+    if (this.props.onDeselect) {
+      document.removeEventListener('selectionchange', this.handleDeselect)
+    }
   }
 
   handleSelect () {
