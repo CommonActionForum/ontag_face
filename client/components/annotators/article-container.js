@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ArticleBackground from './article-background'
+import TextAnnotator from './text-annotator/text-annotator'
 import SelectionMultiMarker from './text-annotator/selection-multi-marker'
 
 function convertObjectToReact (obj, key) {
@@ -90,12 +91,17 @@ export default class ArticleContainer extends React.Component {
         <article ref={node => { this.node = node }}>
           {
             this.props.body.children.map((child, i) => (
-              <SelectionMultiMarker
+              <TextAnnotator
+                tags={this.props.tags}
+                onCreateAnnotation={this.props.onAnnotate}
                 key={i}
-                fragments={this.annotations}
               >
-                {convertObjectToReact(child)}
-              </SelectionMultiMarker>
+                <SelectionMultiMarker
+                  fragments={this.annotations}
+                >
+                  {convertObjectToReact(child)}
+                </SelectionMultiMarker>
+              </TextAnnotator>
             ))
           }
         </article>
@@ -123,5 +129,12 @@ ArticleContainer.propTypes = {
       suffix: PropTypes.string.isRequired
     })
   ),
-  children: PropTypes.node
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      ref: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired
+    })
+  ),
+  children: PropTypes.node,
+  onAnnotate: PropTypes.func.isRequired
 }

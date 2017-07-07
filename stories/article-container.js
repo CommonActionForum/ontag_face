@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import ArticleContainer from '../client/components/annotators/article-container'
 
@@ -65,10 +66,18 @@ storiesOf('ArticleContainer', module)
       ] // children
     }
 
+    const tags = [
+      { ref: 't1', title: 'Tag 1' },
+      { ref: 't2', title: 'Tag 2' },
+      { ref: 't3', title: 'Tag 3' }
+    ]
+
     return (
       <ArticleContainer
         body={body}
         annotations={ff1}
+        tags={tags}
+        onAnnotate={action('annotate')}
       />
     )
   })
