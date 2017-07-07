@@ -31,7 +31,7 @@ SelectionMultiMarker.propTypes = {
 
 export function renderSimple (thing, fragments) {
   const Ball = ({nodeRef}) => (
-    <span ref={ref => nodeRef(ref)}>BALL</span>
+    <span ref={ref => nodeRef(ref)} />
   )
 
   const str = '' + thing

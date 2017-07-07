@@ -30,13 +30,9 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               className="xxxx-root"
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. Nulla cursus urna
-              <span>
-                BALL
-              </span>
+              <span />
                eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. Praesent facilisis, augue
-              <span>
-                BALL
-              </span>
+              <span />
                in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.
             </span>
           </p>
@@ -52,9 +48,7 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               className="xxxx-root"
             >
               Duis ut dolor eu dolor consectetur cursus. Etiam in enim sem. Mauris bibendum libero porta, eleifend justo quis, iaculis lacus. Aenean elementum eros eu mi tristique aliquam. Quisque pulvinar ligula magna, sit amet maximus lectus posuere non. Nulla ut lorem quis sapien imperdiet interdum. Sed id diam
-              <span>
-                BALL
-              </span>
+              <span />
                at orci condimentum fermentum in eget risus. Integer vitae nunc tellus. Mauris ut cursus neque.
             </span>
           </p>
@@ -189,9 +183,7 @@ exports[`Storyshots SelectionMultimarker array with 1 fragment 1`] = `
       className="xxxx-root"
     >
       ti
-      <span>
-        BALL
-      </span>
+      <span />
       mundo
     </span>
   </span>
@@ -207,9 +199,7 @@ exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
       className="xxxx-root"
     >
       Hola
-      <span>
-        BALL
-      </span>
+      <span />
        
       
       
@@ -229,13 +219,9 @@ exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
     >
       
       ti
-      <span>
-        BALL
-      </span>
+      <span />
       mundo
-      <span>
-        BALL
-      </span>
+      <span />
       
     </span>
   </span>
@@ -248,9 +234,7 @@ exports[`Storyshots SelectionMultimarker node with 1 fragment 1`] = `
     className="xxxx-root"
   >
     Hola multi
-    <span>
-      BALL
-    </span>
+    <span />
     mundo
   </span>
 </p>
@@ -261,9 +245,7 @@ exports[`Storyshots SelectionMultimarker plain text with 1 fragment 1`] = `
   className="xxxx-root"
 >
   Hola multi
-  <span>
-    BALL
-  </span>
+  <span />
   mundo
 </span>
 `;
@@ -273,17 +255,11 @@ exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
   className="xxxx-root"
 >
   Hola
-  <span>
-    BALL
-  </span>
+  <span />
    multi
-  <span>
-    BALL
-  </span>
+  <span />
   mundo
-  <span>
-    BALL
-  </span>
+  <span />
   
 </span>
 `;
