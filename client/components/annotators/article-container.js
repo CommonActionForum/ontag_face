@@ -38,13 +38,15 @@ export default class ArticleContainer extends React.Component {
   }
 
   componentDidMount () {
-    const {width, height, top, left} = this.node.getBoundingClientRect()
-    this.setState({container: {
-      width,
-      height,
-      top: top + window.scrollY,
-      left: left + window.scrollX
-    }})
+    if (this.node) {
+      const {width, height, top, left} = this.node.getBoundingClientRect()
+      this.setState({container: {
+        width,
+        height,
+        top: top + window.scrollY,
+        left: left + window.scrollX
+      }})
+    }
   }
 
   getCallbacks (annotations) {
