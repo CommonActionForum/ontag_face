@@ -2,6 +2,9 @@
 // if possible.
 export function fragmentArray (array, {prefix, exact, suffix}) {
   if (array.join('') !== prefix + exact + suffix) {
+    console.error('Arguments are not valid. The passed arguments are the following')
+    console.error('array', array)
+    console.error('fragment', {prefix, exact, suffix})
     throw new Error('The array is not valid')
   }
 
