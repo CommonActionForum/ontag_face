@@ -12,7 +12,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Marker from './marker'
+import SelectionHandler from './selection-handler'
 import Tooltip from './tag-tooltip'
 
 export default class TextAnnotator extends React.Component {
@@ -25,7 +25,7 @@ export default class TextAnnotator extends React.Component {
     }
 
     this.handleHighlight = this.handleHighlight.bind(this)
-    this.handleUnhighlight = this.handleUnhighlight.bind(this)
+    this.handleDeselect = this.handleDeselect.bind(this)
   }
 
   handleHighlight (fragment, range) {
@@ -34,7 +34,7 @@ export default class TextAnnotator extends React.Component {
     })
   }
 
-  handleUnhighlight () {
+  handleDeselect () {
     this.setState({
       newAnnotation: { target: null }
     })
@@ -58,13 +58,12 @@ export default class TextAnnotator extends React.Component {
     return (
       <div>
         <div ref={node => (this.paragraph = node)}>
-          <Marker
-            onHighlight={(fragment, range) =>
-              this.handleHighlight(fragment, range)}
-            onUnhighlight={() => this.handleUnhighlight()}
+          <SelectionHandler
+            onSelect={this.handleHighlight}
+            onDeselect={this.handleDeselect}
           >
             {this.props.children}
-          </Marker>
+          </SelectionHandler>
         </div>
         <div ref={node => (this.tooltip = node)}>
           {
@@ -73,7 +72,6 @@ export default class TextAnnotator extends React.Component {
               list={this.props.tags}
               position={this.state.newAnnotation.range}
               onSelect={tag => this.handleSelectTag(tag)}
-              onUnselect={() => this.handleUnselectTag()}
             />
           }
         </div>

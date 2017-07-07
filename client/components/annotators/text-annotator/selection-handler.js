@@ -7,6 +7,7 @@ export default class SelectionHandler extends React.Component {
   constructor (props) {
     super(props)
     this.handleSelect = this.handleSelect.bind(this)
+    this.handleDeselect = this.handleDeselect.bind(this)
   }
 
   componentDidMount () {
@@ -37,13 +38,22 @@ export default class SelectionHandler extends React.Component {
     const selection = document.getSelection()
 
     if (selection.rangeCount !== 1 || !this.node) {
-      return
+      return this.props.onDeselect()
     }
 
     const range = selection.getRangeAt(0)
+
+    if (range.collapsed) {
+      return this.props.onDeselect()
+    }
+
     const ancestor = range.commonAncestorContainer
     const isValidSelection = this.node.contains(ancestor) ||
                            this.node.isSameNode(ancestor)
+
+    if (!isValidSelection) {
+      return this.props.onDeselect()
+    }
 
     if (isValidSelection) {
       const prefixRange = document.createRange()
@@ -55,8 +65,30 @@ export default class SelectionHandler extends React.Component {
       const suffix = this.node.textContent.slice(prefix.length + exact.length)
 
       if (exact !== '') {
-        this.props.onSelect({ prefix, exact, suffix })
+        this.props.onSelect({ prefix, exact, suffix }, range)
       }
+    }
+  }
+
+  handleDeselect () {
+    const selection = document.getSelection()
+
+    if (selection.rangeCount !== 1 || !this.node) {
+      return this.props.onDeselect()
+    }
+
+    const range = selection.getRangeAt(0)
+
+    if (range.collapsed) {
+      return this.props.onDeselect()
+    }
+
+    const ancestor = range.commonAncestorContainer
+    const isValidSelection = this.node.contains(ancestor) ||
+                             this.node.isSameNode(ancestor)
+
+    if (!isValidSelection) {
+      return this.props.onDeselect()
     }
   }
 
