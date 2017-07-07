@@ -68,12 +68,6 @@ export default class ArticleContainer extends React.Component {
   }
 
   render () {
-    const paths = [
-      {
-        nodes: this.state.nodes
-      }
-    ]
-
     let container = {
       width: 0,
       height: 0,
@@ -86,6 +80,17 @@ export default class ArticleContainer extends React.Component {
 
       container = {width, height, top, left}
     }
+
+    const paths = [
+      {
+        nodes: this.state.nodes.map(
+          ({x, y}) => ({
+            x: x - container.left,
+            y: y - container.top
+          })
+        )
+      }
+    ]
 
     return (
       <div style={{position: 'relative'}}>
