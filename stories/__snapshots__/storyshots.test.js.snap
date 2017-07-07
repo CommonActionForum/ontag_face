@@ -20,7 +20,13 @@ exports[`Storyshots ArticleBackground An array of paths and nodes 1`] = `
 `;
 
 exports[`Storyshots ArticleContainer basic usage 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
   <article>
     <div>
       <div>
@@ -103,9 +109,9 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
     height={0}
     style={
       Object {
-        "left": "0px",
+        "left": "0",
         "position": "absolute",
-        "top": "0px",
+        "top": "0",
         "zIndex": "-1",
       }
     }

@@ -38,18 +38,6 @@ export default class ArticleContainer extends React.Component {
     this.annotations = this.getCallbacks(this.props.annotations)
   }
 
-  componentDidMount () {
-    if (this.node) {
-      const {width, height, top, left} = this.node.getBoundingClientRect()
-      this.setState({container: {
-        width,
-        height,
-        top: top + window.scrollY,
-        left: left + window.scrollX
-      }})
-    }
-  }
-
   getCallbacks (annotations) {
     let counter = 0
     const nodes = []
@@ -86,9 +74,22 @@ export default class ArticleContainer extends React.Component {
       }
     ]
 
+    let container = {
+      width: 0,
+      height: 0,
+      top: 0,
+      left: 0
+    }
+
+    if (this.articleNode) {
+      const {width, height, top, left} = this.articleNode.getBoundingClientRect()
+
+      container = {width, height, top, left}
+    }
+
     return (
-      <div>
-        <article ref={node => { this.node = node }}>
+      <div style={{position: 'relative'}}>
+        <article ref={node => { this.articleNode = node }}>
           {
             this.props.body.children.map((child, i) => (
               <TextAnnotator
@@ -106,12 +107,12 @@ export default class ArticleContainer extends React.Component {
           }
         </article>
         <ArticleBackground
-          height={this.state.container.height}
-          width={this.state.container.width}
+          height={container.height}
+          width={container.width}
           paths={paths}
           style={{
-            top: `${this.state.container.top}px`,
-            left: `${this.state.container.left}px`,
+            top: `0`,
+            left: `0`,
             position: 'absolute',
             zIndex: '-1'
           }}
