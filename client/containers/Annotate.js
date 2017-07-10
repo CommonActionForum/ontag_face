@@ -11,6 +11,9 @@ import { createAnnotation,
          removeAnnotationToLiqen } from '../actions/index'
 
 const article = window.__ARTICLE__
+const COLOURS = [
+  'green', 'orange', 'purple', 'gold', 'pink', 'blue'
+]
 
 export class Annotate extends React.Component {
   constructor (props) {
@@ -112,12 +115,26 @@ const mapStateToAnswer = (state) => {
 
 const mapStateToAnnotations = (state) => {
   const ret = []
+  const liqens = []
+
+  for (let ref in state.liqens) {
+    liqens.push({
+      answer: state.liqens[ref].answer,
+      colour: COLOURS[liqens.length]
+    })
+  }
 
   for (let ref in state.annotations) {
     const {tag, checked, pending, target} = state.annotations[ref]
+    const arr = liqens
+      .filter(l => l.answer.indexOf(ref) !== -1)
+
+    const colour = arr
+      .length === 0 ? 'gray' : arr[0].colour
 
     ret.push({
       tag: state.tags[tag].title,
+      colour,
       target,
       ref,
       checked,
