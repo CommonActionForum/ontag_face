@@ -115,7 +115,7 @@ export function renderElement (element, fragments) {
 
 export function renderArray (node, annotations) {
   const strArr = nodeToArray(node)
-  const fragmentsArray = annotations
+  const annotationsArray = annotations
     .filter(
       ({fragment}) =>
         fragment.prefix + fragment.exact + fragment.suffix === strArr.join('')
@@ -137,6 +137,11 @@ export function renderArray (node, annotations) {
       }
 
       return arr
+        .map(fragment => ({
+          colour: annotation.colour,
+          ref: fragment.ref,
+          fragment
+        }))
     })
 
   const result = []
@@ -145,7 +150,7 @@ export function renderArray (node, annotations) {
     result.push(
       <SelectionMultiMarker
         key={i}
-        annotations={fragmentsArray.map(f => f[i])}
+        annotations={annotationsArray.map(f => f[i])}
       >
         {arr[i]}
       </SelectionMultiMarker>
