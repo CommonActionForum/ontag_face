@@ -101,7 +101,6 @@ export default class ArticleContainer extends React.Component {
         })
       )
 
-    console.log(paths)
     return (
       <div style={{position: 'relative'}}>
         <article ref={node => { this.articleNode = node }}>
