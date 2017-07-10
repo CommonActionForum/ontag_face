@@ -92,6 +92,12 @@ export default class ArticleContainer extends React.Component {
           nodes: this
             .state.nodes
             .filter(filterByColour(colour))
+            .map(
+              ({x, y}) => ({
+                x: x - container.left,
+                y: y - container.top
+              })
+            )
         })
       )
 
