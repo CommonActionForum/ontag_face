@@ -86,6 +86,7 @@ export default class ArticleContainer extends React.Component {
     const filterByColour = colour => node => node.colour === colour
 
     const paths = colours
+      .filter(colour => colour !== 'gray')
       .map(
         colour => ({
           colour,
