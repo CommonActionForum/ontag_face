@@ -24,7 +24,8 @@ ArticleBackground.propTypes = {
           x: PropTypes.number.isRequired,
           y: PropTypes.number.isRequired
         })
-      )
+      ),
+      colour: PropTypes.string
     })
   ),
   width: PropTypes.number,

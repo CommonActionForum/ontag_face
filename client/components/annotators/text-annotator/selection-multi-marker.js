@@ -32,40 +32,44 @@ const BallButton = styled(UnstyledBallButton)`
   border: 2px #000 solid
 `
 
-export default function SelectionMultiMarker ({ fragments, children }) {
+export default function SelectionMultiMarker ({ annotations, children }) {
   // Render diferently depending on Array, Element or "plain" thing
   let renderedChildren
 
   if (React.Children.count(children) > 1) {
-    renderedChildren = renderArray(children, fragments)
+    renderedChildren = renderArray(children, annotations)
   } else if (children.type && children.props && children.props.children) {
-    renderedChildren = renderElement(children, fragments)
+    renderedChildren = renderElement(children, annotations)
   } else {
-    renderedChildren = renderSimple(children, fragments)
+    renderedChildren = renderSimple(children, annotations)
   }
 
   return renderedChildren
 }
 
 SelectionMultiMarker.propTypes = {
-  fragments: PropTypes.arrayOf(
+  annotations: PropTypes.arrayOf(
     PropTypes.shape({
-      prefix: PropTypes.string.isRequired,
-      exact: PropTypes.string.isRequired,
-      suffix: PropTypes.string.isRequired,
+      fragment: PropTypes.shape({
+        prefix: PropTypes.string.isRequired,
+        exact: PropTypes.string.isRequired,
+        suffix: PropTypes.string.isRequired
+      }).isRequired,
+      colour: PropTypes.string,
       ref: PropTypes.func
     })
   ),
   children: PropTypes.node.isRequired
 }
 
-export function renderSimple (thing, fragments) {
+export function renderSimple (thing, annotations) {
   const str = '' + thing
-  const arr = fragments
-    .filter(f => f.prefix + f.exact + f.suffix === thing)
-    .map(f => ({
-      ref: f.ref,
-      size: (f.prefix + f.exact).length
+  // console.log(annotations)
+  const arr = annotations
+    .filter(a => a.fragment.prefix + a.fragment.exact + a.fragment.suffix === thing)
+    .map(a => ({
+      ref: a.ref,
+      size: (a.fragment.prefix + a.fragment.exact).length
     }))
     .sort((a, b) => a.size - b.size)
 
@@ -99,19 +103,21 @@ export function renderElement (element, fragments) {
   return React.createElement(
     element.type,
     element.props,
-    <SelectionMultiMarker fragments={fragments}>
+    <SelectionMultiMarker annotations={fragments}>
       {element.props.children}
     </SelectionMultiMarker>
   )
 }
 
-export function renderArray (node, fragments) {
+export function renderArray (node, annotations) {
   const strArr = nodeToArray(node)
-  const fragmentsArray = fragments
+  const fragmentsArray = annotations
     .filter(
-      ({prefix, exact, suffix}) => prefix + exact + suffix === strArr.join('')
+      ({fragment}) =>
+        fragment.prefix + fragment.exact + fragment.suffix === strArr.join('')
     )
-    .map(fragment => {
+    .map(annotation => {
+      const fragment = annotation.fragment
       const arr = fragmentArray(strArr, fragment)
 
       // attach "ref" to the last element that has an "exact"
@@ -123,7 +129,7 @@ export function renderArray (node, fragments) {
       }
 
       if (chosen !== -1) {
-        arr[chosen].ref = fragment.ref
+        arr[chosen].ref = annotation.ref
       }
 
       return arr
@@ -135,7 +141,7 @@ export function renderArray (node, fragments) {
     result.push(
       <SelectionMultiMarker
         key={i}
-        fragments={fragmentsArray.map(f => f[i])}
+        annotations={fragmentsArray.map(f => f[i])}
       >
         {arr[i]}
       </SelectionMultiMarker>

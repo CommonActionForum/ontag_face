@@ -8,19 +8,25 @@ storiesOf('ArticleContainer', module)
   .add('basic usage', () => {
     const ff1 = [
       {
-        prefix: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. Nulla cursus urna eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. ',
-        exact: 'Praesent facilisis, augue',
-        suffix: ' in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.'
+        fragment: {
+          prefix: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. Nulla cursus urna eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. ',
+          exact: 'Praesent facilisis, augue',
+          suffix: ' in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.'
+        }
       },
       {
-        prefix: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. ',
-        exact: 'Nulla cursus urna',
-        suffix: ' eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. Praesent facilisis, augue in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.'
+        fragment: {
+          prefix: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. ',
+          exact: 'Nulla cursus urna',
+          suffix: ' eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. Praesent facilisis, augue in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.'
+        }
       },
       {
-        prefix: 'Duis ut dolor eu dolor consectetur cursus. Etiam in enim sem. Mauris bibendum libero porta, eleifend justo quis, iaculis lacus. Aenean elementum eros eu mi tristique aliquam. Quisque pulvinar ligula magna, sit amet maximus lectus posuere non. Nulla ut lorem quis sapien imperdiet interdum. ',
-        exact: 'Sed id diam',
-        suffix: ' at orci condimentum fermentum in eget risus. Integer vitae nunc tellus. Mauris ut cursus neque.'
+        fragment: {
+          prefix: 'Duis ut dolor eu dolor consectetur cursus. Etiam in enim sem. Mauris bibendum libero porta, eleifend justo quis, iaculis lacus. Aenean elementum eros eu mi tristique aliquam. Quisque pulvinar ligula magna, sit amet maximus lectus posuere non. Nulla ut lorem quis sapien imperdiet interdum. ',
+          exact: 'Sed id diam',
+          suffix: ' at orci condimentum fermentum in eget risus. Integer vitae nunc tellus. Mauris ut cursus neque.'
+        }
       }
     ]
 

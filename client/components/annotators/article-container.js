@@ -44,9 +44,8 @@ export default class ArticleContainer extends React.Component {
 
     return annotations.map(
       (a, i) => ({
-        prefix: a.prefix,
-        exact: a.exact,
-        suffix: a.suffix,
+        fragment: a.fragment,
+        colour: a.colour,
         ref: (node) => {
           if (node === null) {
             return
@@ -103,7 +102,7 @@ export default class ArticleContainer extends React.Component {
                 key={i}
               >
                 <SelectionMultiMarker
-                  fragments={this.annotations}
+                  annotations={this.annotations}
                 >
                   {convertObjectToReact(child)}
                 </SelectionMultiMarker>
@@ -130,9 +129,12 @@ export default class ArticleContainer extends React.Component {
 ArticleContainer.propTypes = {
   annotations: PropTypes.arrayOf(
     PropTypes.shape({
-      prefix: PropTypes.string.isRequired,
-      exact: PropTypes.string.isRequired,
-      suffix: PropTypes.string.isRequired
+      fragment: PropTypes.shape({
+        prefix: PropTypes.string.isRequired,
+        exact: PropTypes.string.isRequired,
+        suffix: PropTypes.string.isRequired
+      }),
+      colour: PropTypes.string
     })
   ),
   tags: PropTypes.arrayOf(
@@ -141,6 +143,7 @@ ArticleContainer.propTypes = {
       title: PropTypes.string.isRequired
     })
   ),
+  colours: PropTypes.object,
   children: PropTypes.node,
   onAnnotate: PropTypes.func.isRequired
 }

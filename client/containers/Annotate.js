@@ -67,7 +67,7 @@ export class Annotate extends React.Component {
           </header>
           <main className='article-body'>
             <Article
-              annotations={annotations.map(a => a.target)}
+              annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
               body={this.state.articleBody}
               tags={tags}
               onAnnotate={onCreateAnnotation}
@@ -118,8 +118,8 @@ const mapStateToAnnotations = (state) => {
 
     ret.push({
       tag: state.tags[tag].title,
-      ref,
       target,
+      ref,
       checked,
       pending
     })
