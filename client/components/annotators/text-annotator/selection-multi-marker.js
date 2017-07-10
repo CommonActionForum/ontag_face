@@ -4,17 +4,21 @@ import styled from 'styled-components'
 
 import { fragmentArray } from './fragment'
 
-const UnstyledBall = ({nodeRef, style, className}) => (
+const UnstyledBall = ({nodeRef, style, className, colour}) => (
   <span ref={ref => nodeRef(ref)}
     style={style}
     className={className}
   >
-    <BallButton />
+    <BallButton colour={colour} />
   </span>
 )
 
-const UnstyledBallButton = ({className}) => (
-  <button className={className} />
+const UnstyledBallButton = ({className, colour}) => (
+  <button
+    className={className}
+    style={{
+      background: `radial-gradient(ellipse at center, ${colour} 0%, rgba(255,255,255,0) 60%)`
+    }} />
 )
 
 const Ball = styled(UnstyledBall)`
@@ -28,8 +32,7 @@ const BallButton = styled(UnstyledBallButton)`
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  background: #f00;
-  border: 2px #000 solid
+  border: none;
 `
 
 export default function SelectionMultiMarker ({ annotations, children }) {
@@ -69,6 +72,7 @@ export function renderSimple (thing, annotations) {
     .filter(a => a.fragment.prefix + a.fragment.exact + a.fragment.suffix === thing)
     .map(a => ({
       ref: a.ref,
+      colour: a.colour,
       size: (a.fragment.prefix + a.fragment.exact).length
     }))
     .sort((a, b) => a.size - b.size)
@@ -80,14 +84,14 @@ export function renderSimple (thing, annotations) {
     result.push(str.slice(0, arr[0].size))
 
     if (arr[0].ref) {
-      result.push(<Ball key={0} nodeRef={arr[0].ref} />)
+      result.push(<Ball key={0} nodeRef={arr[0].ref} colour={arr[0].colour} />)
     }
 
     for (let i = 1; i < arr.length; i++) {
       result.push(str.slice(arr[i - 1].size, arr[i].size))
 
       if (arr[i].ref) {
-        result.push(<Ball key={i} nodeRef={arr[i].ref} />)
+        result.push(<Ball key={i} nodeRef={arr[i].ref} colour={arr[i].colour} />)
       }
     }
 
