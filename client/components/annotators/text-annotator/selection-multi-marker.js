@@ -1,6 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
 import { fragmentArray } from './fragment'
+
+const UnstyledBall = ({nodeRef, style, className}) => (
+  <span ref={ref => nodeRef(ref)}
+    style={style}
+    className={className}
+  >
+    <BallButton />
+  </span>
+)
+
+const UnstyledBallButton = ({className}) => (
+  <button className={className} />
+)
+
+const Ball = styled(UnstyledBall)`
+  position:relative;
+`
+
+const BallButton = styled(UnstyledBallButton)`
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #f00;
+  border: 2px #000 solid
+`
 
 export default function SelectionMultiMarker ({ fragments, children }) {
   // Render diferently depending on Array, Element or "plain" thing
@@ -30,10 +60,6 @@ SelectionMultiMarker.propTypes = {
 }
 
 export function renderSimple (thing, fragments) {
-  const Ball = ({nodeRef}) => (
-    <span ref={ref => nodeRef(ref)} />
-  )
-
   const str = '' + thing
   const arr = fragments
     .filter(f => f.prefix + f.exact + f.suffix === thing)
