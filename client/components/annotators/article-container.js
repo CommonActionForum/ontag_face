@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ArticleBackground from './article-background'
 import TextAnnotator from './text-annotator/text-annotator'
 import SelectionMultiMarker from './text-annotator/selection-multi-marker'
+import uniq from 'lodash/fp/uniq'
 
 function convertObjectToReact (obj, key) {
   if (typeof obj === 'string') {
@@ -55,7 +56,8 @@ export default class ArticleContainer extends React.Component {
           const {top, left} = node.getBoundingClientRect()
           nodes[i] = {
             y: top + window.scrollY,
-            x: left + window.scrollX
+            x: left + window.scrollX,
+            colour: a.colour
           }
 
           if (counter === nodes.length) {
@@ -80,17 +82,20 @@ export default class ArticleContainer extends React.Component {
       container = {width, height, top, left}
     }
 
-    const paths = [
-      {
-        nodes: this.state.nodes.map(
-          ({x, y}) => ({
-            x: x - container.left,
-            y: y - container.top
-          })
-        )
-      }
-    ]
+    const colours = uniq(this.state.nodes.map(n => n.colour))
+    const filterByColour = colour => node => node.colour === colour
 
+    const paths = colours
+      .map(
+        colour => ({
+          colour,
+          nodes: this
+            .state.nodes
+            .filter(filterByColour(colour))
+        })
+      )
+
+    console.log(paths)
     return (
       <div style={{position: 'relative'}}>
         <article ref={node => { this.articleNode = node }}>

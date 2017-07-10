@@ -7,7 +7,7 @@ export default function ArticleBackground ({width, height, paths, style}) {
     const d = `M ${firstNode.x} ${firstNode.y}` + ' ' +
               restNodes.map(({x, y}) => `L ${x} ${y}`).join(' ')
 
-    return <path key={i} d={d} fill='transparent' stroke='black' />
+    return <path key={i} d={d} fill='transparent' stroke={p.colour || 'black'} />
   })
   return (
     <svg width={width} height={height} style={style}>
