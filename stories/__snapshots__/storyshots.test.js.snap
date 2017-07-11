@@ -206,6 +206,116 @@ exports[`Storyshots Button with text 1`] = `
 </button>
 `;
 
+exports[`Storyshots ColorPicker 8 colours 1`] = `
+<div
+  className="tooltip tooltip-bottom sc-bZQynM kHKJiA"
+  style={
+    Object {
+      "left": "100px",
+      "top": "0px",
+    }
+  }
+>
+  <div
+    className="tooltip-arrow"
+  />
+  <div
+    className="tooltip-inner"
+  >
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#FFAB40",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#E91E63",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#E040FB",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#AA00FF",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#9FA8DA",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#2962FF",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#18FFFF",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#B2FF59",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#EEFF41",
+        }
+      }
+    />
+    <button
+      className="sc-gzVnrw fZqoTl"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#FFFFFF",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots SelectionHandler Normal behaviour 1`] = `
 <span>
   This is a text that can be selected
