@@ -19,11 +19,21 @@ export default async function annotate (req, res) {
 
       const tags2 = {}
       for (let tag of tags) {
-        tags2[tag.id] = tag
+        tags2[tag.id] = {
+          id: tag.id.toString(),
+          title: tag.title
+        }
       }
 
       return {
-        question,
+        question: {
+          id: question.id.toString(),
+          title: question.title,
+          answer: question.answer.map(a => ({
+            tag: a.tag.toString(),
+            required: a.required
+          }))
+        },
         tags: tags2
       }
     } catch (e) {
@@ -36,7 +46,11 @@ export default async function annotate (req, res) {
     try {
       const article = await req.core.articles.show(articleId)
 
-      return article
+      return {
+        title: article.title,
+        source: article.source,
+        id: article.id.toString()
+      }
     } catch (e) {
       console.log('error 2')
       console.log(e)
@@ -57,7 +71,8 @@ export default async function annotate (req, res) {
       for (let annotation of annotations) {
         if (annotation.tags.length > 0) {
           annotations2[annotation.id] = {
-            tag: annotation.tags[0].id,
+            id: annotation.id.toString(),
+            tag: annotation.tags[0].id.toString(),
             target: {
               prefix: annotation.target.prefix,
               exact: annotation.target.exact,
@@ -103,11 +118,11 @@ export default async function annotate (req, res) {
       let i = 0
       for (let liqen of liqens) {
         liqens2[liqen.id] = {
-          answer: liqen.annotations.map(a => a.id),
+          answer: liqen.annotations.map(a => a.id.toString()),
           pending: false
         }
         if (i < 10) {
-          colours[coloursList[i]] = liqen.id
+          colours[coloursList[i]] = liqen.id.toString()
           i++
         }
       }

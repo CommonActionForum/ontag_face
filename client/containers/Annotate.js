@@ -4,12 +4,11 @@ import fetch from 'isomorphic-fetch'
 
 import Article from '../components/annotators/article-container'
 import MultiList from '../components/lists/multi-list'
-import { createAnnotation } from '../actions/index'
+import { createAnnotation,
+         addAnnotationColour,
+         removeAnnotationColour } from '../actions/index'
 
 const article = window.__ARTICLE__
-const COLOURS = [
-  'green', 'orange', 'purple', 'gold', 'pink', 'blue'
-]
 
 export class Annotate extends React.Component {
   constructor (props) {
@@ -35,8 +34,11 @@ export class Annotate extends React.Component {
     const {
       annotations,
       liqens,
+      colours,
       tags,
-      onCreateAnnotation
+      onCreateAnnotation,
+      onAddAnnotationColour,
+      onRemoveAnnotationColour
     } = this.props
 
     return (
@@ -53,10 +55,13 @@ export class Annotate extends React.Component {
           </header>
           <main className='article-body'>
             <Article
+              colours={colours}
               annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
               body={this.state.articleBody}
               tags={tags}
               onAnnotate={onCreateAnnotation}
+              onAddAnnotationColour={onAddAnnotationColour}
+              onRemoveAnnotationColour={onRemoveAnnotationColour}
             />
           </main>
         </div>
@@ -66,33 +71,34 @@ export class Annotate extends React.Component {
 }
 
 const mapStateToAnnotations = (state) => {
+  // Copy of all the annotations
   const ret = []
-  const liqens = []
+  const colours = []
 
-  for (let ref in state.liqens) {
-    liqens.push({
-      answer: state.liqens[ref].answer,
-      colour: COLOURS[liqens.length]
-    })
+  // Colored annotations
+  for (let colour in state.colours) {
+    colours.push(colour)
   }
 
+  // Not colored annotations
   for (let ref in state.annotations) {
     const {tag, checked, pending, target} = state.annotations[ref]
-    const arr = liqens
-      .filter(l => l.answer.indexOf(ref) !== -1)
-
-    const colour = arr
-      .length === 0 ? 'gray' : arr[0].colour
 
     ret.push({
       tag: state.tags[tag].title,
-      colour,
+      colours: colours
+        .filter(colour => {
+          const liqenRef = state.colours[colour]
+          return liqenRef && state.liqens[liqenRef].answer.indexOf(ref) !== -1
+        }),
       target,
       ref,
       checked,
       pending
     })
   }
+
+  console.log(ret)
 
   return ret
 }
@@ -127,16 +133,31 @@ const mapStateToLiqens = (state) => {
   return ret
 }
 
+const mapStateToColours = state => {
+  const ret = []
+
+  for (let ref in state.colours) {
+    ret.push(ref)
+  }
+
+  return ret
+}
+
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
   liqens: mapStateToLiqens(state),
+  colours: mapStateToColours(state),
   tags: state.question.answer.map(
     ({tag}) => ({ref: tag, title: state.tags[tag].title})
   )
 })
 const mapDispatchToProps = (dispatch) => ({
-  onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag))
+  onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
+  onAddAnnotationColour: (annotation, colour) =>
+    dispatch(addAnnotationColour(annotation, colour)),
+  onRemoveAnnotationColour: (annotation, colour) =>
+    dispatch(removeAnnotationColour(annotation, colour))
 })
 
 export default connect(

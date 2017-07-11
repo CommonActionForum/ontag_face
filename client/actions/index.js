@@ -1,4 +1,5 @@
 import { CALL_API } from '../middlewares/call-api'
+import { CHANGE_ANNOTATION_COLOUR } from '../middlewares/change-annotation-colour'
 
 export const CREATE_ANNOTATION = 'CREATE_ANNOTATION'
 export const CREATE_ANNOTATION_SUCCESS = 'CREATE_ANNOTATION_SUCCESS'
@@ -63,6 +64,28 @@ export function createLiqen (answer) {
   }
 }
 
+// annotation = string (ref)
+// colour = string
+export function addAnnotationColour (annotation, colour) {
+  return {
+    [CHANGE_ANNOTATION_COLOUR]: {
+      operation: 'add',
+      annotation,
+      colour
+    }
+  }
+}
+
+export function removeAnnotationColour (annotation, colour) {
+  return {
+    [CHANGE_ANNOTATION_COLOUR]: {
+      operation: 'remove',
+      annotation,
+      colour
+    }
+  }
+}
+
 // liqen = string (ref)
 // colour = string
 export function changeLiqenColour (liqen, colour) {
@@ -79,6 +102,7 @@ export function editLiqen (liqen, answer) {
   return {
     [CALL_API]: {
       type: EDIT_LIQEN,
+      ref: liqen,
       actions: [
         EDIT_LIQEN_PENDING,
         EDIT_LIQEN_SUCCESS,

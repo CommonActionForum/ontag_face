@@ -39,9 +39,9 @@ const Container = styled(UnstyledContainer)`
 `
 
 const ListItem = styled(UnstyledItem)`
-  width: 28px;
-  height: 28px;
-  margin: 4px 4px;
+  width: 24px;
+  height: 24px;
+  margin: 6px 4px;
   border: none;
   box-shadow: inset 0 0 2px 0px rgba(0, 0, 0, 0.5);
   border-radius: 100%;
