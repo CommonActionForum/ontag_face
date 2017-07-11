@@ -22,12 +22,14 @@ const UnstyledContainer = ({ className, children, style }) => (
   </div>
 )
 
-const UnstyledItem = ({ className, code, onClick }) => (
+const UnstyledItem = ({ className, code, onClick, selected }) => (
   <button
     className={className}
     onClick={onClick}
     style={{background: code}}
-  />
+  >
+    <i className={`fa ${selected && 'fa-check'}`} aria-hidden='true' />
+  </button>
 )
 
 const Container = styled(UnstyledContainer)`
@@ -56,8 +58,13 @@ export default function ColorPicker ({ list, onSelect, position }) {
       <div className="tooltip-arrow"></div>
       <div className='tooltip-inner'>
         {
-          list.map(({code, title}) => (
-            <ListItem key={code} code={code} onClick={onSelect}>
+          list.map(({code, title, selected}) => (
+            <ListItem
+              key={code}
+              code={code}
+              onClick={() => onSelect(code)}
+              selected={selected}
+            >
               {title}
             </ListItem>
           ))
@@ -71,7 +78,8 @@ ColorPicker.propTypes = {
   colours: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
+      title: PropTypes.string.isRequired,
+      selected: PropTypes.bool
     })
   ),
   onSelect: PropTypes.func.isRequired

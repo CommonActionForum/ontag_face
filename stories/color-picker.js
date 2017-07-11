@@ -9,7 +9,8 @@ storiesOf('ColorPicker', module)
     const list = [
       {
         code: '#FFAB40',
-        title: 'Orange A200'
+        title: 'Orange A200',
+        selected: true
       },
       {
         code: '#E91E63',
@@ -21,7 +22,8 @@ storiesOf('ColorPicker', module)
       },
       {
         code: '#AA00FF',
-        title: 'Purple A700'
+        title: 'Purple A700',
+        selected: true
       },
       {
         code: '#9FA8DA',
@@ -29,7 +31,8 @@ storiesOf('ColorPicker', module)
       },
       {
         code: '#2962FF',
-        title: 'Blue A700'
+        title: 'Blue A700',
+        selected: true
       },
       {
         code: '#18FFFF',
