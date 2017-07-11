@@ -6,6 +6,7 @@ function loadStories () {
   require('../stories/text-annotator.js')
   require('../stories/article.js')
   require('../stories/article-container.js')
+  require('../stories/color-picker.js')
 }
 
 configure(loadStories, module)
