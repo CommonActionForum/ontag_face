@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ArticleBackground from './article-background'
+import ColorPicker from './color-picker'
 import TextAnnotator from './text-annotator/text-annotator'
 import SelectionMultiMarker from './text-annotator/selection-multi-marker'
 import uniq from 'lodash/fp/uniq'
@@ -29,14 +30,20 @@ export default class ArticleContainer extends React.Component {
         top: 0,
         left: 0
       },
-      nodes: this.props.annotations.map(() => ({x: 0, y: 0}))
+      nodes: this.props.annotations.map(() => ({x: 0, y: 0})),
+      selectedNode: -1
     }
 
+    this.handleSelect = this.handleSelect.bind(this)
     this.annotations = this.getCallbacks(this.props.annotations)
   }
 
   componentWillReceiveProps (/* nextProps */) {
     this.annotations = this.getCallbacks(this.props.annotations)
+  }
+
+  handleSelect (i) {
+    this.setState({selectedNode: i})
   }
 
   getCallbacks (annotations) {
@@ -63,6 +70,9 @@ export default class ArticleContainer extends React.Component {
           if (counter === nodes.length) {
             this.setState({nodes})
           }
+        },
+        onSelect: () => {
+          this.handleSelect(i)
         }
       })
     )
@@ -121,6 +131,15 @@ export default class ArticleContainer extends React.Component {
             ))
           }
         </article>
+        {
+          this.state.selectedNode !== -1 && (
+            <ColorPicker
+              list={[]}
+              onSelect={() => console.log('s')}
+              position={this.state.nodes[this.state.selectedNode]}
+            />
+          )
+        }
         <ArticleBackground
           height={container.height}
           width={container.width}

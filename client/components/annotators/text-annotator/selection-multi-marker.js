@@ -4,18 +4,19 @@ import styled from 'styled-components'
 
 import { fragmentArray } from './fragment'
 
-const UnstyledBall = ({nodeRef, style, className, colour}) => (
+const UnstyledBall = ({nodeRef, style, className, colour, onSelect}) => (
   <span ref={ref => nodeRef(ref)}
     style={style}
     className={className}
   >
-    <BallButton colour={colour} />
+    <BallButton colour={colour} onSelect={onSelect} />
   </span>
 )
 
-const UnstyledBallButton = ({className, colour}) => (
+const UnstyledBallButton = ({className, colour, onSelect}) => (
   <button
     className={className}
+    onClick={onSelect}
     style={{
       background: `radial-gradient(ellipse at center, ${colour} 0%, rgba(255,255,255,0) 60%)`
     }} />
@@ -59,13 +60,14 @@ SelectionMultiMarker.propTypes = {
         suffix: PropTypes.string.isRequired
       }).isRequired,
       colour: PropTypes.string,
+      onSelect: PropTypes.func,
       ref: PropTypes.func
     })
   ),
   children: PropTypes.node.isRequired
 }
 
-export function renderSimple (thing, annotations) {
+export function renderSimple (thing, annotations, onSelect) {
   const str = '' + thing
   // console.log(annotations)
   const arr = annotations
@@ -73,6 +75,7 @@ export function renderSimple (thing, annotations) {
     .map(a => ({
       ref: a.ref,
       colour: a.colour,
+      onSelect: a.onSelect,
       size: (a.fragment.prefix + a.fragment.exact).length
     }))
     .sort((a, b) => a.size - b.size)
@@ -84,14 +87,28 @@ export function renderSimple (thing, annotations) {
     result.push(str.slice(0, arr[0].size))
 
     if (arr[0].ref) {
-      result.push(<Ball key={0} nodeRef={arr[0].ref} colour={arr[0].colour} />)
+      result.push(
+        <Ball
+          key={0}
+          nodeRef={arr[0].ref}
+          colour={arr[0].colour}
+          onSelect={arr[0].onSelect}
+        />
+      )
     }
 
     for (let i = 1; i < arr.length; i++) {
       result.push(str.slice(arr[i - 1].size, arr[i].size))
 
       if (arr[i].ref) {
-        result.push(<Ball key={i} nodeRef={arr[i].ref} colour={arr[i].colour} />)
+        result.push(
+          <Ball
+            key={i}
+            nodeRef={arr[i].ref}
+            colour={arr[i].colour}
+            onSelect={arr[i].onSelect}
+          />
+        )
       }
     }
 

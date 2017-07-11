@@ -51,8 +51,8 @@ export default function ColorPicker ({ list, onSelect, position }) {
   return (
     <Container
       style={{
-        top: (position.top + position.height) + 'px',
-        left: (position.left + position.width / 2) + 'px'
+        top: (position.y) + 'px',
+        left: (position.x) + 'px'
       }}
     >
       <div className="tooltip-arrow"></div>
@@ -75,12 +75,16 @@ export default function ColorPicker ({ list, onSelect, position }) {
 }
 
 ColorPicker.propTypes = {
-  colours: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       selected: PropTypes.bool
     })
   ),
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }),
   onSelect: PropTypes.func.isRequired
 }
