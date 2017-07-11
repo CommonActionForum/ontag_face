@@ -230,7 +230,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#FFAB40",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -239,7 +244,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#E91E63",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -248,7 +258,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#E040FB",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -257,7 +272,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#AA00FF",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -266,7 +286,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#9FA8DA",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -275,7 +300,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#2962FF",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -284,7 +314,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#18FFFF",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -293,7 +328,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#B2FF59",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -302,7 +342,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#EEFF41",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
     <button
       className="sc-gzVnrw fZqoTl"
       onClick={[Function]}
@@ -311,7 +356,12 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
           "background": "#FFFFFF",
         }
       }
-    />
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
   </div>
 </div>
 `;
