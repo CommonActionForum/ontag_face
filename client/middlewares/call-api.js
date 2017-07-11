@@ -58,6 +58,18 @@ export default store => next => action => {
       fn = core.liqens.create
       key = 'liqen'
       break
+
+    case ActionType.EDIT_LIQEN:
+      payload = {
+        annotations: callAPI.liqen.answer
+      }
+      fn = (pl) => core.liqens.edit(
+        store.getState().liqens[callAPI.ref].id,
+        pl
+      )
+
+      key = 'liqen'
+      break
   }
 
   // Prepare what to send to the Store
@@ -71,6 +83,10 @@ export default store => next => action => {
       break
 
     case ActionType.CREATE_LIQEN:
+      localPayload = {}
+      break
+
+    case ActionType.EDIT_LIQEN:
       localPayload = {}
       break
   }

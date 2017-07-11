@@ -13,6 +13,11 @@ const question = {
   ]
 }
 
+const article = {
+  id: 1000,
+  title: 'article'
+}
+
 const tags = {
   'tag-0': {
     id: '0',
@@ -26,6 +31,14 @@ const tags = {
     id: '2',
     title: 'tag 2'
   }
+}
+
+const colours = {
+  'colour1': undefined,
+  'colour2': undefined,
+  'colour3': undefined,
+  'colour4': undefined,
+  'colour5': undefined
 }
 
 describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
@@ -47,8 +60,10 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
   it('should create a new annotation', () => {
     const oldState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {} // No annotation
     }
 
@@ -60,8 +75,10 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
 
     const newState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {a1} // The created annotation
     }
 
@@ -75,8 +92,10 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
   it('should mark the annotation as not pending', () => {
     const oldState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {
         a1: {
           tag: 'tag-0',
@@ -109,8 +128,10 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
 
     const newState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {
         a1: {
           id: '9210', // Now has an ID
@@ -124,6 +145,242 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
           pending: false // Now pending is false
         }
       }
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
+describe('Reducer when CREATE_LIQEN_PENDING', () => {
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      },
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      }
+    }
+
+    const oldState = {
+      question,
+      article,
+      liqens: {},
+      tags,
+      colours,
+      annotations
+    }
+
+    const action = {
+      type: actions.CREATE_LIQEN_PENDING,
+      liqen: {
+        answer: ['a10', 'a78']
+      },
+      ref: 'l1'
+    }
+
+    const newState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          answer: ['a10', 'a78']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
+describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      },
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      }
+    }
+
+    const oldState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          answer: ['a10', 'a78']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    const action = {
+      type: actions.CREATE_LIQEN_SUCCESS,
+      liqen: {},
+      ref: 'l1'
+    }
+
+    const newState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          answer: ['a10', 'a78']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+describe('Reducer when EDIT_LIQEN_PENDING', () => {
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      },
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      }
+    }
+
+    const oldState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10', 'a78']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    const action = {
+      type: actions.EDIT_LIQEN_PENDING,
+      liqen: {
+        answer: ['a10']
+      },
+      ref: 'l1'
+    }
+
+    const newState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+
+describe('Reducer when EDIT_LIQEN_SUCCESS', () => {})
+
+describe('Reducer when CHANGE_LIQEN_COLOUR', () => {
+  it('should reduce correctly', () => {
+    const oldState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
+      },
+      tags,
+      colours: {
+        'colour1': undefined
+      },
+      annotations: {}
+    }
+
+    const action = {
+      type: actions.CHANGE_LIQEN_COLOUR,
+      colour: 'colour1',
+      liqen: 'l1'
+    }
+
+    const newState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
+      },
+      tags,
+      colours: {
+        'colour1': 'l1'
+      },
+      annotations: {}
     }
 
     expect(reducer(oldState, action)).toEqual(newState)
