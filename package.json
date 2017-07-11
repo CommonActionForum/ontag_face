@@ -22,7 +22,7 @@
     "test:storybook": "jest stories",
     "test:jest-cov": "jest --coverage",
     "ci:coveralls": "cat ./coverage/lcov.info | coveralls",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -s ./public -c .storybook"
   },
   "repository": {
     "type": "git",
