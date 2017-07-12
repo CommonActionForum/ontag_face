@@ -47,7 +47,7 @@ const ListItem = styled(UnstyledItem)`
   border-radius: 100%;
 `
 
-export default function ColorPicker ({ list, onSelect, position }) {
+export default function ColorPicker ({ list, onSelect, position, onClose }) {
   return (
     <Container
       style={{
@@ -86,5 +86,6 @@ ColorPicker.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
   }),
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 }
