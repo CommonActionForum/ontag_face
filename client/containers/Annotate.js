@@ -104,28 +104,34 @@ const mapStateToAnnotations = (state) => {
 const mapStateToLiqens = (state) => {
   const ret = []
 
-  for (let ref in state.liqens) {
-    const {answer, pending} = state.liqens[ref]
-
-    ret.push({
-      answer: answer
-        .map(a => {
-          if (!state.annotations[a]) {
-            return null
-          }
-
-          const {tag, target} = state.annotations[a]
+  for (let colour in state.colours) {
+    if (state.colours[colour]) {
+      const liqen = state.liqens[state.colours[colour]]
+      const answer = state.question.answer
+        .map(qa => {
+          const annotations = liqen.answer
+            .filter(la =>
+              state.annotations[la].tag === qa.tag
+            )
+            .map(annotation =>
+              Object.assign(
+                {},
+                state.annotations[annotation],
+                {ref: annotation}
+              )
+            )
 
           return {
-            target,
-            ref: a,
-            tag: state.tags[tag]
+            tag: state.tags[qa.tag],
+            annotations
           }
         })
-        .filter(a => a !== null),
-      ref,
-      pending
-    })
+
+      ret.push({
+        colour,
+        answer
+      })
+    }
   }
 
   return ret
