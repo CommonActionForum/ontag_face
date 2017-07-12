@@ -61,7 +61,7 @@ export default store => next => action => {
 
     case ActionType.EDIT_LIQEN:
       payload = {
-        annotations: callAPI.liqen.answer
+        annotations: callAPI.liqen.answer.map(a => store.getState().annotations[a].id)
       }
       fn = (pl) => core.liqens.update(
         store.getState().liqens[callAPI.ref].id,

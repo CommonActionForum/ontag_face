@@ -21,7 +21,6 @@ export default store => next => action => {
       .getState()
       .liqens[state.colours[colour]].answer
       .concat(annotation)
-      .map(a => store.getState().annotations[a].id)
 
     next(editLiqen(state.colours[colour], annotations))
   } else if (operation === 'add' && !state.colours[colour]) {
