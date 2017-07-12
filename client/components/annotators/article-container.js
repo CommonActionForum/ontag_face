@@ -68,7 +68,7 @@ export default class ArticleContainer extends React.Component {
       (a, i) => ({
         fragment: a.fragment,
         colours: a.colours,
-        colour: a.colours[0],
+        colour: (a.colours || [''])[0],
         ref: (node) => {
           if (node === null) {
             return
@@ -108,8 +108,7 @@ export default class ArticleContainer extends React.Component {
     }
 
     const filterByColour = colour => node => node.colours.indexOf(colour) !== -1
-    const paths = this
-      .props.colours
+    const paths = (this.props.colours || [])
       .map(
         colour => ({
           colour,

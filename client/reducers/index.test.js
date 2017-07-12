@@ -254,7 +254,9 @@ describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
 
     const action = {
       type: actions.CREATE_LIQEN_SUCCESS,
-      liqen: {},
+      liqen: {
+        id: '21'
+      },
       ref: 'l1'
     }
 
@@ -263,6 +265,7 @@ describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
       article,
       liqens: {
         l1: {
+          id: '21',
           answer: ['a10', 'a78']
         }
       },
