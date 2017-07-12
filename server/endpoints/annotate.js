@@ -118,6 +118,7 @@ export default async function annotate (req, res) {
       let i = 0
       for (let liqen of liqens) {
         liqens2[liqen.id] = {
+          id: liqen.id.toString(),
           answer: liqen.annotations.map(a => a.id.toString()),
           pending: false
         }

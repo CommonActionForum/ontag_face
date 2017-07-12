@@ -90,7 +90,7 @@ function annotationReducer (state = initialState.annotations, action = {}) {
           target: state[action.ref].target,
           checked: state[action.ref].checked,
           pending: false,
-          id: action.annotation.id
+          id: action.annotation.id.toString()
         }
       })
 
@@ -115,7 +115,7 @@ function liqenReducer (liqens = initialState.liqens, action = {}) {
       return Object.assign({}, liqens, {
         [action.ref]: {
           answer: liqens[action.ref].answer,
-          id: action.liqen.id
+          id: action.liqen.id.toString()
         }
       })
 
@@ -123,7 +123,7 @@ function liqenReducer (liqens = initialState.liqens, action = {}) {
       return Object.assign({}, liqens, {
         [action.ref]: {
           answer: action.liqen.answer,
-          id: liqens[action.ref].id
+          id: liqens[action.ref].id.toString()
         }
       })
 
