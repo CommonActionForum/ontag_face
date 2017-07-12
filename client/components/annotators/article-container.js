@@ -110,7 +110,6 @@ export default class ArticleContainer extends React.Component {
     const filterByColour = colour => node => node.colours.indexOf(colour) !== -1
     const paths = this
       .props.colours
-      .filter(colour => colour !== 'gray')
       .map(
         colour => ({
           colour,
