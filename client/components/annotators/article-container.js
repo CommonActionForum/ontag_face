@@ -36,6 +36,7 @@ export default class ArticleContainer extends React.Component {
 
     this.handleChangeColour = this.handleChangeColour.bind(this)
     this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this)
+    this.handleCloseColorPicker = this.handleCloseColorPicker.bind(this)
     this.annotations = this.getCallbacks(this.props.annotations)
   }
 
@@ -58,6 +59,13 @@ export default class ArticleContainer extends React.Component {
       console.log('add', colorCode)
       this.props.onAddAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
     }
+  }
+
+  handleCloseColorPicker () {
+    this.setState({
+      selectedAnnotation: null,
+      selectedNode: -1
+    })
   }
 
   getCallbacks (annotations) {
@@ -158,6 +166,7 @@ export default class ArticleContainer extends React.Component {
                 )}
               onSelect={this.handleChangeColour}
               position={this.state.nodes[this.state.selectedNode]}
+              onClose={this.handleCloseColorPicker}
             />
           )
         }
