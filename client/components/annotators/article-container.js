@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ArticleBackground from './article-background'
+import ColorPicker from './color-picker'
 import TextAnnotator from './text-annotator/text-annotator'
 import SelectionMultiMarker from './text-annotator/selection-multi-marker'
-import uniq from 'lodash/fp/uniq'
 
 function convertObjectToReact (obj, key) {
   if (typeof obj === 'string') {
@@ -29,14 +29,43 @@ export default class ArticleContainer extends React.Component {
         top: 0,
         left: 0
       },
-      nodes: this.props.annotations.map(() => ({x: 0, y: 0}))
+      nodes: this.props.annotations.map(() => ({x: 0, y: 0, colours: []})),
+      selectedAnnotation: null,
+      selectedNode: -1
     }
 
+    this.handleChangeColour = this.handleChangeColour.bind(this)
+    this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this)
+    this.handleCloseColorPicker = this.handleCloseColorPicker.bind(this)
     this.annotations = this.getCallbacks(this.props.annotations)
   }
 
-  componentWillReceiveProps (/* nextProps */) {
-    this.annotations = this.getCallbacks(this.props.annotations)
+  componentWillReceiveProps (nextProps) {
+    this.annotations = this.getCallbacks(nextProps.annotations)
+  }
+
+  handleSelectAnnotation (annotation, i) {
+    this.setState({
+      selectedAnnotation: annotation,
+      selectedNode: i
+    })
+  }
+
+  handleChangeColour (colorCode) {
+    if (this.state.selectedAnnotation.colours.indexOf(colorCode) !== -1) {
+      console.log('remove', colorCode)
+      this.props.onRemoveAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+    } else {
+      console.log('add', colorCode)
+      this.props.onAddAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+    }
+  }
+
+  handleCloseColorPicker () {
+    this.setState({
+      selectedAnnotation: null,
+      selectedNode: -1
+    })
   }
 
   getCallbacks (annotations) {
@@ -46,7 +75,8 @@ export default class ArticleContainer extends React.Component {
     return annotations.map(
       (a, i) => ({
         fragment: a.fragment,
-        colour: a.colour,
+        colours: a.colours,
+        colour: (a.colours || [''])[0],
         ref: (node) => {
           if (node === null) {
             return
@@ -57,12 +87,15 @@ export default class ArticleContainer extends React.Component {
           nodes[i] = {
             y: top + window.scrollY,
             x: left + window.scrollX,
-            colour: a.colour
+            colours: a.colours
           }
 
           if (counter === nodes.length) {
             this.setState({nodes})
           }
+        },
+        onSelect: () => {
+          this.handleSelectAnnotation(a, i)
         }
       })
     )
@@ -82,11 +115,8 @@ export default class ArticleContainer extends React.Component {
       container = {width, height, top, left}
     }
 
-    const colours = uniq(this.state.nodes.map(n => n.colour))
-    const filterByColour = colour => node => node.colour === colour
-
-    const paths = colours
-      .filter(colour => colour !== 'gray')
+    const filterByColour = colour => node => node.colours.indexOf(colour) !== -1
+    const paths = (this.props.colours || [])
       .map(
         colour => ({
           colour,
@@ -100,6 +130,9 @@ export default class ArticleContainer extends React.Component {
               })
             )
         })
+      )
+      .filter(
+        path => path.nodes.length > 0
       )
 
     return (
@@ -121,6 +154,22 @@ export default class ArticleContainer extends React.Component {
             ))
           }
         </article>
+        {
+          this.state.selectedAnnotation && (
+            <ColorPicker
+              list={this.props.colours.map(
+                  c => ({
+                    code: c,
+                    title: '',
+                    selected: this.state.selectedAnnotation.colours.indexOf(c) !== -1
+                  })
+                )}
+              onSelect={this.handleChangeColour}
+              position={this.state.nodes[this.state.selectedNode]}
+              onClose={this.handleCloseColorPicker}
+            />
+          )
+        }
         <ArticleBackground
           height={container.height}
           width={container.width}
@@ -145,7 +194,7 @@ ArticleContainer.propTypes = {
         exact: PropTypes.string.isRequired,
         suffix: PropTypes.string.isRequired
       }),
-      colour: PropTypes.string
+      colours: PropTypes.array
     })
   ),
   tags: PropTypes.arrayOf(
@@ -154,7 +203,9 @@ ArticleContainer.propTypes = {
       title: PropTypes.string.isRequired
     })
   ),
-  colours: PropTypes.object,
+  colours: PropTypes.array,
   children: PropTypes.node,
-  onAnnotate: PropTypes.func.isRequired
+  onAnnotate: PropTypes.func.isRequired,
+  onAddAnnotationColour: PropTypes.func,
+  onRemoveAnnotationColour: PropTypes.func
 }

@@ -39,48 +39,81 @@ const Container = styled(UnstyledContainer)`
 `
 
 const ListItem = styled(UnstyledItem)`
-  width: 28px;
-  height: 28px;
-  margin: 4px 4px;
+  width: 24px;
+  height: 24px;
+  margin: 6px 4px;
   border: none;
   box-shadow: inset 0 0 2px 0px rgba(0, 0, 0, 0.5);
   border-radius: 100%;
 `
 
-export default function ColorPicker ({ list, onSelect, position }) {
-  return (
-    <Container
-      style={{
-        top: (position.top + position.height) + 'px',
-        left: (position.left + position.width / 2) + 'px'
-      }}
-    >
-      <div className="tooltip-arrow"></div>
-      <div className='tooltip-inner'>
-        {
-          list.map(({code, title, selected}) => (
-            <ListItem
-              key={code}
-              code={code}
-              onClick={() => onSelect(code)}
-              selected={selected}
-            >
-              {title}
-            </ListItem>
-          ))
-        }
-      </div>
-    </Container>
-  )
+export default class ColorPicker extends React.Component {
+  constructor (props) {
+    super(props)
+    this.getContainer = this.getContainer.bind(this)
+    this.handle = this.handle.bind(this)
+  }
+
+  getContainer (ref) {
+    this.container = ref
+  }
+
+  componentDidMount () {
+    document.addEventListener('click', this.handle, true)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('click', this.handle, true)
+  }
+
+  handle (e) {
+    const { onClose } = this.props
+    const el = this.container
+    if (!el.contains(e.target)) onClose(e)
+  }
+
+  render () {
+    const { list, onSelect, position } = this.props
+
+    return (
+      <Container
+        style={{
+          top: (position.y) + 'px',
+          left: (position.x) + 'px'
+        }}
+      >
+        <div className="tooltip-arrow"></div>
+        <div className='tooltip-inner' ref={this.getContainer}>
+          {
+            list.map(({code, title, selected}) => (
+              <ListItem
+                key={code}
+                code={code}
+                onClick={() => onSelect(code)}
+                selected={selected}
+              >
+                {title}
+              </ListItem>
+            ))
+          }
+        </div>
+      </Container>
+    )
+  }
 }
 
 ColorPicker.propTypes = {
-  colours: PropTypes.arrayOf(
+  list: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       selected: PropTypes.bool
     })
   ),
-  onSelect: PropTypes.func.isRequired
+  position: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+  }),
+  onSelect: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 }

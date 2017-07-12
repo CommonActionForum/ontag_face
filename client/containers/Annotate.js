@@ -4,16 +4,11 @@ import fetch from 'isomorphic-fetch'
 
 import Article from '../components/annotators/article-container'
 import MultiList from '../components/lists/multi-list'
-import LiqenCreator from '../components/liqen-creator/liqen-creator'
 import { createAnnotation,
-         createLiqen,
-         addAnnotationToLiqen,
-         removeAnnotationToLiqen } from '../actions/index'
+         addAnnotationColour,
+         removeAnnotationColour } from '../actions/index'
 
 const article = window.__ARTICLE__
-const COLOURS = [
-  'green', 'orange', 'purple', 'gold', 'pink', 'blue'
-]
 
 export class Annotate extends React.Component {
   constructor (props) {
@@ -37,28 +32,18 @@ export class Annotate extends React.Component {
 
   render () {
     const {
-      question,
-      answer,
       annotations,
       liqens,
+      colours,
       tags,
       onCreateAnnotation,
-      onCreateLiqen,
-      onAddAnnotationToLiqen,
-      onRemoveAnnotationToLiqen
+      onAddAnnotationColour,
+      onRemoveAnnotationColour
     } = this.props
 
     return (
       <div className='row'>
         <aside className='hidden-md-down col-lg-4 flex-last'>
-          <h3 className='h6 text-uppercase text-muted'>Create your Liqen (your Answer)</h3>
-          <LiqenCreator
-            question={question}
-            answer={answer}
-            onSubmit={onCreateLiqen}
-            onAddAnnotation={onAddAnnotationToLiqen}
-            onRemoveAnnotation={onRemoveAnnotationToLiqen}
-          />
           <MultiList
             annotations={annotations}
             liqens={liqens}
@@ -70,10 +55,13 @@ export class Annotate extends React.Component {
           </header>
           <main className='article-body'>
             <Article
+              colours={colours}
               annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
               body={this.state.articleBody}
               tags={tags}
               onAnnotate={onCreateAnnotation}
+              onAddAnnotationColour={onAddAnnotationColour}
+              onRemoveAnnotationColour={onRemoveAnnotationColour}
             />
           </main>
         </div>
@@ -82,59 +70,27 @@ export class Annotate extends React.Component {
   }
 }
 
-const mapStateToAnswer = (state) => {
-  const annotationsArray = []
-
-  for (let ref in state.annotations) {
-    annotationsArray.push({
-      ref,
-      target: state.annotations[ref].target,
-      tag: state.annotations[ref].tag,
-      active: state.newLiqen.answer.indexOf(ref) !== -1
-    })
-  }
-
-  return state.question.answer.map(
-    ({tag, required}) => ({
-      tag: state.tags[tag].title,
-      annotations: annotationsArray
-        .filter(
-          annotation => annotation.tag === tag
-        )
-        .map(
-          ({target, active, ref}) => ({
-            fragment: target.exact,
-            ref,
-            active
-          })
-        ),
-      required
-    })
-  )
-}
-
 const mapStateToAnnotations = (state) => {
+  // Copy of all the annotations
   const ret = []
-  const liqens = []
+  const colours = []
 
-  for (let ref in state.liqens) {
-    liqens.push({
-      answer: state.liqens[ref].answer,
-      colour: COLOURS[liqens.length]
-    })
+  // Colored annotations
+  for (let colour in state.colours) {
+    colours.push(colour)
   }
 
+  // Not colored annotations
   for (let ref in state.annotations) {
     const {tag, checked, pending, target} = state.annotations[ref]
-    const arr = liqens
-      .filter(l => l.answer.indexOf(ref) !== -1)
-
-    const colour = arr
-      .length === 0 ? 'gray' : arr[0].colour
 
     ret.push({
       tag: state.tags[tag].title,
-      colour,
+      colours: colours
+        .filter(colour => {
+          const liqenRef = state.colours[colour]
+          return liqenRef && state.liqens[liqenRef].answer.indexOf(ref) !== -1
+        }),
       target,
       ref,
       checked,
@@ -175,31 +131,34 @@ const mapStateToLiqens = (state) => {
   return ret
 }
 
+const mapStateToColours = state => {
+  const ret = []
+
+  for (let ref in state.colours) {
+    ret.push(ref)
+  }
+
+  return ret
+}
+
 const mapStateToProps = (state) => ({
   question: state.question.title,
-  answer: mapStateToAnswer(state),
   annotations: mapStateToAnnotations(state),
   liqens: mapStateToLiqens(state),
+  colours: mapStateToColours(state),
   tags: state.question.answer.map(
     ({tag}) => ({ref: tag, title: state.tags[tag].title})
-  ),
-  enableCreateLiqen: state.newLiqen.answer.every(
-    a => state.annotations[a] && !state.annotations[a].pending
   )
 })
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
-  onCreateLiqen: () => dispatch(createLiqen()),
-  onAddAnnotationToLiqen: (ref) => dispatch(addAnnotationToLiqen(ref)),
-  onRemoveAnnotationToLiqen: (ref) => dispatch(removeAnnotationToLiqen(ref))
+  onAddAnnotationColour: (annotation, colour) =>
+    dispatch(addAnnotationColour(annotation, colour)),
+  onRemoveAnnotationColour: (annotation, colour) =>
+    dispatch(removeAnnotationColour(annotation, colour))
 })
-const mergeProps = (stateProps, dispatchProps) =>
-  Object.assign({}, stateProps, dispatchProps, {
-    onCreateLiqen: (stateProps.enableCreateLiqen && dispatchProps.onCreateLiqen) || undefined
-  })
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
+  mapDispatchToProps
 )(Annotate)

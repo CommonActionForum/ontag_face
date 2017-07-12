@@ -51,11 +51,23 @@ export default store => next => action => {
     case ActionType.CREATE_LIQEN:
       payload = {
         question_id: store.getState().question.id,
-        annotations: store.getState().newLiqen.answer.map(
+        annotations: callAPI.liqen.answer.map(
           a => store.getState().annotations[a].id
         )
       }
       fn = core.liqens.create
+      key = 'liqen'
+      break
+
+    case ActionType.EDIT_LIQEN:
+      payload = {
+        annotations: callAPI.liqen.answer.map(a => store.getState().annotations[a].id)
+      }
+      fn = (pl) => core.liqens.update(
+        store.getState().liqens[callAPI.ref].id,
+        pl
+      )
+
       key = 'liqen'
       break
   }
@@ -71,7 +83,15 @@ export default store => next => action => {
       break
 
     case ActionType.CREATE_LIQEN:
-      localPayload = {}
+      localPayload = {
+        answer: callAPI.liqen.answer
+      }
+      break
+
+    case ActionType.EDIT_LIQEN:
+      localPayload = {
+        answer: callAPI.liqen.answer
+      }
       break
   }
 

@@ -13,6 +13,11 @@ const question = {
   ]
 }
 
+const article = {
+  id: 1000,
+  title: 'article'
+}
+
 const tags = {
   'tag-0': {
     id: '0',
@@ -26,6 +31,14 @@ const tags = {
     id: '2',
     title: 'tag 2'
   }
+}
+
+const colours = {
+  'colour1': undefined,
+  'colour2': undefined,
+  'colour3': undefined,
+  'colour4': undefined,
+  'colour5': undefined
 }
 
 describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
@@ -44,26 +57,14 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
     pending: true
   }
 
-  const a2 = {
-    tag: 'tag-0',
-    target: {
-      prefix: 'my-prefix 2',
-      exact: 'my-exact 2',
-      suffix: 'my-suffix 2'
-    },
-    checked: false,
-    pending: true
-  }
-
   it('should create a new annotation', () => {
     const oldState = {
       question,
+      article,
       liqens,
       tags,
-      annotations: {}, // No annotation
-      newLiqen: {
-        answer: [] // empty
-      }
+      colours,
+      annotations: {} // No annotation
     }
 
     const action = {
@@ -74,42 +75,11 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
 
     const newState = {
       question,
+      article,
       liqens,
       tags,
-      annotations: {a1}, // The created annotation
-      newLiqen: {
-        answer: ['a1']
-      }
-    }
-
-    expect(reducer(oldState, action)).toEqual(newState)
-  })
-
-  it('should replace the annotation in the newLiqen answer', () => {
-    const oldState = {
-      question,
-      liqens,
-      tags,
-      annotations: {a1}, // We've created only one annotation
-      newLiqen: {
-        answer: ['a1'] // That annotation is part of the answer
-      }
-    }
-
-    const action = {
-      type: actions.CREATE_ANNOTATION_PENDING,
-      annotation: a2,
-      ref: 'a2'
-    }
-
-    const newState = {
-      question,
-      liqens,
-      tags,
-      annotations: {a1, a2}, // Now two annotations
-      newLiqen: {
-        answer: ['a1', 'a2'] // a2 adds to a1
-      }
+      colours,
+      annotations: {a1} // The created annotation
     }
 
     expect(reducer(oldState, action)).toEqual(newState)
@@ -122,8 +92,10 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
   it('should mark the annotation as not pending', () => {
     const oldState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {
         a1: {
           tag: 'tag-0',
@@ -135,9 +107,6 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
           checked: false,
           pending: true
         }
-      },
-      newLiqen: {
-        answer: ['a1', null, null]
       }
     }
 
@@ -159,8 +128,10 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
 
     const newState = {
       question,
+      article,
       liqens,
       tags,
+      colours,
       annotations: {
         a1: {
           id: '9210', // Now has an ID
@@ -173,9 +144,6 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
           checked: false,
           pending: false // Now pending is false
         }
-      },
-      newLiqen: {
-        answer: ['a1', null, null]
       }
     }
 
@@ -184,72 +152,60 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
 })
 
 describe('Reducer when CREATE_LIQEN_PENDING', () => {
-  const annotations = {
-    a1: {
-      id: '9210',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
       },
-      checked: false,
-      pending: false
-    },
-    a2: {
-      id: '9210',
-      tag: 'tag-1',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    },
-    a3: {
-      id: '9210',
-      tag: 'tag-2',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      }
     }
-  }
 
-  it('should create the new Liqen', () => {
     const oldState = {
       question,
-      tags,
-      annotations,
+      article,
       liqens: {},
-      newLiqen: {
-        answer: ['a1', 'a2', 'a3']
-      }
+      tags,
+      colours,
+      annotations
     }
 
     const action = {
       type: actions.CREATE_LIQEN_PENDING,
+      liqen: {
+        answer: ['a10', 'a78']
+      },
       ref: 'l1'
     }
 
     const newState = {
       question,
-      tags,
-      annotations,
+      article,
       liqens: {
         l1: {
-          answer: ['a1', 'a2', 'a3'],
-          pending: true
+          answer: ['a10', 'a78']
         }
       },
-      newLiqen: {
-        answer: ['a1', 'a2', 'a3'],
-        pending: true
-      }
+      tags,
+      colours,
+      annotations
     }
 
     expect(reducer(oldState, action)).toEqual(newState)
@@ -257,210 +213,177 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
 })
 
 describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
-  const annotations = {
-    a1: {
-      id: '9210',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
       },
-      checked: false,
-      pending: false
-    },
-    a2: {
-      id: '9210',
-      tag: 'tag-1',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    },
-    a3: {
-      id: '9210',
-      tag: 'tag-2',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      }
     }
-  }
 
-  it('should create the new Liqen', () => {
     const oldState = {
       question,
-      tags,
-      annotations,
+      article,
       liqens: {
         l1: {
-          answer: ['a1', 'a2', 'a3'],
-          pending: true
+          answer: ['a10', 'a78']
         }
       },
-      newLiqen: {
-        answer: ['a1', 'a2', 'a3']
-      }
+      tags,
+      colours,
+      annotations
     }
 
     const action = {
       type: actions.CREATE_LIQEN_SUCCESS,
+      liqen: {
+        id: '21'
+      },
       ref: 'l1'
     }
 
     const newState = {
       question,
-      tags,
-      annotations,
+      article,
       liqens: {
         l1: {
-          answer: ['a1', 'a2', 'a3'],
-          pending: false
+          id: '21',
+          answer: ['a10', 'a78']
         }
       },
-      newLiqen: {
-        answer: []
+      tags,
+      colours,
+      annotations
+    }
+
+    expect(reducer(oldState, action)).toEqual(newState)
+  })
+})
+describe('Reducer when EDIT_LIQEN_PENDING', () => {
+  it('should reduce correctly', () => {
+    const annotations = {
+      a10: {
+        id: '9210',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
+      },
+      a78: {
+        id: '54878',
+        tag: 'tag-0',
+        target: {
+          prefix: 'my-prefix',
+          exact: 'my-exact',
+          suffix: 'my-suffix'
+        },
+        checked: false,
+        pending: false
       }
+    }
+
+    const oldState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10', 'a78']
+        }
+      },
+      tags,
+      colours,
+      annotations
+    }
+
+    const action = {
+      type: actions.EDIT_LIQEN_PENDING,
+      liqen: {
+        answer: ['a10']
+      },
+      ref: 'l1'
+    }
+
+    const newState = {
+      question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
+      },
+      tags,
+      colours,
+      annotations
     }
 
     expect(reducer(oldState, action)).toEqual(newState)
   })
 })
 
-describe('Reducer when ADD_ANNOTATION_TO_LIQEN', () => {
-  const annotations = {
-    a1: {
-      id: '9210',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    },
-    a2: {
-      id: '9211',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    },
-    a3: {
-      id: '9212',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    }
-  }
+describe('Reducer when EDIT_LIQEN_SUCCESS', () => {})
 
-  it('should add an annotation', () => {
+describe('Reducer when CHANGE_LIQEN_COLOUR', () => {
+  it('should reduce correctly', () => {
     const oldState = {
       question,
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
+      },
       tags,
-      annotations,
-      liqens: {},
-      newLiqen: {
-        answer: []
-      }
+      colours: {
+        'colour1': undefined
+      },
+      annotations: {}
     }
 
     const action = {
-      type: actions.ADD_ANNOTATION_TO_LIQEN,
-      ref: 'a1'
+      type: actions.CHANGE_LIQEN_COLOUR,
+      colour: 'colour1',
+      liqen: 'l1'
     }
 
     const newState = {
       question,
-      tags,
-      annotations,
-      liqens: {},
-      newLiqen: {
-        answer: ['a1']
-      }
-    }
-
-    expect(reducer(oldState, action)).toEqual(newState)
-  })
-})
-
-describe('Reducer when REMOVE_ANNOTATION_TO_LIQEN', () => {
-  const annotations = {
-    a1: {
-      id: '9210',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
+      article,
+      liqens: {
+        l1: {
+          id: '7890',
+          answer: ['a10']
+        }
       },
-      checked: false,
-      pending: false
-    },
-    a2: {
-      id: '9211',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    },
-    a3: {
-      id: '9212',
-      tag: 'tag-0',
-      target: {
-        prefix: 'my-prefix',
-        exact: 'my-exact',
-        suffix: 'my-suffix'
-      },
-      checked: false,
-      pending: false
-    }
-  }
-
-  it('should remove an annotation', () => {
-    const oldState = {
-      question,
       tags,
-      annotations,
-      liqens: {},
-      newLiqen: {
-        answer: ['a1']
-      }
-    }
-
-    const action = {
-      type: actions.REMOVE_ANNOTATION_TO_LIQEN,
-      ref: 'a1'
-    }
-
-    const newState = {
-      question,
-      tags,
-      annotations,
-      liqens: {},
-      newLiqen: {
-        answer: []
-      }
+      colours: {
+        'colour1': 'l1'
+      },
+      annotations: {}
     }
 
     expect(reducer(oldState, action)).toEqual(newState)

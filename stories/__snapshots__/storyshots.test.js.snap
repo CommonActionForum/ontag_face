@@ -42,9 +42,10 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               >
                 <button
                   className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
                   style={
                     Object {
-                      "background": "radial-gradient(ellipse at center, green 0%, rgba(255,255,255,0) 60%)",
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
                     }
                   }
                 />
@@ -56,9 +57,10 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               >
                 <button
                   className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
                   style={
                     Object {
-                      "background": "radial-gradient(ellipse at center, red 0%, rgba(255,255,255,0) 60%)",
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
                     }
                   }
                 />
@@ -84,9 +86,10 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               >
                 <button
                   className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
                   style={
                     Object {
-                      "background": "radial-gradient(ellipse at center, red 0%, rgba(255,255,255,0) 60%)",
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
                     }
                   }
                 />
@@ -112,9 +115,10 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               >
                 <button
                   className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
                   style={
                     Object {
-                      "background": "radial-gradient(ellipse at center, green 0%, rgba(255,255,255,0) 60%)",
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
                     }
                   }
                 />
@@ -126,9 +130,10 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
               >
                 <button
                   className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
                   style={
                     Object {
-                      "background": "radial-gradient(ellipse at center, green 0%, rgba(255,255,255,0) 60%)",
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
                     }
                   }
                 />
@@ -180,13 +185,7 @@ exports[`Storyshots ArticleContainer basic usage 1`] = `
       }
     }
     width={0}
-  >
-    <path
-      d="M 0 0 L 0 0 L 0 0 L 0 0 L 0 0"
-      fill="transparent"
-      stroke="black"
-    />
-  </svg>
+  />
 </div>
 `;
 
@@ -211,8 +210,8 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
   className="tooltip tooltip-bottom sc-bZQynM kHKJiA"
   style={
     Object {
-      "left": "100px",
-      "top": "0px",
+      "left": "undefinedpx",
+      "top": "undefinedpx",
     }
   }
 >
@@ -223,7 +222,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
     className="tooltip-inner"
   >
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -237,7 +236,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -251,7 +250,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -265,7 +264,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -279,7 +278,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -293,7 +292,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -307,7 +306,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -321,7 +320,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -335,7 +334,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -349,7 +348,7 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
       />
     </button>
     <button
-      className="sc-gzVnrw fZqoTl"
+      className="sc-gzVnrw gINDaF"
       onClick={[Function]}
       style={
         Object {
@@ -419,6 +418,7 @@ exports[`Storyshots SelectionMultimarker array with 1 fragment 1`] = `
       >
         <button
           className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
           style={
             Object {
               "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -447,6 +447,7 @@ exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
       >
         <button
           className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
           style={
             Object {
               "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -479,6 +480,7 @@ exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
       >
         <button
           className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
           style={
             Object {
               "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -493,6 +495,7 @@ exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
       >
         <button
           className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
           style={
             Object {
               "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -518,6 +521,7 @@ exports[`Storyshots SelectionMultimarker node with 1 fragment 1`] = `
     >
       <button
         className="sc-bwzfXH lpbTUl"
+        onClick={undefined}
         style={
           Object {
             "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -541,6 +545,7 @@ exports[`Storyshots SelectionMultimarker plain text with 1 fragment 1`] = `
   >
     <button
       className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
       style={
         Object {
           "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -563,6 +568,7 @@ exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
   >
     <button
       className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
       style={
         Object {
           "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -577,6 +583,7 @@ exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
   >
     <button
       className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
       style={
         Object {
           "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
@@ -591,6 +598,7 @@ exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
   >
     <button
       className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
       style={
         Object {
           "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
