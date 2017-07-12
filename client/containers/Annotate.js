@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 
 import Article from '../components/annotators/article-container'
-import MultiList from '../components/lists/multi-list'
+import LiqenLine from '../components/lists/liqen-line'
 import { createAnnotation,
          addAnnotationColour,
          removeAnnotationColour } from '../actions/index'
@@ -32,6 +32,7 @@ export class Annotate extends React.Component {
 
   render () {
     const {
+      question,
       annotations,
       liqens,
       colours,
@@ -42,28 +43,34 @@ export class Annotate extends React.Component {
     } = this.props
 
     return (
-      <div className='row'>
-        <aside className='hidden-md-down col-lg-4 flex-last'>
-          <MultiList
-            annotations={annotations}
-            liqens={liqens}
-          />
+      <div>
+        <aside className='night-panel'>
+          <h2 className='h6 text-uppercase'>Question</h2>
+          <p>{question}</p>
+          <h2 className='h6 text-uppercase'>Liqens</h2>
+          {
+            liqens.map(liqen => (
+              <LiqenLine answer={liqen.answer} colour={liqen.colour} />
+            ))
+          }
         </aside>
-        <div className='col-lg-8 col-xl-7'>
-          <header>
-            <h1 className="article-title">{article.title}</h1>
-          </header>
-          <main className='article-body'>
-            <Article
-              colours={colours}
-              annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
-              body={this.state.articleBody}
-              tags={tags}
-              onAnnotate={onCreateAnnotation}
-              onAddAnnotationColour={onAddAnnotationColour}
-              onRemoveAnnotationColour={onRemoveAnnotationColour}
-            />
-          </main>
+        <div className='article-positioner'>
+          <div className='article-container'>
+            <header>
+              <h1 className="article-title">{article.title}</h1>
+            </header>
+            <main className='article-body'>
+              <Article
+                colours={colours}
+                annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
+                body={this.state.articleBody}
+                tags={tags}
+                onAnnotate={onCreateAnnotation}
+                onAddAnnotationColour={onAddAnnotationColour}
+                onRemoveAnnotationColour={onRemoveAnnotationColour}
+              />
+            </main>
+          </div>
         </div>
       </div>
     )
