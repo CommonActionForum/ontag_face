@@ -48,8 +48,32 @@ const ListItem = styled(UnstyledItem)`
 `
 
 export default class ColorPicker extends React.Component {
+  constructor (props) {
+    super(props)
+    this.getContainer = this.getContainer.bind(this)
+    this.handle = this.handle.bind(this)
+  }
+
+  getContainer (ref) {
+    this.container = ref
+  }
+
+  componentDidMount () {
+    document.addEventListener('click', this.handle, true)
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('click', this.handle, true)
+  }
+
+  handle (e) {
+    const { onClose } = this.props
+    const el = this.container
+    if (!el.contains(e.target)) onClose(e)
+  }
+
   render () {
-    const { list, onSelect, position, onClose } = this.props
+    const { list, onSelect, position } = this.props
 
     return (
       <Container
@@ -59,7 +83,7 @@ export default class ColorPicker extends React.Component {
         }}
       >
         <div className="tooltip-arrow"></div>
-        <div className='tooltip-inner'>
+        <div className='tooltip-inner' ref={this.getContainer}>
           {
             list.map(({code, title, selected}) => (
               <ListItem
