@@ -40,7 +40,6 @@ export default class ArticleContainer extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    console.log('pppp')
     this.annotations = this.getCallbacks(nextProps.annotations)
   }
 

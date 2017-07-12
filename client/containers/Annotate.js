@@ -98,8 +98,6 @@ const mapStateToAnnotations = (state) => {
     })
   }
 
-  console.log(ret)
-
   return ret
 }
 
