@@ -47,31 +47,35 @@ const ListItem = styled(UnstyledItem)`
   border-radius: 100%;
 `
 
-export default function ColorPicker ({ list, onSelect, position, onClose }) {
-  return (
-    <Container
-      style={{
-        top: (position.y) + 'px',
-        left: (position.x) + 'px'
-      }}
-    >
-      <div className="tooltip-arrow"></div>
-      <div className='tooltip-inner'>
-        {
-          list.map(({code, title, selected}) => (
-            <ListItem
-              key={code}
-              code={code}
-              onClick={() => onSelect(code)}
-              selected={selected}
-            >
-              {title}
-            </ListItem>
-          ))
-        }
-      </div>
-    </Container>
-  )
+export default class ColorPicker extends React.Component {
+  render () {
+    const { list, onSelect, position, onClose } = this.props
+
+    return (
+      <Container
+        style={{
+          top: (position.y) + 'px',
+          left: (position.x) + 'px'
+        }}
+      >
+        <div className="tooltip-arrow"></div>
+        <div className='tooltip-inner'>
+          {
+            list.map(({code, title, selected}) => (
+              <ListItem
+                key={code}
+                code={code}
+                onClick={() => onSelect(code)}
+                selected={selected}
+              >
+                {title}
+              </ListItem>
+            ))
+          }
+        </div>
+      </Container>
+    )
+  }
 }
 
 ColorPicker.propTypes = {
