@@ -365,6 +365,190 @@ exports[`Storyshots ColorPicker 8 colours 1`] = `
 </div>
 `;
 
+exports[`Storyshots Liqen Line basic usage 1`] = `
+<ul
+  className="sc-htoDjs jHrtTR"
+>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "hidden",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      1
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 1
+    </div>
+  </li>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      2
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 2
+    </div>
+  </li>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "hidden",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      0
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 2
+    </div>
+  </li>
+</ul>
+`;
+
 exports[`Storyshots SelectionHandler Normal behaviour 1`] = `
 <span>
   This is a text that can be selected
