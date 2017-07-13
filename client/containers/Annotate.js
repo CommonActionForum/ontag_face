@@ -45,14 +45,64 @@ export class Annotate extends React.Component {
     return (
       <div>
         <aside className='night-panel'>
+          {
+            annotations.length > 0 && liqens.length === 0 && (
+              <div className='text-center'>
+                <div className='h6 text-uppercase'>Step 2</div>
+                <div>Join annotations to create liqens (answers)</div>
+                <div
+                  className='rounded-circle d-block my-3 mx-auto'
+                  style={{
+                    background: 'url(/static/gifs/create-liqen.gif)',
+                    backgroundSize: 'contain',
+                    width: '160px',
+                    height: '160px'
+                  }}
+                />
+              </div>
+            )
+          }
+          {
+            annotations.length === 0 && liqens.length === 0 && (
+              <div className='text-center'>
+                <div className='h6'>Step 1</div>
+                <div>Create annotations in the text</div>
+                <div
+                  className='rounded-circle d-block my-3 mx-auto'
+                  style={{
+                    background: 'url(/static/gifs/create-annotation.gif)',
+                    backgroundSize: 'contain',
+                    width: '160px',
+                    height: '160px'
+                  }}
+                />
+              </div>
+            )
+          }
           <h2 className='h6 text-uppercase'>Question</h2>
           <p>{question}</p>
-          <h2 className='h6 text-uppercase'>Liqens</h2>
           {
-            liqens.map(liqen => (
-              <LiqenLine answer={liqen.answer} color={liqen.color} />
-            ))
+            liqens.length > 0 &&
+            <h2 className='h6 text-uppercase'>Liqens</h2>
           }
+          <div>
+            {
+              liqens.map(liqen => (
+                <LiqenLine key={liqen.ref} answer={liqen.answer} color={liqen.color} />
+              ))
+            }
+          </div>
+          {
+            annotations.length > 0 &&
+            <h2 className='h6 text-uppercase'>Annotations</h2>
+          }
+          <ul>
+            {
+              annotations.map(annotation => (
+                <li>{annotation.target.exact}</li>
+              ))
+            }
+          </ul>
         </aside>
         <div className='article-positioner'>
           <div className='article-container'>
