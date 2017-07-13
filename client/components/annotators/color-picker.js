@@ -34,7 +34,7 @@ const UnstyledItem = ({ className, code, onClick, selected }) => (
 
 const Container = styled(UnstyledContainer)`
   opacity: 1;
-  position: fixed;
+  position: absolute;
   transform: translateX(-50%);
 `
 
@@ -83,7 +83,7 @@ export default class ColorPicker extends React.Component {
         }}
       >
         <div className="tooltip-arrow"></div>
-        <div className='tooltip-inner' ref={this.getContainer}>
+        <div className='tooltip-inner' ref={this.getContainer} style={{width: '180px'}}>
           {
             list.map(({code, title, selected}) => (
               <ListItem

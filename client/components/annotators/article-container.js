@@ -125,8 +125,8 @@ export default class ArticleContainer extends React.Component {
             .filter(filterByColor(color))
             .map(
               ({x, y}) => ({
-                x: x - container.left,
-                y: y - container.top
+                x: x - container.left - window.scrollX,
+                y: y - container.top - window.scrollY
               })
             )
         })
@@ -138,6 +138,10 @@ export default class ArticleContainer extends React.Component {
     const selectedAnnotation = this.state.selectedNode !== -1
                              ? this.annotations[this.state.selectedNode]
                              : null
+
+    const nodePosition = this.state.selectedNode !== -1
+                       ? this.state.nodes[this.state.selectedNode]
+                       : null
 
     return (
       <div style={{position: 'relative'}}>
@@ -169,7 +173,10 @@ export default class ArticleContainer extends React.Component {
                   })
                 )}
               onSelect={this.handleChangeColor}
-              position={this.state.nodes[this.state.selectedNode]}
+              position={{
+                x: nodePosition.x - container.left - window.scrollX,
+                y: nodePosition.y - container.top - window.scrollY
+              }}
               onClose={this.handleCloseColorPicker}
             />
           )
