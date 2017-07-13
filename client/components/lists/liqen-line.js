@@ -48,7 +48,7 @@ const Label = styled.div`
 `
 
 const UnstyledDotContainer = (props) => {
-  const {className, style, colour, number, children, first, last} = props
+  const {className, style, color, number, children, first, last} = props
 
   return (
     <li className={className} style={style}>
@@ -56,23 +56,23 @@ const UnstyledDotContainer = (props) => {
         <PartialLine
           side='left'
           style={{
-            backgroundColor: colour,
+            backgroundColor: color,
             visibility: first ? 'hidden' : 'visible'
           }}
         />
         <PartialLine
           side='right'
           style={{
-            backgroundColor: colour,
+            backgroundColor: color,
             visibility: last ? 'hidden' : 'visible'
           }}
         />
       </PartialLineContainer>
       <Dot style={{
-        borderColor: colour,
-        color: colour,
-        boxShadow: `0 0 1px 0px ${colour},
-                    0 0 1px 0px ${colour} inset`
+        borderColor: color,
+        color: color,
+        boxShadow: `0 0 1px 0px ${color},
+                    0 0 1px 0px ${color} inset`
       }}>
         {number}
       </Dot>
@@ -101,13 +101,13 @@ const DotContainer = styled(UnstyledDotContainer)`
   position: relative;
 `
 
-export default function LiqenLine ({answer, colour}) {
+export default function LiqenLine ({answer, color}) {
   return (
     <Line>
       {
         answer.map((ans, i) => (
           <DotContainer
-            colour={colour}
+            color={color}
             first={i === 0}
             last={i === answer.length - 1}
             number={ans.annotations.length}
@@ -135,5 +135,5 @@ LiqenLine.propTypes = {
       ).isRequired
     }).isRequired
   ).isRequired,
-  colour: PropTypes.string.isRequired
+  color: PropTypes.string.isRequired
 }

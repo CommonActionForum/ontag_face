@@ -29,12 +29,12 @@ export default class ArticleContainer extends React.Component {
         top: 0,
         left: 0
       },
-      nodes: this.props.annotations.map(() => ({x: 0, y: 0, colours: []})),
+      nodes: this.props.annotations.map(() => ({x: 0, y: 0, colors: []})),
       selectedAnnotation: null,
       selectedNode: -1
     }
 
-    this.handleChangeColour = this.handleChangeColour.bind(this)
+    this.handleChangeColor = this.handleChangeColor.bind(this)
     this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this)
     this.handleCloseColorPicker = this.handleCloseColorPicker.bind(this)
     this.annotations = this.getCallbacks(this.props.annotations)
@@ -51,13 +51,13 @@ export default class ArticleContainer extends React.Component {
     })
   }
 
-  handleChangeColour (colorCode) {
-    if (this.state.selectedAnnotation.colours.indexOf(colorCode) !== -1) {
+  handleChangeColor (colorCode) {
+    if (this.state.selectedAnnotation.colors.indexOf(colorCode) !== -1) {
       console.log('remove', colorCode)
-      this.props.onRemoveAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+      this.props.onRemoveAnnotationColor(this.state.selectedAnnotation.cid, colorCode)
     } else {
       console.log('add', colorCode)
-      this.props.onAddAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+      this.props.onAddAnnotationColor(this.state.selectedAnnotation.cid, colorCode)
     }
   }
 
@@ -75,9 +75,9 @@ export default class ArticleContainer extends React.Component {
     return annotations.map(
       (a, i) => ({
         fragment: a.fragment,
-        colours: a.colours,
-        colour: (a.colours || [''])[0],
-        ref: (node) => {
+        colors: a.colors,
+        color: (a.colors || [''])[0],
+        nodeRef: (node) => {
           if (node === null) {
             return
           }
@@ -87,7 +87,7 @@ export default class ArticleContainer extends React.Component {
           nodes[i] = {
             y: top + window.scrollY,
             x: left + window.scrollX,
-            colours: a.colours
+            colors: a.colors
           }
 
           if (counter === nodes.length) {
@@ -115,14 +115,14 @@ export default class ArticleContainer extends React.Component {
       container = {width, height, top, left}
     }
 
-    const filterByColour = colour => node => node.colours.indexOf(colour) !== -1
-    const paths = (this.props.colours || [])
+    const filterByColor = color => node => node.colors.indexOf(color) !== -1
+    const paths = (this.props.colors || [])
       .map(
-        colour => ({
-          colour,
+        color => ({
+          color,
           nodes: this
             .state.nodes
-            .filter(filterByColour(colour))
+            .filter(filterByColor(color))
             .map(
               ({x, y}) => ({
                 x: x - container.left,
@@ -157,14 +157,14 @@ export default class ArticleContainer extends React.Component {
         {
           this.state.selectedAnnotation && (
             <ColorPicker
-              list={this.props.colours.map(
+              list={this.props.colors.map(
                   c => ({
                     code: c,
                     title: '',
-                    selected: this.state.selectedAnnotation.colours.indexOf(c) !== -1
+                    selected: this.state.selectedAnnotation.colors.indexOf(c) !== -1
                   })
                 )}
-              onSelect={this.handleChangeColour}
+              onSelect={this.handleChangeColor}
               position={this.state.nodes[this.state.selectedNode]}
               onClose={this.handleCloseColorPicker}
             />
@@ -194,18 +194,18 @@ ArticleContainer.propTypes = {
         exact: PropTypes.string.isRequired,
         suffix: PropTypes.string.isRequired
       }),
-      colours: PropTypes.array
+      colors: PropTypes.array
     })
   ),
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.string.isRequired,
+      cid: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     })
   ),
-  colours: PropTypes.array,
+  colors: PropTypes.array,
   children: PropTypes.node,
   onAnnotate: PropTypes.func.isRequired,
-  onAddAnnotationColour: PropTypes.func,
-  onRemoveAnnotationColour: PropTypes.func
+  onAddAnnotationColor: PropTypes.func,
+  onRemoveAnnotationColor: PropTypes.func
 }

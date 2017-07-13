@@ -50,6 +50,6 @@ storiesOf('Liqen Line', module)
           annotations: []
         }
       ]}
-      colour='#ffab40'
+      color='#ffab40'
     />
   ))

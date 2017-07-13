@@ -1,5 +1,5 @@
 import { CALL_API } from '../middlewares/call-api'
-import { CHANGE_ANNOTATION_COLOUR } from '../middlewares/change-annotation-colour'
+import { CHANGE_ANNOTATION_COLOR } from '../middlewares/change-annotation-color'
 
 export const CREATE_ANNOTATION = 'CREATE_ANNOTATION'
 export const CREATE_ANNOTATION_SUCCESS = 'CREATE_ANNOTATION_SUCCESS'
@@ -16,14 +16,14 @@ export const EDIT_LIQEN_SUCCESS = 'EDIT_LIQEN_SUCCESS'
 export const EDIT_LIQEN_PENDING = 'EDIT_LIQEN_PENDING'
 export const EDIT_LIQEN_FAILURE = 'EDIT_LIQEN_FAILURE'
 
-export const CHANGE_LIQEN_COLOUR = 'CHANGE_LIQEN_COLOUR'
+export const CHANGE_LIQEN_COLOR = 'CHANGE_LIQEN_COLOR'
 
-let nextAnnotationRef = 0
+let nextAnnotationCid = 0
 // target = { prefix, suffix, exact }
 // tag = integer (tag ID)
 export function createAnnotation (target, tag) {
-  const ref = `c-${nextAnnotationRef}`
-  nextAnnotationRef++
+  const cid = `c-${nextAnnotationCid}`
+  nextAnnotationCid++
 
   return {
     [CALL_API]: {
@@ -37,16 +37,16 @@ export function createAnnotation (target, tag) {
         target,
         tag
       },
-      ref
+      cid
     }
   }
 }
 
-let nextLiqenRef = 0
-// answer = array of strings (annotation ref)
+let nextLiqenCid = 0
+// answer = array of strings (annotation cid)
 export function createLiqen (answer) {
-  const ref = `c-${nextLiqenRef}`
-  nextLiqenRef++
+  const cid = `c-${nextLiqenCid}`
+  nextLiqenCid++
 
   return {
     [CALL_API]: {
@@ -59,50 +59,50 @@ export function createLiqen (answer) {
       liqen: {
         answer
       },
-      ref
+      cid
     }
   }
 }
 
-// annotation = string (ref)
-// colour = string
-export function addAnnotationColour (annotation, colour) {
+// annotation = string (cid)
+// color = string
+export function addAnnotationColor (annotation, color) {
   return {
-    [CHANGE_ANNOTATION_COLOUR]: {
+    [CHANGE_ANNOTATION_COLOR]: {
       operation: 'add',
       annotation,
-      colour
+      color
     }
   }
 }
 
-export function removeAnnotationColour (annotation, colour) {
+export function removeAnnotationColor (annotation, color) {
   return {
-    [CHANGE_ANNOTATION_COLOUR]: {
+    [CHANGE_ANNOTATION_COLOR]: {
       operation: 'remove',
       annotation,
-      colour
+      color
     }
   }
 }
 
-// liqen = string (ref)
-// colour = string
-export function changeLiqenColour (liqen, colour) {
+// liqen = string (cid)
+// color = string
+export function changeLiqenColor (liqen, color) {
   return {
-    type: CHANGE_LIQEN_COLOUR,
+    type: CHANGE_LIQEN_COLOR,
     liqen,
-    colour
+    color
   }
 }
 
-// annotation = string (ref)
-// answer = array of annotation refs
+// annotation = string (cid)
+// answer = array of annotation cids
 export function editLiqen (liqen, answer) {
   return {
     [CALL_API]: {
       type: EDIT_LIQEN,
-      ref: liqen,
+      cid: liqen,
       actions: [
         EDIT_LIQEN_PENDING,
         EDIT_LIQEN_SUCCESS,

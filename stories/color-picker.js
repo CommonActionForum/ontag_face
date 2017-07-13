@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 import ColorPicker from '../client/components/annotators/color-picker'
 
 storiesOf('ColorPicker', module)
-  .add('8 colours', () => {
+  .add('8 colors', () => {
     const list = [
       {
         code: '#FFAB40',

@@ -83,7 +83,7 @@ export default class TextAnnotator extends React.Component {
 TextAnnotator.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.string.isRequired,
+      cid: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     })
   ),

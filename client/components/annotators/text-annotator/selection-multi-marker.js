@@ -4,21 +4,21 @@ import styled from 'styled-components'
 
 import { fragmentArray } from './fragment'
 
-const UnstyledBall = ({nodeRef, style, className, colour, onSelect}) => (
-  <span ref={ref => nodeRef(ref)}
+const UnstyledBall = ({nodeRef, style, className, color, onSelect}) => (
+  <span ref={nodeRef}
     style={style}
     className={className}
   >
-    <BallButton colour={colour} onSelect={onSelect} />
+    <BallButton color={color} onSelect={onSelect} />
   </span>
 )
 
-const UnstyledBallButton = ({className, colour, onSelect}) => (
+const UnstyledBallButton = ({className, color, onSelect}) => (
   <button
     className={className}
     onClick={onSelect}
     style={{
-      background: `radial-gradient(ellipse at center, ${colour} 0%, rgba(255,255,255,0) 60%)`
+      background: `radial-gradient(ellipse at center, ${color} 0%, rgba(255,255,255,0) 60%)`
     }} />
 )
 
@@ -59,9 +59,9 @@ SelectionMultiMarker.propTypes = {
         exact: PropTypes.string.isRequired,
         suffix: PropTypes.string.isRequired
       }).isRequired,
-      colour: PropTypes.string,
+      color: PropTypes.string,
       onSelect: PropTypes.func,
-      ref: PropTypes.func
+      nodeRef: PropTypes.func
     })
   ),
   children: PropTypes.node.isRequired
@@ -73,8 +73,8 @@ export function renderSimple (thing, annotations, onSelect) {
   const arr = annotations
     .filter(a => a.fragment.prefix + a.fragment.exact + a.fragment.suffix === thing)
     .map(a => ({
-      ref: a.ref,
-      colour: a.colour,
+      nodeRef: a.nodeRef,
+      color: a.color,
       onSelect: a.onSelect,
       size: (a.fragment.prefix + a.fragment.exact).length
     }))
@@ -86,12 +86,12 @@ export function renderSimple (thing, annotations, onSelect) {
     result = []
     result.push(str.slice(0, arr[0].size))
 
-    if (arr[0].ref) {
+    if (arr[0].nodeRef) {
       result.push(
         <Ball
           key={0}
-          nodeRef={arr[0].ref}
-          colour={arr[0].colour}
+          nodeRef={arr[0].nodeRef}
+          color={arr[0].color}
           onSelect={arr[0].onSelect}
         />
       )
@@ -100,12 +100,12 @@ export function renderSimple (thing, annotations, onSelect) {
     for (let i = 1; i < arr.length; i++) {
       result.push(str.slice(arr[i - 1].size, arr[i].size))
 
-      if (arr[i].ref) {
+      if (arr[i].nodeRef) {
         result.push(
           <Ball
             key={i}
-            nodeRef={arr[i].ref}
-            colour={arr[i].colour}
+            nodeRef={arr[i].nodeRef}
+            color={arr[i].color}
             onSelect={arr[i].onSelect}
           />
         )
@@ -141,7 +141,7 @@ export function renderArray (node, annotations) {
       const fragment = annotation.fragment
       const arr = fragmentArray(strArr, fragment)
 
-      // attach "ref" to the last element that has an "exact"
+      // attach "nodeRef" to the last element that has an "exact"
       let chosen = -1
       for (let i = 0; i < arr.length; i++) {
         if (arr[i].exact !== '') {
@@ -150,13 +150,13 @@ export function renderArray (node, annotations) {
       }
 
       if (chosen !== -1) {
-        arr[chosen].ref = annotation.ref
+        arr[chosen].nodeRef = annotation.nodeRef
       }
 
       return arr
         .map(fragment => ({
-          colour: annotation.colour,
-          ref: fragment.ref,
+          color: annotation.color,
+          nodeRef: fragment.nodeRef,
           onSelect: annotation.onSelect,
           fragment
         }))
