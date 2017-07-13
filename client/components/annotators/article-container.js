@@ -54,10 +54,10 @@ export default class ArticleContainer extends React.Component {
   handleChangeColour (colorCode) {
     if (this.state.selectedAnnotation.colours.indexOf(colorCode) !== -1) {
       console.log('remove', colorCode)
-      this.props.onRemoveAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+      this.props.onRemoveAnnotationColour(this.state.selectedAnnotation.cid, colorCode)
     } else {
       console.log('add', colorCode)
-      this.props.onAddAnnotationColour(this.state.selectedAnnotation.ref, colorCode)
+      this.props.onAddAnnotationColour(this.state.selectedAnnotation.cid, colorCode)
     }
   }
 
@@ -77,7 +77,7 @@ export default class ArticleContainer extends React.Component {
         fragment: a.fragment,
         colours: a.colours,
         colour: (a.colours || [''])[0],
-        ref: (node) => {
+        nodeRef: (node) => {
           if (node === null) {
             return
           }
@@ -199,7 +199,7 @@ ArticleContainer.propTypes = {
   ),
   tags: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.string.isRequired,
+      cid: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     })
   ),

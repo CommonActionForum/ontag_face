@@ -88,18 +88,18 @@ const mapStateToAnnotations = (state) => {
   }
 
   // Not colored annotations
-  for (let ref in state.annotations) {
-    const {tag, checked, pending, target} = state.annotations[ref]
+  for (let cid in state.annotations) {
+    const {tag, checked, pending, target} = state.annotations[cid]
 
     ret.push({
       tag: state.tags[tag].title,
       colours: colours
         .filter(colour => {
           const liqenRef = state.colours[colour]
-          return liqenRef && state.liqens[liqenRef].answer.indexOf(ref) !== -1
+          return liqenRef && state.liqens[liqenRef].answer.indexOf(cid) !== -1
         }),
       target,
-      ref,
+      cid,
       checked,
       pending
     })
@@ -147,8 +147,8 @@ const mapStateToLiqens = (state) => {
 const mapStateToColours = state => {
   const ret = []
 
-  for (let ref in state.colours) {
-    ret.push(ref)
+  for (let cid in state.colours) {
+    ret.push(cid)
   }
 
   return ret

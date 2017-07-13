@@ -35,7 +35,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'multi',
           suffix: 'mundo'
         },
-        ref: action('ref 1.1')
+        nodeRef: action('ref 1.1')
       }
     ]
     return (
@@ -52,7 +52,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'multi',
           suffix: 'mundo'
         },
-        ref: action('ref 2.1')
+        nodeRef: action('ref 2.1')
       },
       {
         fragment: {
@@ -60,7 +60,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'Hola',
           suffix: ' multimundo'
         },
-        ref: action('ref 2.2')
+        nodeRef: action('ref 2.2')
       },
       {
         fragment: {
@@ -68,7 +68,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'mundo',
           suffix: ''
         },
-        ref: action('ref 2.3')
+        nodeRef: action('ref 2.3')
       }
     ]
     return (
@@ -85,7 +85,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'multi',
           suffix: 'mundo'
         },
-        ref: action('ref 3.1')
+        nodeRef: action('ref 3.1')
       }
     ]
     return (
@@ -102,7 +102,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'multi',
           suffix: 'mundo'
         },
-        ref: action('ref 4.1')
+        nodeRef: action('ref 4.1')
       }
     ]
     return (
@@ -119,7 +119,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'multi',
           suffix: 'mundo'
         },
-        ref: console.log
+        nodeRef: console.log
       },
       {
         fragment: {
@@ -127,7 +127,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'Hola',
           suffix: ' multimundo'
         },
-        ref: console.log
+        nodeRef: console.log
       },
       {
         fragment: {
@@ -135,7 +135,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'mundo',
           suffix: ''
         },
-        ref: console.log
+        nodeRef: console.log
       },
       {
         fragment: {
@@ -143,7 +143,7 @@ storiesOf('SelectionMultimarker', module)
           exact: 'inexistent',
           suffix: 'inexistent'
         },
-        ref: console.log
+        nodeRef: console.log
       }
     ]
 

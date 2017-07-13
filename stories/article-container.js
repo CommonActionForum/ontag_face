@@ -92,9 +92,9 @@ storiesOf('ArticleContainer', module)
     }
 
     const tags = [
-      { ref: 't1', title: 'Tag 1' },
-      { ref: 't2', title: 'Tag 2' },
-      { ref: 't3', title: 'Tag 3' }
+      { cid: 't1', title: 'Tag 1' },
+      { cid: 't2', title: 'Tag 2' },
+      { cid: 't3', title: 'Tag 3' }
     ]
 
     return (

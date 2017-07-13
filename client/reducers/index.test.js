@@ -70,7 +70,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
     const action = {
       type: actions.CREATE_ANNOTATION_PENDING,
       annotation: a1,
-      ref: 'a1'
+      cid: 'a1'
     }
 
     const newState = {
@@ -123,7 +123,7 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
         checked: false,
         pending: true
       },
-      ref: 'a1'
+      cid: 'a1'
     }
 
     const newState = {
@@ -192,7 +192,7 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
       liqen: {
         answer: ['a10', 'a78']
       },
-      ref: 'l1'
+      cid: 'l1'
     }
 
     const newState = {
@@ -257,7 +257,7 @@ describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
       liqen: {
         id: '21'
       },
-      ref: 'l1'
+      cid: 'l1'
     }
 
     const newState = {
@@ -323,7 +323,7 @@ describe('Reducer when EDIT_LIQEN_PENDING', () => {
       liqen: {
         answer: ['a10']
       },
-      ref: 'l1'
+      cid: 'l1'
     }
 
     const newState = {

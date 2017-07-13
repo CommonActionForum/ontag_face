@@ -18,12 +18,12 @@ export const EDIT_LIQEN_FAILURE = 'EDIT_LIQEN_FAILURE'
 
 export const CHANGE_LIQEN_COLOUR = 'CHANGE_LIQEN_COLOUR'
 
-let nextAnnotationRef = 0
+let nextAnnotationCid = 0
 // target = { prefix, suffix, exact }
 // tag = integer (tag ID)
 export function createAnnotation (target, tag) {
-  const ref = `c-${nextAnnotationRef}`
-  nextAnnotationRef++
+  const cid = `c-${nextAnnotationCid}`
+  nextAnnotationCid++
 
   return {
     [CALL_API]: {
@@ -37,16 +37,16 @@ export function createAnnotation (target, tag) {
         target,
         tag
       },
-      ref
+      cid
     }
   }
 }
 
-let nextLiqenRef = 0
-// answer = array of strings (annotation ref)
+let nextLiqenCid = 0
+// answer = array of strings (annotation cid)
 export function createLiqen (answer) {
-  const ref = `c-${nextLiqenRef}`
-  nextLiqenRef++
+  const cid = `c-${nextLiqenCid}`
+  nextLiqenCid++
 
   return {
     [CALL_API]: {
@@ -59,12 +59,12 @@ export function createLiqen (answer) {
       liqen: {
         answer
       },
-      ref
+      cid
     }
   }
 }
 
-// annotation = string (ref)
+// annotation = string (cid)
 // colour = string
 export function addAnnotationColour (annotation, colour) {
   return {
@@ -86,7 +86,7 @@ export function removeAnnotationColour (annotation, colour) {
   }
 }
 
-// liqen = string (ref)
+// liqen = string (cid)
 // colour = string
 export function changeLiqenColour (liqen, colour) {
   return {
@@ -96,13 +96,13 @@ export function changeLiqenColour (liqen, colour) {
   }
 }
 
-// annotation = string (ref)
-// answer = array of annotation refs
+// annotation = string (cid)
+// answer = array of annotation cids
 export function editLiqen (liqen, answer) {
   return {
     [CALL_API]: {
       type: EDIT_LIQEN,
-      ref: liqen,
+      cid: liqen,
       actions: [
         EDIT_LIQEN_PENDING,
         EDIT_LIQEN_SUCCESS,

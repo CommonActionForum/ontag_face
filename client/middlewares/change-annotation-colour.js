@@ -25,7 +25,7 @@ export default store => next => action => {
     next(editLiqen(state.colours[colour], annotations))
   } else if (operation === 'add' && !state.colours[colour]) {
     const createLiqenAction = createLiqen([annotation])
-    const liqen = createLiqenAction[CALL_API].ref
+    const liqen = createLiqenAction[CALL_API].cid
 
     next(createLiqenAction)
     next(changeLiqenColour(liqen, colour))

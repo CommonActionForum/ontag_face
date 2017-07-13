@@ -80,15 +80,15 @@ function annotationReducer (state = initialState.annotations, action = {}) {
       }
 
       return Object.assign({}, state, {
-        [action.ref]: annotation
+        [action.cid]: annotation
       })
 
     case ActionTypes.CREATE_ANNOTATION_SUCCESS:
       return Object.assign({}, state, {
-        [action.ref]: {
-          tag: state[action.ref].tag,
-          target: state[action.ref].target,
-          checked: state[action.ref].checked,
+        [action.cid]: {
+          tag: state[action.cid].tag,
+          target: state[action.cid].target,
+          checked: state[action.cid].checked,
           pending: false,
           id: action.annotation.id.toString()
         }
@@ -108,22 +108,22 @@ function liqenReducer (liqens = initialState.liqens, action = {}) {
       }
 
       return Object.assign({}, liqens, {
-        [action.ref]: liqen
+        [action.cid]: liqen
       })
 
     case ActionTypes.CREATE_LIQEN_SUCCESS:
       return Object.assign({}, liqens, {
-        [action.ref]: {
-          answer: liqens[action.ref].answer,
+        [action.cid]: {
+          answer: liqens[action.cid].answer,
           id: action.liqen.id.toString()
         }
       })
 
     case ActionTypes.EDIT_LIQEN_PENDING:
       return Object.assign({}, liqens, {
-        [action.ref]: {
+        [action.cid]: {
           answer: action.liqen.answer,
-          id: liqens[action.ref].id.toString()
+          id: liqens[action.cid].id.toString()
         }
       })
 

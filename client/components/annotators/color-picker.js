@@ -54,8 +54,8 @@ export default class ColorPicker extends React.Component {
     this.handle = this.handle.bind(this)
   }
 
-  getContainer (ref) {
-    this.container = ref
+  getContainer (nodeRef) {
+    this.container = nodeRef
   }
 
   componentDidMount () {
