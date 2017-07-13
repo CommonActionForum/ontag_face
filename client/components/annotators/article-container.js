@@ -30,7 +30,6 @@ export default class ArticleContainer extends React.Component {
         left: 0
       },
       nodes: this.props.annotations.map(() => ({x: 0, y: 0, colors: []})),
-      selectedAnnotation: null,
       selectedNode: -1
     }
 
@@ -44,26 +43,26 @@ export default class ArticleContainer extends React.Component {
     this.annotations = this.getCallbacks(nextProps.annotations)
   }
 
-  handleSelectAnnotation (annotation, i) {
+  handleSelectAnnotation (selectedNode) {
     this.setState({
-      selectedAnnotation: annotation,
-      selectedNode: i
+      selectedNode
     })
   }
 
   handleChangeColor (colorCode) {
-    if (this.state.selectedAnnotation.colors.indexOf(colorCode) !== -1) {
+    const selectedAnnotation = this.annotations[this.state.selectedNode]
+
+    if (selectedAnnotation.colors.indexOf(colorCode) !== -1) {
       console.log('remove', colorCode)
-      this.props.onRemoveAnnotationColor(this.state.selectedAnnotation.cid, colorCode)
+      this.props.onRemoveAnnotationColor(selectedAnnotation.cid, colorCode)
     } else {
       console.log('add', colorCode)
-      this.props.onAddAnnotationColor(this.state.selectedAnnotation.cid, colorCode)
+      this.props.onAddAnnotationColor(selectedAnnotation.cid, colorCode)
     }
   }
 
   handleCloseColorPicker () {
     this.setState({
-      selectedAnnotation: null,
       selectedNode: -1
     })
   }
@@ -74,6 +73,7 @@ export default class ArticleContainer extends React.Component {
 
     return annotations.map(
       (a, i) => ({
+        cid: a.cid,
         fragment: a.fragment,
         colors: a.colors,
         color: (a.colors || [''])[0],
@@ -95,7 +95,7 @@ export default class ArticleContainer extends React.Component {
           }
         },
         onSelect: () => {
-          this.handleSelectAnnotation(a, i)
+          this.handleSelectAnnotation(i)
         }
       })
     )
@@ -135,6 +135,10 @@ export default class ArticleContainer extends React.Component {
         path => path.nodes.length > 0
       )
 
+    const selectedAnnotation = this.state.selectedNode !== -1
+                             ? this.annotations[this.state.selectedNode]
+                             : null
+
     return (
       <div style={{position: 'relative'}}>
         <article ref={node => { this.articleNode = node }}>
@@ -155,13 +159,13 @@ export default class ArticleContainer extends React.Component {
           }
         </article>
         {
-          this.state.selectedAnnotation && (
+          selectedAnnotation && (
             <ColorPicker
               list={this.props.colors.map(
                   c => ({
                     code: c,
                     title: '',
-                    selected: this.state.selectedAnnotation.colors.indexOf(c) !== -1
+                    selected: selectedAnnotation.colors.indexOf(c) !== -1
                   })
                 )}
               onSelect={this.handleChangeColor}
