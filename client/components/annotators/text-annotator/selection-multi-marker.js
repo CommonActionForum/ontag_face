@@ -4,21 +4,21 @@ import styled from 'styled-components'
 
 import { fragmentArray } from './fragment'
 
-const UnstyledBall = ({nodeRef, style, className, colour, onSelect}) => (
+const UnstyledBall = ({nodeRef, style, className, color, onSelect}) => (
   <span ref={nodeRef}
     style={style}
     className={className}
   >
-    <BallButton colour={colour} onSelect={onSelect} />
+    <BallButton color={color} onSelect={onSelect} />
   </span>
 )
 
-const UnstyledBallButton = ({className, colour, onSelect}) => (
+const UnstyledBallButton = ({className, color, onSelect}) => (
   <button
     className={className}
     onClick={onSelect}
     style={{
-      background: `radial-gradient(ellipse at center, ${colour} 0%, rgba(255,255,255,0) 60%)`
+      background: `radial-gradient(ellipse at center, ${color} 0%, rgba(255,255,255,0) 60%)`
     }} />
 )
 
@@ -59,7 +59,7 @@ SelectionMultiMarker.propTypes = {
         exact: PropTypes.string.isRequired,
         suffix: PropTypes.string.isRequired
       }).isRequired,
-      colour: PropTypes.string,
+      color: PropTypes.string,
       onSelect: PropTypes.func,
       nodeRef: PropTypes.func
     })
@@ -74,7 +74,7 @@ export function renderSimple (thing, annotations, onSelect) {
     .filter(a => a.fragment.prefix + a.fragment.exact + a.fragment.suffix === thing)
     .map(a => ({
       nodeRef: a.nodeRef,
-      colour: a.colour,
+      color: a.color,
       onSelect: a.onSelect,
       size: (a.fragment.prefix + a.fragment.exact).length
     }))
@@ -91,7 +91,7 @@ export function renderSimple (thing, annotations, onSelect) {
         <Ball
           key={0}
           nodeRef={arr[0].nodeRef}
-          colour={arr[0].colour}
+          color={arr[0].color}
           onSelect={arr[0].onSelect}
         />
       )
@@ -105,7 +105,7 @@ export function renderSimple (thing, annotations, onSelect) {
           <Ball
             key={i}
             nodeRef={arr[i].nodeRef}
-            colour={arr[i].colour}
+            color={arr[i].color}
             onSelect={arr[i].onSelect}
           />
         )
@@ -155,7 +155,7 @@ export function renderArray (node, annotations) {
 
       return arr
         .map(fragment => ({
-          colour: annotation.colour,
+          color: annotation.color,
           nodeRef: fragment.nodeRef,
           onSelect: annotation.onSelect,
           fragment

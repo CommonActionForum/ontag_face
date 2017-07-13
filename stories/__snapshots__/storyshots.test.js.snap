@@ -205,7 +205,7 @@ exports[`Storyshots Button with text 1`] = `
 </button>
 `;
 
-exports[`Storyshots ColorPicker 8 colours 1`] = `
+exports[`Storyshots ColorPicker 8 colors 1`] = `
 <div
   className="tooltip tooltip-bottom sc-bZQynM kHKJiA"
   style={

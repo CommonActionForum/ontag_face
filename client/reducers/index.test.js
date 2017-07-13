@@ -33,12 +33,12 @@ const tags = {
   }
 }
 
-const colours = {
-  'colour1': undefined,
-  'colour2': undefined,
-  'colour3': undefined,
-  'colour4': undefined,
-  'colour5': undefined
+const colors = {
+  'color1': undefined,
+  'color2': undefined,
+  'color3': undefined,
+  'color4': undefined,
+  'color5': undefined
 }
 
 describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
@@ -63,7 +63,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       article,
       liqens,
       tags,
-      colours,
+      colors,
       annotations: {} // No annotation
     }
 
@@ -78,7 +78,7 @@ describe('Reducer when CREATE_ANNOTATION_PENDING', () => {
       article,
       liqens,
       tags,
-      colours,
+      colors,
       annotations: {a1} // The created annotation
     }
 
@@ -95,7 +95,7 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
       article,
       liqens,
       tags,
-      colours,
+      colors,
       annotations: {
         a1: {
           tag: 'tag-0',
@@ -131,7 +131,7 @@ describe('Reducer when CREATE_ANNOTATION_SUCCESS', () => {
       article,
       liqens,
       tags,
-      colours,
+      colors,
       annotations: {
         a1: {
           id: '9210', // Now has an ID
@@ -183,7 +183,7 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
       article,
       liqens: {},
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -204,7 +204,7 @@ describe('Reducer when CREATE_LIQEN_PENDING', () => {
         }
       },
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -248,7 +248,7 @@ describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
         }
       },
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -270,7 +270,7 @@ describe('Reducer when CREATE_LIQEN_SUCCESS', () => {
         }
       },
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -314,7 +314,7 @@ describe('Reducer when EDIT_LIQEN_PENDING', () => {
         }
       },
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -336,7 +336,7 @@ describe('Reducer when EDIT_LIQEN_PENDING', () => {
         }
       },
       tags,
-      colours,
+      colors,
       annotations
     }
 
@@ -346,7 +346,7 @@ describe('Reducer when EDIT_LIQEN_PENDING', () => {
 
 describe('Reducer when EDIT_LIQEN_SUCCESS', () => {})
 
-describe('Reducer when CHANGE_LIQEN_COLOUR', () => {
+describe('Reducer when CHANGE_LIQEN_COLOR', () => {
   it('should reduce correctly', () => {
     const oldState = {
       question,
@@ -358,15 +358,15 @@ describe('Reducer when CHANGE_LIQEN_COLOUR', () => {
         }
       },
       tags,
-      colours: {
-        'colour1': undefined
+      colors: {
+        'color1': undefined
       },
       annotations: {}
     }
 
     const action = {
-      type: actions.CHANGE_LIQEN_COLOUR,
-      colour: 'colour1',
+      type: actions.CHANGE_LIQEN_COLOR,
+      color: 'color1',
       liqen: 'l1'
     }
 
@@ -380,8 +380,8 @@ describe('Reducer when CHANGE_LIQEN_COLOUR', () => {
         }
       },
       tags,
-      colours: {
-        'colour1': 'l1'
+      colors: {
+        'color1': 'l1'
       },
       annotations: {}
     }

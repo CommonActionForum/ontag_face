@@ -101,7 +101,7 @@ export default async function annotate (req, res) {
       }))
 
       const liqens2 = {}
-      const coloursList = [
+      const colorsList = [
         '#FFAB40',
         '#E91E63',
         '#E040FB',
@@ -113,7 +113,7 @@ export default async function annotate (req, res) {
         '#EEFF41',
         '#FFFFFF'
       ]
-      const colours = {}
+      const colors = {}
 
       let i = 0
       for (let liqen of liqens) {
@@ -123,17 +123,17 @@ export default async function annotate (req, res) {
           pending: false
         }
         if (i < 10) {
-          colours[coloursList[i]] = liqen.id.toString()
+          colors[colorsList[i]] = liqen.id.toString()
           i++
         }
       }
 
       for (; i < 10; i++) {
-        colours[coloursList[i]] = null
+        colors[colorsList[i]] = null
       }
 
       return {
-        colours,
+        colors,
         liqens: liqens2
       }
     } catch (e) {
@@ -144,7 +144,7 @@ export default async function annotate (req, res) {
 
   // Paralelize
   try {
-    const [{question, tags}, article, annotations, {liqens, colours}] = await Promise.all([
+    const [{question, tags}, article, annotations, {liqens, colors}] = await Promise.all([
       getQuestionAndTags(),
       getArticle(),
       getAnnotations(),
@@ -157,7 +157,7 @@ export default async function annotate (req, res) {
       tags,
       annotations,
       liqens,
-      colours
+      colors
     }
 
     return res.render('annotate', {article, state})

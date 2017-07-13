@@ -44,7 +44,7 @@ const initialState = {
       title: 'tag 2'
     }
   },
-  colours: {
+  colors: {
     '#FFAB40': undefined,
     '#E91E63': undefined,
     '#E040FB': undefined,
@@ -65,7 +65,7 @@ export default function reducer (state = initialState, action = {}) {
     annotations: annotationReducer(state.annotations, action),
     liqens: liqenReducer(state.liqens, action),
     tags: state.tags,
-    colours: colourReducer(state.colours, action)
+    colors: colorReducer(state.colors, action)
   }
 }
 
@@ -134,14 +134,14 @@ function liqenReducer (liqens = initialState.liqens, action = {}) {
   }
 }
 
-function colourReducer (colours = initialState.colours, action = {}) {
+function colorReducer (colors = initialState.colors, action = {}) {
   switch (action.type) {
-    case ActionTypes.CHANGE_LIQEN_COLOUR:
-      return Object.assign({}, colours, {
-        [action.colour]: action.liqen
+    case ActionTypes.CHANGE_LIQEN_COLOR:
+      return Object.assign({}, colors, {
+        [action.color]: action.liqen
       })
 
     default:
-      return colours
+      return colors
   }
 }

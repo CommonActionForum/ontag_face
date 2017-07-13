@@ -6,7 +6,7 @@ import { AppContainer } from 'react-hot-loader'
 
 import reducer from './reducers/index'
 import callAPI from './middlewares/call-api'
-import changeAnnotationColour from './middlewares/change-annotation-colour'
+import changeAnnotationColor from './middlewares/change-annotation-color'
 
 import Annotate from './containers/Annotate'
 
@@ -14,7 +14,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   reducer,
   window.__INITIAL_STATE__,
-  composeEnhancers(applyMiddleware(changeAnnotationColour, callAPI))
+  composeEnhancers(applyMiddleware(changeAnnotationColor, callAPI))
 )
 
 const render = Component => {

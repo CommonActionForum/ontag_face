@@ -5,8 +5,8 @@ import fetch from 'isomorphic-fetch'
 import Article from '../components/annotators/article-container'
 import LiqenLine from '../components/lists/liqen-line'
 import { createAnnotation,
-         addAnnotationColour,
-         removeAnnotationColour } from '../actions/index'
+         addAnnotationColor,
+         removeAnnotationColor } from '../actions/index'
 
 const article = window.__ARTICLE__
 
@@ -35,11 +35,11 @@ export class Annotate extends React.Component {
       question,
       annotations,
       liqens,
-      colours,
+      colors,
       tags,
       onCreateAnnotation,
-      onAddAnnotationColour,
-      onRemoveAnnotationColour
+      onAddAnnotationColor,
+      onRemoveAnnotationColor
     } = this.props
 
     return (
@@ -50,7 +50,7 @@ export class Annotate extends React.Component {
           <h2 className='h6 text-uppercase'>Liqens</h2>
           {
             liqens.map(liqen => (
-              <LiqenLine answer={liqen.answer} colour={liqen.colour} />
+              <LiqenLine answer={liqen.answer} color={liqen.color} />
             ))
           }
         </aside>
@@ -61,13 +61,13 @@ export class Annotate extends React.Component {
             </header>
             <main className='article-body'>
               <Article
-                colours={colours}
+                colors={colors}
                 annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
                 body={this.state.articleBody}
                 tags={tags}
                 onAnnotate={onCreateAnnotation}
-                onAddAnnotationColour={onAddAnnotationColour}
-                onRemoveAnnotationColour={onRemoveAnnotationColour}
+                onAddAnnotationColor={onAddAnnotationColor}
+                onRemoveAnnotationColor={onRemoveAnnotationColor}
               />
             </main>
           </div>
@@ -80,11 +80,11 @@ export class Annotate extends React.Component {
 const mapStateToAnnotations = (state) => {
   // Copy of all the annotations
   const ret = []
-  const colours = []
+  const colors = []
 
   // Colored annotations
-  for (let colour in state.colours) {
-    colours.push(colour)
+  for (let color in state.colors) {
+    colors.push(color)
   }
 
   // Not colored annotations
@@ -93,9 +93,9 @@ const mapStateToAnnotations = (state) => {
 
     ret.push({
       tag: state.tags[tag].title,
-      colours: colours
-        .filter(colour => {
-          const liqenRef = state.colours[colour]
+      colors: colors
+        .filter(color => {
+          const liqenRef = state.colors[color]
           return liqenRef && state.liqens[liqenRef].answer.indexOf(cid) !== -1
         }),
       target,
@@ -111,9 +111,9 @@ const mapStateToAnnotations = (state) => {
 const mapStateToLiqens = (state) => {
   const ret = []
 
-  for (let colour in state.colours) {
-    if (state.colours[colour]) {
-      const liqen = state.liqens[state.colours[colour]]
+  for (let color in state.colors) {
+    if (state.colors[color]) {
+      const liqen = state.liqens[state.colors[color]]
       const answer = state.question.answer
         .map(qa => {
           const annotations = liqen.answer
@@ -135,7 +135,7 @@ const mapStateToLiqens = (state) => {
         })
 
       ret.push({
-        colour,
+        color,
         answer
       })
     }
@@ -144,10 +144,10 @@ const mapStateToLiqens = (state) => {
   return ret
 }
 
-const mapStateToColours = state => {
+const mapStateToColors = state => {
   const ret = []
 
-  for (let cid in state.colours) {
+  for (let cid in state.colors) {
     ret.push(cid)
   }
 
@@ -158,17 +158,17 @@ const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
   liqens: mapStateToLiqens(state),
-  colours: mapStateToColours(state),
+  colors: mapStateToColors(state),
   tags: state.question.answer.map(
     ({tag}) => ({ref: tag, title: state.tags[tag].title})
   )
 })
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
-  onAddAnnotationColour: (annotation, colour) =>
-    dispatch(addAnnotationColour(annotation, colour)),
-  onRemoveAnnotationColour: (annotation, colour) =>
-    dispatch(removeAnnotationColour(annotation, colour))
+  onAddAnnotationColor: (annotation, color) =>
+    dispatch(addAnnotationColor(annotation, color)),
+  onRemoveAnnotationColor: (annotation, color) =>
+    dispatch(removeAnnotationColor(annotation, color))
 })
 
 export default connect(
