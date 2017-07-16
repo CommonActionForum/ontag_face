@@ -207,7 +207,7 @@ exports[`Storyshots Button with text 1`] = `
 
 exports[`Storyshots ColorPicker 8 colors 1`] = `
 <div
-  className="tooltip tooltip-bottom sc-bZQynM kHKJiA"
+  className="tooltip tooltip-bottom sc-bZQynM hDjxpu"
   style={
     Object {
       "left": "undefinedpx",
@@ -220,6 +220,11 @@ exports[`Storyshots ColorPicker 8 colors 1`] = `
   />
   <div
     className="tooltip-inner"
+    style={
+      Object {
+        "width": "180px",
+      }
+    }
   >
     <button
       className="sc-gzVnrw gINDaF"
