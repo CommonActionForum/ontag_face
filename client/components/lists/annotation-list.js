@@ -9,7 +9,7 @@ export default function Selector ({ annotations, onSelect }) {
         annotations.length > 0 && annotations.map(annotation => (
           <div
             className='list-group-item'
-            key={annotation.ref}
+            key={annotation.cid}
           >
             <AnnotationItem
               tag={annotation.tag}
@@ -33,7 +33,7 @@ export default function Selector ({ annotations, onSelect }) {
 Selector.propTypes = {
   annotations: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.string.isRequired,
+      cid: PropTypes.string.isRequired,
       checked: PropTypes.bool,
       tag: PropTypes.string.isRequired,
       target: PropTypes.shape({

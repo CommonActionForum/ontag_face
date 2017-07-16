@@ -102,13 +102,11 @@ class AnnotationList extends React.Component {
     this.setState({expanded: false})
   }
 
-  change (ref, activate) {
-    console.log(ref, activate)
-
+  change (cid, activate) {
     if (activate) {
-      this.props.onAdd(ref)
+      this.props.onAdd(cid)
     } else {
-      this.props.onRemove(ref)
+      this.props.onRemove(cid)
     }
   }
 
@@ -179,9 +177,9 @@ class AnnotationList extends React.Component {
               <div>
                 <div>
                   {
-                    totalAnnotations.map(({fragment, active, ref}) => (
+                    totalAnnotations.map(({fragment, active, cid}) => (
                       <div
-                        key={ref}
+                        key={cid}
                         className='form-check'
                       >
                         <label className='form-check-label'>
@@ -189,7 +187,7 @@ class AnnotationList extends React.Component {
                             className='form-check-input'
                             type='checkbox'
                             checked={active}
-                            onChange={() => this.change(ref, !active)}
+                            onChange={() => this.change(cid, !active)}
                           />
                           &nbsp;{fragment}
                         </label>

@@ -1,0 +1,811 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots ArticleBackground An array of paths and nodes 1`] = `
+<svg
+  height={200}
+  style={undefined}
+  width={300}
+>
+  <path
+    d="M 20 30 L 30 50 L 20 70 L 50 90 L 60 100"
+    fill="transparent"
+    stroke="black"
+  />
+  <path
+    d="M 50 50 L 80 20 L 90 100 L 100 30 L 130 40"
+    fill="transparent"
+    stroke="black"
+  />
+</svg>
+`;
+
+exports[`Storyshots ArticleContainer basic usage 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <article>
+    <div>
+      <div>
+        <span>
+          <p>
+            <span
+              className="xxxx-root"
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin quam sapien, interdum vitae mi eget, lobortis faucibus arcu. Nulla cursus urna
+              <span
+                className="sc-bdVaJa fKAZEo"
+                style={undefined}
+              >
+                <button
+                  className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
+                    }
+                  }
+                />
+              </span>
+               eget sem posuere interdum. Sed maximus, lectus at lobortis ornare, risus magna rutrum mi, quis ultrices quam odio ac nulla. Integer sit amet sapien turpis. Cras enim est, porta quis mollis quis, pulvinar quis erat. Etiam accumsan ipsum ipsum, a aliquam quam fermentum et. Praesent facilisis, augue
+              <span
+                className="sc-bdVaJa fKAZEo"
+                style={undefined}
+              >
+                <button
+                  className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
+                    }
+                  }
+                />
+              </span>
+               in hendrerit porttitor, arcu nisl iaculis leo, nec porttitor erat nibh sit amet velit. Morbi cursus diam eget bibendum placerat. Nulla finibus, arcu in tincidunt vulputate, tellus lorem ultrices ipsum, nec accumsan risus ante vel arcu. Donec diam tortor, efficitur vitae ipsum sollicitudin, tincidunt pharetra tellus. Mauris accumsan scelerisque metus, at volutpat est placerat eget. Nullam viverra leo tincidunt libero imperdiet porttitor. Morbi tincidunt at mi id rhoncus.
+            </span>
+          </p>
+        </span>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <span>
+          <p>
+            <span
+              className="xxxx-root"
+            >
+              Duis ut dolor eu dolor consectetur cursus. Etiam in enim sem. Mauris bibendum libero porta, eleifend justo quis, iaculis lacus. Aenean elementum eros eu mi tristique aliquam. Quisque pulvinar ligula magna, sit amet maximus lectus posuere non. Nulla ut lorem quis sapien imperdiet interdum. Sed id diam
+              <span
+                className="sc-bdVaJa fKAZEo"
+                style={undefined}
+              >
+                <button
+                  className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
+                    }
+                  }
+                />
+              </span>
+               at orci condimentum fermentum in eget risus. Integer vitae nunc tellus. Mauris ut cursus neque.
+            </span>
+          </p>
+        </span>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <span>
+          <p>
+            <span
+              className="xxxx-root"
+            >
+              raesent sagittis felis urna, vitae interdum quam elementum tincidunt. Suspendisse nec diam sodales, sollicitudin lectus at, euismod ipsum. Vestibulum blandit lacus erat, feugiat hendrerit magna rutrum a. Fusce et enim vitae enim rutrum varius non in dolor. Etiam a augue nec lorem
+              <span
+                className="sc-bdVaJa fKAZEo"
+                style={undefined}
+              >
+                <button
+                  className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
+                    }
+                  }
+                />
+              </span>
+               fringilla tincidunt sed sit amet lorem. Nam sit amet malesuada risus. Duis et porta lectus. Suspendisse posuere venenatis eros, vitae malesuada tortor volutpat ut. Ut vitae viverra erat. Phasellus libero velit, vehicula sit amet faucibus sit amet, condimentum a elit. Ut id dictum nulla
+              <span
+                className="sc-bdVaJa fKAZEo"
+                style={undefined}
+              >
+                <button
+                  className="sc-bwzfXH lpbTUl"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "background": "radial-gradient(ellipse at center,  0%, rgba(255,255,255,0) 60%)",
+                    }
+                  }
+                />
+              </span>
+              . Sed a tempus quam, quis rutrum mi.
+            </span>
+          </p>
+        </span>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <span>
+          <p>
+            <span
+              className="xxxx-root"
+            >
+              Pellentesque posuere ultrices rutrum. Sed pulvinar augue nec sem maximus, a tempus nibh luctus. Aenean congue massa non enim faucibus, vel malesuada augue cursus. Donec nec convallis est. Duis posuere odio sit amet metus ornare lobortis nec id odio. Suspendisse blandit mauris vulputate nisl euismod pharetra. Duis a nibh id nisl viverra dictum. Morbi sodales quam felis, tincidunt elementum eros pretium vel. Nunc sit amet velit ac urna venenatis sagittis. Duis eu faucibus ex, eu congue tellus. In hac habitasse platea dictumst.
+            </span>
+          </p>
+        </span>
+      </div>
+      <div />
+    </div>
+    <div>
+      <div>
+        <span>
+          <p>
+            <span
+              className="xxxx-root"
+            >
+              Duis magna metus, efficitur placerat orci a, imperdiet vestibulum neque. Curabitur a nisi at nulla gravida faucibus vitae accumsan sem. Curabitur vel eros consequat, ultricies sapien nec, molestie nibh. Ut laoreet quis ligula egestas consectetur. Fusce maximus dapibus dolor vitae tempor. Aenean id magna velit. Fusce diam orci, vehicula et sapien non, aliquet sodales leo. Cras ut nunc ac nisl feugiat maximus a nec magna. Proin ac sodales dui. Sed efficitur consequat sapien, vitae tincidunt ligula eleifend nec. Aenean lobortis id lorem nec condimentum. Nunc nec luctus nunc. Aliquam erat volutpat.
+            </span>
+          </p>
+        </span>
+      </div>
+      <div />
+    </div>
+  </article>
+  <svg
+    height={0}
+    style={
+      Object {
+        "left": "0",
+        "position": "absolute",
+        "top": "0",
+        "zIndex": "-1",
+      }
+    }
+    width={0}
+  />
+</div>
+`;
+
+exports[`Storyshots Button with some emoji 1`] = `
+<button
+  onClick={[Function]}
+>
+  😀 😎 👍 💯
+</button>
+`;
+
+exports[`Storyshots Button with text 1`] = `
+<button
+  onClick={[Function]}
+>
+  Hello Button
+</button>
+`;
+
+exports[`Storyshots ColorPicker 8 colors 1`] = `
+<div
+  className="tooltip tooltip-bottom sc-bZQynM hDjxpu"
+  style={
+    Object {
+      "left": "undefinedpx",
+      "top": "undefinedpx",
+    }
+  }
+>
+  <div
+    className="tooltip-arrow"
+  />
+  <div
+    className="tooltip-inner"
+    style={
+      Object {
+        "width": "180px",
+      }
+    }
+  >
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#FFAB40",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#E91E63",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#E040FB",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#AA00FF",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#9FA8DA",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#2962FF",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-check"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#18FFFF",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#B2FF59",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#EEFF41",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+    <button
+      className="sc-gzVnrw gINDaF"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#FFFFFF",
+        }
+      }
+    >
+      <i
+        aria-hidden="true"
+        className="fa undefined"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Liqen Line basic usage 1`] = `
+<ul
+  className="sc-htoDjs jHrtTR"
+>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "hidden",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      1
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 1
+    </div>
+  </li>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      2
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 2
+    </div>
+  </li>
+  <li
+    className="sc-fjdhpX bqHJgQ"
+    style={undefined}
+  >
+    <div
+      className="sc-dnqmqq fIieZT"
+    >
+      <div
+        className="sc-gqjmRU kcWumb"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "visible",
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-gqjmRU hQywps"
+      >
+        <div
+          className="sc-iwsKbI cVxFHX"
+        />
+        <div
+          className="sc-gZMcBi jHcJdc"
+          style={
+            Object {
+              "backgroundColor": "#ffab40",
+              "visibility": "hidden",
+            }
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="sc-jTzLTM cInZRl"
+      style={
+        Object {
+          "borderColor": "#ffab40",
+          "boxShadow": "0 0 1px 0px #ffab40,
+                            0 0 1px 0px #ffab40 inset",
+          "color": "#ffab40",
+        }
+      }
+    >
+      0
+    </div>
+    <div
+      className="sc-VigVT haMXvY"
+    >
+      Tag 2
+    </div>
+  </li>
+</ul>
+`;
+
+exports[`Storyshots SelectionHandler Normal behaviour 1`] = `
+<span>
+  This is a text that can be selected
+</span>
+`;
+
+exports[`Storyshots SelectionMarker Normal behaviour 1`] = `
+<span>
+  <p>
+    <span>
+      <span>
+        Hello 
+      </span>
+      <mark>
+        Button
+      </mark>
+      <span>
+        
+      </span>
+    </span>
+  </p>
+</span>
+`;
+
+exports[`Storyshots SelectionMultimarker array with 1 fragment 1`] = `
+<p>
+  <span
+    className="xxxx--array"
+  >
+    <span
+      className="xxxx-root"
+    >
+      Hola 
+      
+    </span>
+    <strong>
+      <span
+        className="xxxx-root"
+      >
+        mul
+        
+      </span>
+    </strong>
+    <span
+      className="xxxx-root"
+    >
+      ti
+      <span
+        className="sc-bdVaJa fKAZEo"
+        style={undefined}
+      >
+        <button
+          className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
+          style={
+            Object {
+              "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+            }
+          }
+        />
+      </span>
+      mundo
+    </span>
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker array with 1+ fragment 1`] = `
+<p>
+  <span
+    className="xxxx--array"
+  >
+    <span
+      className="xxxx-root"
+    >
+      Hola
+      <span
+        className="sc-bdVaJa fKAZEo"
+        style={undefined}
+      >
+        <button
+          className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
+          style={
+            Object {
+              "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+            }
+          }
+        />
+      </span>
+       
+      
+      
+    </span>
+    <strong>
+      <span
+        className="xxxx-root"
+      >
+        
+        mul
+        
+        
+      </span>
+    </strong>
+    <span
+      className="xxxx-root"
+    >
+      
+      ti
+      <span
+        className="sc-bdVaJa fKAZEo"
+        style={undefined}
+      >
+        <button
+          className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
+          style={
+            Object {
+              "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+            }
+          }
+        />
+      </span>
+      mundo
+      <span
+        className="sc-bdVaJa fKAZEo"
+        style={undefined}
+      >
+        <button
+          className="sc-bwzfXH lpbTUl"
+          onClick={undefined}
+          style={
+            Object {
+              "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+            }
+          }
+        />
+      </span>
+      
+    </span>
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker node with 1 fragment 1`] = `
+<p>
+  <span
+    className="xxxx-root"
+  >
+    Hola multi
+    <span
+      className="sc-bdVaJa fKAZEo"
+      style={undefined}
+    >
+      <button
+        className="sc-bwzfXH lpbTUl"
+        onClick={undefined}
+        style={
+          Object {
+            "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+          }
+        }
+      />
+    </span>
+    mundo
+  </span>
+</p>
+`;
+
+exports[`Storyshots SelectionMultimarker plain text with 1 fragment 1`] = `
+<span
+  className="xxxx-root"
+>
+  Hola multi
+  <span
+    className="sc-bdVaJa fKAZEo"
+    style={undefined}
+  >
+    <button
+      className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
+      style={
+        Object {
+          "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+        }
+      }
+    />
+  </span>
+  mundo
+</span>
+`;
+
+exports[`Storyshots SelectionMultimarker plain text with 1+ fragments 1`] = `
+<span
+  className="xxxx-root"
+>
+  Hola
+  <span
+    className="sc-bdVaJa fKAZEo"
+    style={undefined}
+  >
+    <button
+      className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
+      style={
+        Object {
+          "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+        }
+      }
+    />
+  </span>
+   multi
+  <span
+    className="sc-bdVaJa fKAZEo"
+    style={undefined}
+  >
+    <button
+      className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
+      style={
+        Object {
+          "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+        }
+      }
+    />
+  </span>
+  mundo
+  <span
+    className="sc-bdVaJa fKAZEo"
+    style={undefined}
+  >
+    <button
+      className="sc-bwzfXH lpbTUl"
+      onClick={undefined}
+      style={
+        Object {
+          "background": "radial-gradient(ellipse at center, undefined 0%, rgba(255,255,255,0) 60%)",
+        }
+      }
+    />
+  </span>
+  
+</span>
+`;
+
+exports[`Storyshots TextAnnotator A normal usage 1`] = `
+<div>
+  <div>
+    <span>
+      Hola multimundo
+    </span>
+  </div>
+  <div />
+</div>
+`;

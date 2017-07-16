@@ -44,10 +44,17 @@ const initialState = {
       title: 'tag 2'
     }
   },
-  newLiqen: {
-    answer: [
-      'a1'
-    ]
+  colors: {
+    '#FFAB40': undefined,
+    '#E91E63': undefined,
+    '#E040FB': undefined,
+    '#AA00FF': undefined,
+    '#9FA8DA': undefined,
+    '#2962FF': undefined,
+    '#18FFFF': undefined,
+    '#B2FF59': undefined,
+    '#EEFF41': undefined,
+    '#FFFFFF': undefined
   }
 }
 
@@ -56,42 +63,9 @@ export default function reducer (state = initialState, action = {}) {
     question: state.question,
     article: state.article,
     annotations: annotationReducer(state.annotations, action),
-    liqens: liqenReducer(state.liqens, action, state),
+    liqens: liqenReducer(state.liqens, action),
     tags: state.tags,
-    newLiqen: newLiqenReducer(state.newLiqen, action, state)
-  }
-}
-
-function newLiqenReducer (newLiqen, action, state) {
-  switch (action.type) {
-    case ActionTypes.ADD_ANNOTATION_TO_LIQEN:
-      return {
-        answer: newLiqen.answer.concat(action.ref)
-      }
-
-    case ActionTypes.REMOVE_ANNOTATION_TO_LIQEN:
-      return {
-        answer: newLiqen.answer.filter(a => a !== action.ref)
-      }
-
-    case ActionTypes.CREATE_ANNOTATION_PENDING:
-      return {
-        answer: newLiqen.answer.concat(action.ref)
-      }
-
-    case ActionTypes.CREATE_LIQEN_PENDING:
-      return {
-        answer: newLiqen.answer,
-        pending: true
-      }
-
-    case ActionTypes.CREATE_LIQEN_SUCCESS:
-      return {
-        answer: []
-      }
-
-    default:
-      return newLiqen
+    colors: colorReducer(state.colors, action)
   }
 }
 
@@ -106,45 +80,68 @@ function annotationReducer (state = initialState.annotations, action = {}) {
       }
 
       return Object.assign({}, state, {
-        [action.ref]: annotation
+        [action.cid]: annotation
       })
 
     case ActionTypes.CREATE_ANNOTATION_SUCCESS:
       return Object.assign({}, state, {
-        [action.ref]: {
-          tag: state[action.ref].tag,
-          target: state[action.ref].target,
-          checked: state[action.ref].checked,
+        [action.cid]: {
+          tag: state[action.cid].tag,
+          target: state[action.cid].target,
+          checked: state[action.cid].checked,
           pending: false,
-          id: action.annotation.id
+          id: action.annotation.id.toString()
         }
       })
 
-    case ActionTypes.CREATE_ANNOTATION_FAILURE:
+      // case ActionTypes.CREATE_ANNOTATION_FAILURE
     default:
       return state
   }
 }
 
-function liqenReducer (liqens, action = {}, state) {
+function liqenReducer (liqens = initialState.liqens, action = {}) {
   switch (action.type) {
     case ActionTypes.CREATE_LIQEN_PENDING:
+      const liqen = {
+        answer: action.liqen.answer
+      }
+
       return Object.assign({}, liqens, {
-        [action.ref]: {
-          answer: state.newLiqen.answer,
-          pending: true
-        }
+        [action.cid]: liqen
       })
 
     case ActionTypes.CREATE_LIQEN_SUCCESS:
       return Object.assign({}, liqens, {
-        [action.ref]: {
-          answer: liqens[action.ref].answer,
-          pending: false
+        [action.cid]: {
+          answer: liqens[action.cid].answer,
+          id: action.liqen.id.toString()
         }
       })
-    case ActionTypes.CREATE_LIQEN_FAILURE:
+
+    case ActionTypes.EDIT_LIQEN_PENDING:
+      return Object.assign({}, liqens, {
+        [action.cid]: {
+          answer: action.liqen.answer,
+          id: liqens[action.cid].id.toString()
+        }
+      })
+
+      // case ActionTypes.EDIT_LIQEN_SUCCESS
+      // case ActionTypes.EDIT_LIQEN_FAILURE
     default:
       return liqens
+  }
+}
+
+function colorReducer (colors = initialState.colors, action = {}) {
+  switch (action.type) {
+    case ActionTypes.CHANGE_LIQEN_COLOR:
+      return Object.assign({}, colors, {
+        [action.color]: action.liqen
+      })
+
+    default:
+      return colors
   }
 }

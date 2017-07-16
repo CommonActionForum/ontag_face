@@ -24,7 +24,7 @@ export default store => next => action => {
   }
 
   // Middleware starts here
-  const { ref, type, actions } = callAPI
+  const { cid, type, actions } = callAPI
 
   // Prepare things to send to the server
   let payload = {}
@@ -51,11 +51,23 @@ export default store => next => action => {
     case ActionType.CREATE_LIQEN:
       payload = {
         question_id: store.getState().question.id,
-        annotations: store.getState().newLiqen.answer.map(
+        annotations: callAPI.liqen.answer.map(
           a => store.getState().annotations[a].id
         )
       }
       fn = core.liqens.create
+      key = 'liqen'
+      break
+
+    case ActionType.EDIT_LIQEN:
+      payload = {
+        annotations: callAPI.liqen.answer.map(a => store.getState().annotations[a].id)
+      }
+      fn = (pl) => core.liqens.update(
+        store.getState().liqens[callAPI.cid].id,
+        pl
+      )
+
       key = 'liqen'
       break
   }
@@ -71,13 +83,21 @@ export default store => next => action => {
       break
 
     case ActionType.CREATE_LIQEN:
-      localPayload = {}
+      localPayload = {
+        answer: callAPI.liqen.answer
+      }
+      break
+
+    case ActionType.EDIT_LIQEN:
+      localPayload = {
+        answer: callAPI.liqen.answer
+      }
       break
   }
 
   // Send a pending
   next({
-    ref,
+    cid,
     type: actions[0],
     [key]: localPayload
   })
@@ -85,12 +105,12 @@ export default store => next => action => {
   // Call API
   fn(payload)
     .then(object => next({
-      ref,
+      cid,
       type: actions[1],
       [key]: object
     }))
     .catch(err => next({
-      ref,
+      cid,
       type: actions[2],
       error: err
     }))

@@ -19,11 +19,21 @@ export default async function annotate (req, res) {
 
       const tags2 = {}
       for (let tag of tags) {
-        tags2[tag.id] = tag
+        tags2[tag.id] = {
+          id: tag.id.toString(),
+          title: tag.title
+        }
       }
 
       return {
-        question,
+        question: {
+          id: question.id.toString(),
+          title: question.title,
+          answer: question.answer.map(a => ({
+            tag: a.tag.toString(),
+            required: a.required
+          }))
+        },
         tags: tags2
       }
     } catch (e) {
@@ -36,7 +46,11 @@ export default async function annotate (req, res) {
     try {
       const article = await req.core.articles.show(articleId)
 
-      return article
+      return {
+        title: article.title,
+        source: article.source,
+        id: article.id.toString()
+      }
     } catch (e) {
       console.log('error 2')
       console.log(e)
@@ -57,7 +71,8 @@ export default async function annotate (req, res) {
       for (let annotation of annotations) {
         if (annotation.tags.length > 0) {
           annotations2[annotation.id] = {
-            tag: annotation.tags[0].id,
+            id: annotation.id.toString(),
+            tag: annotation.tags[0].id.toString(),
             target: {
               prefix: annotation.target.prefix,
               exact: annotation.target.exact,
@@ -76,7 +91,7 @@ export default async function annotate (req, res) {
     }
   }
 
-  async function getLiqens () {
+  async function getColoredLiqens () {
     try {
       const list = await req.core.liqens.index({question_id: questionId})
 
@@ -86,15 +101,41 @@ export default async function annotate (req, res) {
       }))
 
       const liqens2 = {}
+      const colorsList = [
+        '#FFAB40',
+        '#E91E63',
+        '#E040FB',
+        '#AA00FF',
+        '#9FA8DA',
+        '#2962FF',
+        '#18FFFF',
+        '#B2FF59',
+        '#EEFF41',
+        '#FFFFFF'
+      ]
+      const colors = {}
 
+      let i = 0
       for (let liqen of liqens) {
         liqens2[liqen.id] = {
-          answer: liqen.annotations.map(a => a.id),
+          id: liqen.id.toString(),
+          answer: liqen.annotations.map(a => a.id.toString()),
           pending: false
+        }
+        if (i < 10) {
+          colors[colorsList[i]] = liqen.id.toString()
+          i++
         }
       }
 
-      return liqens2
+      for (; i < 10; i++) {
+        colors[colorsList[i]] = null
+      }
+
+      return {
+        colors,
+        liqens: liqens2
+      }
     } catch (e) {
       console.log('error 4')
       console.log(e)
@@ -103,11 +144,11 @@ export default async function annotate (req, res) {
 
   // Paralelize
   try {
-    const [{question, tags}, article, annotations, liqens] = await Promise.all([
+    const [{question, tags}, article, annotations, {liqens, colors}] = await Promise.all([
       getQuestionAndTags(),
       getArticle(),
       getAnnotations(),
-      getLiqens()
+      getColoredLiqens()
     ])
 
     const state = {
@@ -116,9 +157,7 @@ export default async function annotate (req, res) {
       tags,
       annotations,
       liqens,
-      newLiqen: {
-        answer: []
-      }
+      colors
     }
 
     return res.render('annotate', {article, state})

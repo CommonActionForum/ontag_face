@@ -166,6 +166,10 @@ const localLiqen = token => ({
       return Promise.resolve(Object.assign({
         id: Math.floor(Math.random() * 1000)
       }, obj))
+    },
+
+    update (id, obj) {
+      return Promise.resolve(obj)
     }
   }
 })

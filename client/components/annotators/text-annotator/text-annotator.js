@@ -12,26 +12,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Marker from './marker'
+import SelectionHandler from './selection-handler'
 import Tooltip from './tag-tooltip'
 
 export default class TextAnnotator extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      selectedAnnotation: null,
       newAnnotation: {
         target: null
       }
     }
 
-    this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this)
     this.handleHighlight = this.handleHighlight.bind(this)
-    this.handleUnhighlight = this.handleUnhighlight.bind(this)
-  }
-
-  handleSelectAnnotation (selectedAnnotation) {
-    this.setState({ selectedAnnotation })
+    this.handleDeselect = this.handleDeselect.bind(this)
   }
 
   handleHighlight (fragment, range) {
@@ -40,9 +34,8 @@ export default class TextAnnotator extends React.Component {
     })
   }
 
-  handleUnhighlight () {
+  handleDeselect () {
     this.setState({
-      selectedAnnotation: null,
       newAnnotation: { target: null }
     })
   }
@@ -56,45 +49,31 @@ export default class TextAnnotator extends React.Component {
 
       document.getSelection().removeAllRanges()
       this.setState({
-        selectedAnnotation: null,
         newAnnotation: { target: null }
       })
     }
   }
 
-  handleUnselectTag () {
-    this.props.onDeleteAnnotation(this.state.selectedAnnotation)
-    this.setState({ selectedAnnotation: null })
-  }
-
   render () {
-    const selectedTag =
-      this.state.selectedAnnotation && this.state.selectedAnnotation.tag
-
-    const selectedFragment =
-      this.state.selectedAnnotation && this.state.selectedAnnotation.target
-
     return (
       <div>
         <div ref={node => (this.paragraph = node)}>
-          <Marker
-            onHighlight={(fragment, range) =>
-              this.handleHighlight(fragment, range)}
-            onUnhighlight={() => this.handleUnhighlight()}
-            fragment={selectedFragment}
+          <SelectionHandler
+            onSelect={this.handleHighlight}
+            onDeselect={this.handleDeselect}
           >
             {this.props.children}
-          </Marker>
+          </SelectionHandler>
         </div>
         <div ref={node => (this.tooltip = node)}>
-          {(selectedTag || this.state.newAnnotation.target) &&
-           <Tooltip
-             list={this.props.tags}
-             selected={selectedTag}
-             position={this.state.newAnnotation.range}
-             onSelect={tag => this.handleSelectTag(tag)}
-             onUnselect={() => this.handleUnselectTag()}
-           />}
+          {
+            this.state.newAnnotation.target &&
+            <Tooltip
+              list={this.props.tags}
+              position={this.state.newAnnotation.range}
+              onSelect={tag => this.handleSelectTag(tag)}
+            />
+          }
         </div>
       </div>
     )
@@ -102,9 +81,12 @@ export default class TextAnnotator extends React.Component {
 }
 
 TextAnnotator.propTypes = {
-  annotations: PropTypes.array,
-  tags: PropTypes.array,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      cid: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired
+    })
+  ),
   children: PropTypes.node,
-  onCreateAnnotation: PropTypes.func.isRequired,
-  onDeleteAnnotation: PropTypes.func
+  onCreateAnnotation: PropTypes.func.isRequired
 }
