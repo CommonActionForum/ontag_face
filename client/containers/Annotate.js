@@ -168,6 +168,9 @@ const mapStateToLiqens = (state) => {
         .map(qa => {
           const annotations = liqen.answer
             .filter(la =>
+              state.annotations[la]
+            )
+            .filter(la =>
               state.annotations[la].tag === qa.tag
             )
             .map(annotation =>
@@ -184,10 +187,14 @@ const mapStateToLiqens = (state) => {
           }
         })
 
-      ret.push({
-        color,
-        answer
-      })
+      const sum = answer.reduce((acc, a) => acc + a.annotations.length, 0)
+
+      if (sum > 0) {
+        ret.push({
+          color,
+          answer
+        })
+      }
     }
   }
 
