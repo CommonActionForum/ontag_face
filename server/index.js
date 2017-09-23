@@ -2,9 +2,8 @@ import 'babel-polyfill'
 import express from 'express'
 import path from 'path'
 import http from 'http'
-import core from 'liqen'
 import router from './router'
-import setLiqenCore from './middlewares/set-liqen-core'
+import setCore from './middlewares/set-core'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -36,10 +35,11 @@ app.get('*.js', function (req, res, next) {
 app.use('/static', express.static('public'))
 
 if (process.env.ONTAG_FAKE_CORE === 'true') {
-  const localCore = require('./local-liqen').default
-  app.use(setLiqenCore(localCore))
+  const core = require('./ontag-fake-core/index').default
+  app.use(setCore(core))
 } else {
-  app.use(setLiqenCore(core))
+  const core = require('./ontag-core/index').default
+  app.use(setCore(core))
 }
 
 app.use('/', router)
