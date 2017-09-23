@@ -35,7 +35,7 @@ app.get('*.js', function (req, res, next) {
 
 app.use('/static', express.static('public'))
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.ONTAG_FAKE_CORE === 'true') {
   const localCore = require('./local-liqen').default
   app.use(setLiqenCore(localCore))
 } else {
