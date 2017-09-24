@@ -14,6 +14,25 @@ const core = token => ({
         return Promise.reject(new Error('not authenticated'))
       }
     }
+  },
+
+  me: {
+    show (token) {
+      if (token === 'valid_token') {
+        return Promise.resolve({
+          username: 'john_example',
+          name: 'John Example'
+        })
+      } else {
+        return Promise.reject(new Error())
+      }
+    }
+  },
+
+  questions: {
+    show (id) {
+      return Promise.resolve({})
+    }
   }
 })
 

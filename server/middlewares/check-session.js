@@ -14,7 +14,7 @@ export default function checkSession (req, res, next) {
   console.log('MW checkSession: call core.users.show')
 
   return req
-    .core.users.show(token)
+    .core.me.show(token)
     .then(user => {
       console.log('MW checkSession > call successful.')
       console.log('MW checkSession > Setting `req.currentUser` to the right variable')
