@@ -31,7 +31,9 @@ const core = token => ({
 
   questions: {
     show (id) {
-      return Promise.resolve({})
+      return Promise.resolve({
+        title: 'Describe the migration flow of the highly qualified people'
+      })
     }
   }
 })

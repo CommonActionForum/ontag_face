@@ -5,7 +5,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Page Title</title>
+  <title>Ontag | <%= question.title %></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
@@ -17,18 +17,11 @@
   </nav>
   <div class="container mt-4">
     <div class="row">
-      <aside class="hidden-md-down col-lg-4 flex-last">
-        <h2>Welcome to Liqen</h2>
-        <p>The aim of this tool is to create answers (we call them <em>Liqens</em>) to relevant questions.</p>
-        <p>For now, we have curated a list of articles that could answer the proposed question.</p>
-        <p>Choose one of them to start highlighting things, create annotations and create Liqens</p>
-      </aside>
       <div class="col-lg-8 col-xl-7">
         <header class="jumbotron bg-secondary text-white">
           <p>Current question</p>
           <h1><%= question.title %></h1>
         </header>
-        <h3 class="h6 my-4 text-muted">Answer the question using the following articles</h3>
         <main id="root">
         </main>
       </div>
