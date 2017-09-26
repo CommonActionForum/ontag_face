@@ -12,6 +12,10 @@ const core = token => ({
         return Promise.resolve({
           access_token: 'valid_token'
         })
+      } else if (email === 'john_medium@example.com') {
+        return Promise.resolve({
+          access_token: 'valid_medium_token'
+        })
       } else {
         return Promise.reject(new Error('not authenticated'))
       }
@@ -25,8 +29,30 @@ const core = token => ({
           username: 'john_example',
           name: 'John Example'
         })
+      } else if (token === 'valid_medium_token') {
+        return Promise.resolve({
+          username: 'john_example',
+          name: 'John Example',
+          medium_credential: {
+            user_id: 'saito_style'
+          }
+        })
       } else {
         return Promise.reject(new Error())
+      }
+    },
+
+    medium: {
+      create (query) {
+        if (query && query.code && query.state) {
+          return Promise.resolve({
+            user_id: 'saito_style'
+          })
+        } else {
+          return Promise.resolve({
+            state: 'valid_state'
+          })
+        }
       }
     }
   },

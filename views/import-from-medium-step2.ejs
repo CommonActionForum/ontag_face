@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Ontag | Import content from Medium</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <a class="navbar-brand" href="/">
+      Ontag
+    </a>
+  </nav>
+  <div class="container">
+    <header class="medium-ih">
+      <img src="/static/imgs/medium-integration.jpg" class="mw-100">
+      <h1 class="medium-ih-title">Integrate Ontag with Medium</h1>
+      <p>Now you can import your Medium articles into Ontag in two simple steps</p>
+    </header>
+    <main>
+      <section class="medium-istep">
+        <h2 class="medium-istep-title">DONE! Step 1</h2>
+        <p>You are connnected as <strong><%= user.user_id %></strong></p>
+      </section>
+
+      <form action="/import-from-medium" method="post">
+        <section class="medium-istep">
+          <h2 class="medium-istep-title">Step 2</h2>
+          <p>Choose the Medium posts that you want to import</p>
+        </section>
+        <div id="medium-step2"></div>
+        <button class="btn btn-tertiary" type="submit">Submit</button>
+      </form>
+    </main>
+  </div>
+  <script>
+    window.__MEDIUM_ID__ = '<%= user.user_id %>'
+  </script>
+  <script src="/static/dist/import-from-medium.js"></script>
+</body>
+</html>

@@ -8,7 +8,10 @@ module.exports = {
 
   entry: {
     dashboard: './dashboard',
+    dumb: './dumb'
+    /*
     annotate: './annotate'
+    */
   },
 
   output: {

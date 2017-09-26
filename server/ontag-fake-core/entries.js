@@ -40,5 +40,9 @@ const entries = [
 export default {
   index () {
     return Promise.resolve(entries)
+  },
+
+  create () {
+    return Promise.resolve()
   }
 }

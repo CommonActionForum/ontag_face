@@ -9,7 +9,11 @@ module.exports = {
 
   entry: {
     dashboard: ['webpack-hot-middleware/client', './dashboard'],
-    annotate: ['webpack-hot-middleware/client', 'react-hot-loader/patch', './annotate']
+    'import-from-medium': ['webpack-hot-middleware/client', './import-from-medium'],
+    dumb: './dumb'
+    /*
+       annotate: ['webpack-hot-middleware/client', 'react-hot-loader/patch', './annotate']
+     */
   },
 
   output: {
@@ -43,6 +47,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      ONTAG_FAKE_CORE: process.env.ONTAG_FAKE_CORE,
       DEBUG: true
     })
   ],
