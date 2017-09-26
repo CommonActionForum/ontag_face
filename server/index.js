@@ -24,6 +24,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHot(compiler))
 }
 
+app.get('robots.txt', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'robots.txt'))
+})
 app.set('views', path.join(process.cwd(), 'views'))
 app.set('view engine', 'ejs')
 app.get('*.js', function (req, res, next) {
