@@ -1,3 +1,5 @@
+import entries from './entries'
+
 /**
  * This library simulates calls to a Ontag API.
  *
@@ -35,7 +37,9 @@ const core = token => ({
         title: 'Describe the migration flow of the highly qualified people'
       })
     }
-  }
+  },
+
+  entries
 })
 
 export default core

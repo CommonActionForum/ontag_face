@@ -16,17 +16,47 @@
     </a>
   </nav>
   <div class="container mt-4">
-    <div class="row">
-      <div class="col-lg-8 col-xl-7">
-        <header class="jumbotron bg-secondary text-white">
-          <p>Current question</p>
-          <h1><%= question.title %></h1>
-        </header>
-        <main id="root">
-        </main>
+    <header class="question-container">
+      <h1 class="question-id">Question #01</h1>
+      <h1 class="question-title"><%= question.title %></h1>
+    </header>
+  </div>
+  <main id="root">
+    <div class="qe container">
+      <div class="row">
+        <div class="qe-item col-12 col-md-6 col-lg-4">
+          <a href="https://hackernoon.com/front-end-roles-and-responsibilities-6ee8654f1649" class="qe-image"
+            style="background-image: url('https://cdn-images-1.medium.com/max/2000/1*ICPJKeH7mM3O_KReK5shSw.jpeg')">
+          </a>
+          <h2 class="qe-title">Front-end Roles and Responsibilities</h2>
+          <div class="qe-meta">
+            <div class="qe-avatar-zone">
+              <a class="qe-avatar" style="background-image: url('/static/imgs/medium-logo.png')"></a>
+            </div>
+            <div class="qe-text">
+              <div>Published originally in Medium</div>
+              <div>Uploaded to Ontag by </div>
+            </div>
+          </div>
+        </div>
+        <div class="qe-item col-12 col-md-6 col-lg-4">
+          <a href="https://hackernoon.com/front-end-roles-and-responsibilities-6ee8654f1649" class="qe-image"
+            style="background-image: url('https://cdn-images-1.medium.com/max/2000/1*ICPJKeH7mM3O_KReK5shSw.jpeg')">
+          </a>
+          <h2 class="qe-title">Front-end Roles and Responsibilities</h2>
+          <div class="qe-meta">
+            <div class="qe-avatar-zone">
+              <a class="qe-avatar" style="background-image: url('/static/imgs/medium-logo.png')"></a>
+            </div>
+            <div class="qe-text">
+              <div>Published originally in Medium</div>
+              <div>Uploaded to Ontag by </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
   <script src="/static/dist/dashboard.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

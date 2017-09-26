@@ -1,19 +1,8 @@
 import React from 'react'
 import Article from './article'
-import liqen from 'liqen'
-import fakeLiqen from '../../../server/local-liqen'
-import cookies from 'cookies-js'
+import core from '../../core'
 
-const token = cookies.get('access_token')
-const options = {
-  apiURI: process.env.LIQEN_API_URI
-}
-
-let core = liqen(token, options)
-
-if (process.env.NODE_ENV === 'development') {
-  core = fakeLiqen(token, options)
-}
+console.log(core)
 
 class ArticleList extends React.Component {
   constructor (props) {
@@ -32,7 +21,7 @@ class ArticleList extends React.Component {
   }
 
   componentWillMount () {
-    core.articles.index()
+    core.entries.index()
         .then(articles => {
           console.log(articles); this.setState({articles})
         })
@@ -42,16 +31,19 @@ class ArticleList extends React.Component {
   }
 
   render () {
-    const articles = this.state.articles.map(({id, title, source}) =>
-      <Article key={id}
-        id={id}
+    const articles = this.state.articles.map(({title, uri, image, id}) =>
+      <Article
+        key={id}
         title={title}
-        link={`/annotate?question=1&article=${id}`} />
+        uri={uri}
+        image={image} />
     )
 
     return (
-      <div>
-        {articles}
+      <div className='container'>
+        <div className='row'>
+          {articles}
+        </div>
       </div>
     )
   }
