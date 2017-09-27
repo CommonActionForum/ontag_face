@@ -9,7 +9,7 @@ export default function callbackFromMedium (req, res) {
 
   console.log('ENDPOINT callbackFromMedium. Calling core.me.medium.create()')
   req
-    .core.me.medium.create({code, state})
+    .core.me.add_medium_credential({code, state})
     .then((user) => {
       res.render('import-from-medium-step2', {user})
     })

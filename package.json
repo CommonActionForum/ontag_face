@@ -10,6 +10,7 @@
     "heroku-postbuild": "npm run build",
     "clean": "rimraf lib public/dist",
     "start:dev": "NODE_ENV=development ONTAG_FAKE_CORE=true nodemon server/index.js --ignore dashboard/ --ignore client/ --exec babel-node --presets env,react",
+    "start:dev2": "NODE_ENV=development ONTAG_FAKE_CORE=false nodemon server/index.js --ignore dashboard/ --ignore client/ --exec babel-node --presets env,react",
     "build": "npm run build:server && npm run build:client",
     "build:server": "babel server -d lib/server --presets es2015,es2016,es2017,react",
     "build:dashboard": "babel dashboard -d lib/dashboard --presets es2015,react",

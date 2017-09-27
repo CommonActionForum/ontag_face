@@ -24,7 +24,7 @@
     <main>
       <section class="medium-istep">
         <h2 class="medium-istep-title">DONE! Step 1</h2>
-        <p>You are connnected as <strong><%= user.user_id %></strong></p>
+        <p>You are connnected as <strong><%= user.username %></strong></p>
       </section>
 
       <form action="/import-from-medium" method="post">
@@ -38,7 +38,7 @@
     </main>
   </div>
   <script>
-    window.__MEDIUM_ID__ = '<%= user.user_id %>'
+    window.__MEDIUM_ID__ = '<%= user.username %>'
   </script>
   <script src="/static/dist/import-from-medium.js"></script>
 </body>

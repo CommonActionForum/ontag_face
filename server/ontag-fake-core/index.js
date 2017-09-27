@@ -23,7 +23,7 @@ const core = token => ({
   },
 
   me: {
-    show (token) {
+    index () {
       if (token === 'valid_token') {
         return Promise.resolve({
           username: 'john_example',

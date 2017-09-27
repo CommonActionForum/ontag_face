@@ -11,10 +11,10 @@ export default function checkSession (req, res, next) {
     return res.redirect('/login')
   }
 
-  console.log('MW checkSession: call core.users.show')
+  console.log('MW checkSession > call core.me.index')
 
   return req
-    .core.me.show(token)
+    .core.me.index()
     .then(user => {
       console.log('MW checkSession > call successful.')
       console.log('MW checkSession > Setting `req.currentUser` to the right variable')
