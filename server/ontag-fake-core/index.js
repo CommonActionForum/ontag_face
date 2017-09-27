@@ -42,17 +42,15 @@ const core = token => ({
       }
     },
 
-    medium: {
-      create (query) {
-        if (query && query.code && query.state) {
-          return Promise.resolve({
-            user_id: 'saito_style'
-          })
-        } else {
-          return Promise.resolve({
-            state: 'valid_state'
-          })
-        }
+    add_medium_credential (query) {
+      if (query && query.code && query.state) {
+        return Promise.resolve({
+          username: 'saito_style'
+        })
+      } else {
+        return Promise.resolve({
+          state: 'valid_state'
+        })
       }
     }
   },
