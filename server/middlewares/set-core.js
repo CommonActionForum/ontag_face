@@ -5,7 +5,7 @@ export default function setLiqenCore (core) {
     const cookies = new Cookies(req, res)
     const accessToken = cookies.get('access_token')
     const options = {
-      apiURI: process.env.LIQEN_API_URI || 'http://localhost:4000'
+      apiURI: process.env.ONTAG_API_URI || 'http://localhost:4000'
     }
 
     if (accessToken) {

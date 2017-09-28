@@ -4,7 +4,7 @@ import { fetchJSON } from './resource-factory'
 
 // Default options related to the API
 const DEFAULT_OPTIONS = {
-  apiURI: 'https://liqen-core.herokuapp.com'
+  apiURI: 'https://ontag-core.herokuapp.com'
 }
 
 function createClient (token, options = DEFAULT_OPTIONS) {
