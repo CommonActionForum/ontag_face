@@ -2,9 +2,8 @@ import 'babel-polyfill'
 import express from 'express'
 import path from 'path'
 import http from 'http'
-import core from 'liqen'
 import router from './router'
-import setLiqenCore from './middlewares/set-liqen-core'
+import setCore from './middlewares/set-core'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -25,6 +24,9 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHot(compiler))
 }
 
+app.get('robots.txt', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'robots.txt'))
+})
 app.set('views', path.join(process.cwd(), 'views'))
 app.set('view engine', 'ejs')
 app.get('*.js', function (req, res, next) {
@@ -35,11 +37,12 @@ app.get('*.js', function (req, res, next) {
 
 app.use('/static', express.static('public'))
 
-if (process.env.NODE_ENV === 'development') {
-  const localCore = require('./local-liqen').default
-  app.use(setLiqenCore(localCore))
+if (process.env.ONTAG_FAKE_CORE === 'true') {
+  const core = require('./ontag-fake-core/index').default
+  app.use(setCore(core))
 } else {
-  app.use(setLiqenCore(core))
+  const core = require('./ontag-core/index').default
+  app.use(setCore(core))
 }
 
 app.use('/', router)

@@ -1,26 +1,77 @@
 import React from 'react'
+import styled from 'styled-components'
 
-function getColorFromId (id) {
-  const hue = (id * 97) % 360
-  return `hsl(${hue}, 32%, 68%)`
-}
-
-const Article = ({ link, title, id }) => (
-  <div className='card'>
-    <div className='card-img-top'
-      style={{height: '5em', background: getColorFromId(id)}}
-      alt='Card image cap' />
-    <div className='card-block'>
-      <h4 className='card-title'>
-        <a href={link}>
-          {title}
-        </a>
-      </h4>
-      <p className='card-text'>
-        <small className='text-muted'></small>
-      </p>
-    </div>
+const UnstyledContainer = ({ className, children }) => (
+  <div className={`col-12 col-md-6 col-lg-4 ${className}`}>
+    {children}
   </div>
+)
+
+const Container = styled(UnstyledContainer)`
+  padding-top: 2rem;
+  margin-bottom: 1rem;
+`
+
+const UnstyledImage = ({ className, children, link, image }) => (
+  <a className={className}
+    href={link}
+    style={{backgroundImage: `url(${image})`}}
+  />
+)
+
+const HeaderImage = styled(UnstyledImage)`
+  display: block;
+  background-size: cover;
+  height: 10rem;
+`
+
+const Title = styled.h2`
+  padding: 1rem 0 0 0;
+  font-size: 1.25rem;
+`
+
+const Metadata = styled.div`
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px #999 solid;
+`
+
+const AvatarContainer = styled.div`
+  width: 40px;
+`
+
+const AvatarImage = styled.div`
+  display: block;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+`
+
+const Avatar = ({uri}) => (
+  <AvatarContainer>
+    <AvatarImage style={{backgroundImage: `url(${uri})`}} />
+  </AvatarContainer>
+)
+
+const Text = styled.div`
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #666;
+`
+
+const Article = ({ title, uri, image }) => (
+  <Container>
+    <HeaderImage link={uri} image={image} />
+    <Title>{title}</Title>
+    <Metadata>
+      <Avatar uri='/static/imgs/medium-logo.png' />
+      <Text>
+        <div>Published originally in Medium</div>
+      </Text>
+    </Metadata>
+  </Container>
 )
 
 export default Article

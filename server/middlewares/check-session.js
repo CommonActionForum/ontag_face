@@ -1,23 +1,32 @@
 import Cookies from 'cookies'
 
 export default function checkSession (req, res, next) {
-  const cookies = new Cookies(req, res)
-  const userId = cookies.get('user_id')
+  console.log('MW checkSession > start')
 
-  if (!userId) {
+  const cookies = new Cookies(req, res)
+  const token = cookies.get('access_token')
+
+  if (!token) {
+    console.log('MW checkSession > no `access_token` in cookies present. Redirecting to /login')
     return res.redirect('/login')
   }
 
-  console.log('Calling core.users.show')
+  console.log('MW checkSession > call core.me.index')
+
   return req
-    .core.users.show(userId)
+    .core.me.index()
     .then(user => {
-      console.log('Call success. Showing user: ', user)
+      console.log('MW checkSession > call successful.')
+      console.log('MW checkSession > Setting `req.currentUser` to the right variable')
+      console.log('MW checkSession > next()')
+
       req.currentUser = user
       next()
     })
     .catch((e) => {
-      console.log('Call failed. Showing error: ', e)
+      console.log('MW checkSession > call not successful. Showing error')
+      console.log(e)
+      console.log('MW checkSession > redirecting to /login')
       res.redirect('/login')
     })
 }
