@@ -27,6 +27,10 @@ if (process.env.NODE_ENV === 'development') {
 app.get('robots.txt', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'robots.txt'))
 })
+app.get('favicon.ico', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'favicon.ico'))
+})
+
 app.set('views', path.join(process.cwd(), 'views'))
 app.set('view engine', 'ejs')
 app.get('*.js', function (req, res, next) {
