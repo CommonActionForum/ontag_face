@@ -24,10 +24,10 @@ if (process.env.NODE_ENV === 'development') {
   app.use(webpackHot(compiler))
 }
 
-app.get('robots.txt', (req, res) => {
+app.get('/robots.txt', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'robots.txt'))
 })
-app.get('favicon.ico', (req, res) => {
+app.get('/favicon.ico', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'favicon.ico'))
 })
 
