@@ -37,10 +37,21 @@ export default function getMediumPosts (req, res) {
     ])
   } else {
     const userId = req.query.user_id
-    const url = `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40${userId}1%2F`
+    const apiKey = process.env.RSS2JSON_API_KEY
+    const url = `https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40${userId}&api_key=${apiKey}`
 
+    console.log('ENDPOINT getMediumPosts > getting RSS')
+    console.log(url)
     fetch(url)
-      .then(/* parseJson */)
-      .then(/* parse the rss */)
+      .then(response => response.json())
+      .then(({items}) => {
+        console.log('ENDPOINT getMediumPosts > Reading RSS')
+
+        const entries = items
+          .map(
+            ({title, link}) => ({title, uri: link, image: ''})
+          )
+        res.send(entries)
+      })
   }
 }
