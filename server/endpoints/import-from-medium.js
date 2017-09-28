@@ -19,7 +19,10 @@ export default function importFromMedium (req, res) {
       }
     }
   ))
-    .map(obj => req.core.entries.create(obj))
+    .map(obj =>
+      req.core.entries.create(obj)
+    )
+
 
   Promise.all(array)
     .then(() => {
