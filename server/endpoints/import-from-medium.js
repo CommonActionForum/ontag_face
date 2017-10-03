@@ -8,14 +8,20 @@ export default function importFromMedium (req, res) {
 
   console.log('ENDPOINT importFromMedium > calling core.entries.create')
   const {uri, image, title} = req.body
-  const array = zipWith(uri, image, title, (uri, image, title) => (
+
+  let uris = typeof uri === 'string' ? [uri] : uri
+  let images = typeof uri === 'string' ? [image] : image
+  let titles = typeof uri === 'string' ? [title] : title
+
+  const array = zipWith(uris, images, titles, (uri, image, title) => (
     {
       title,
-      entry_tipe: 'medium_post',
+      entry_type: 'medium_post',
       medium_post: {
         uri,
-        image,
-        title
+        title,
+        tags: [],
+        copyright_cesion: true
       }
     }
   ))
