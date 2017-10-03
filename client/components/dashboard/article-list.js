@@ -2,8 +2,6 @@ import React from 'react'
 import Article from './article'
 import core from '../../core'
 
-console.log(core)
-
 class ArticleList extends React.Component {
   constructor (props) {
     super(props)
@@ -23,7 +21,7 @@ class ArticleList extends React.Component {
   componentWillMount () {
     core.entries.index()
         .then(articles => {
-          console.log(articles); this.setState({articles})
+          this.setState({articles})
         })
         .catch(e => {
           console.log(e)
@@ -31,13 +29,22 @@ class ArticleList extends React.Component {
   }
 
   render () {
-    const articles = this.state.articles.map(({title, uri, image, id}) =>
-      <Article
-        key={id}
-        title={title}
-        uri={uri}
-        image={image} />
-    )
+    const articles = this.state.articles.map(article => {
+      const {title, entry_type, id} = article
+
+      if (entry_type === 'medium_post') {
+        return (
+          <Article
+            key={id}
+            id={id}
+            title={title}
+            uri={article.medium_post.uri}
+            image={''} />
+        )
+      } else {
+
+      }
+    })
 
     return (
       <div className='container'>

@@ -61,14 +61,14 @@ const Text = styled.div`
   color: #666;
 `
 
-const Article = ({ title, uri, image }) => (
+const Article = ({ title, uri, image, id }) => (
   <Container>
-    <HeaderImage link={uri} image={image} />
-    <Title>{title}</Title>
+    <HeaderImage link={`/entries/${id}`} image={image} />
+    <Title><a href={`/entries/${id}`}>{title}</a></Title>
     <Metadata>
       <Avatar uri='/static/imgs/medium-logo.png' />
       <Text>
-        <div>Published originally in Medium</div>
+        <div>Published originally <a href={uri}>in Medium</a></div>
       </Text>
     </Metadata>
   </Container>

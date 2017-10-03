@@ -17,7 +17,7 @@ export default class MediumArticleList extends React.Component {
         this.setState({
           articles: articles
             .map(({title, uri, image}) => ({
-              checked: true,
+              checked: false,
               title,
               uri,
               image
