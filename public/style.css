@@ -288,3 +288,26 @@ mark {
   display: inline-block;
   vertical-align: baseline;
 }
+
+.annotate-title-container {
+  border-bottom: 2px #999 solid;
+  border-top: 2px #999 solid;
+  margin: 1rem 0;
+}
+
+.annotate-question-title {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+  border-bottom: 2px #999 solid;
+}
+
+.annotate-article-title {
+  font-size: 48px;
+  font-family: Georgia, serif;
+  line-height: 1.25;
+  letter-spacing: -0.014em;
+}
