@@ -35,6 +35,7 @@ class ArticleList extends React.Component {
       if (entry_type === 'medium_post') {
         return (
           <Article
+            questionId={1}
             key={id}
             id={id}
             title={title}

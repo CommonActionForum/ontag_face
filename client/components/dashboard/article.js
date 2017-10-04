@@ -61,10 +61,17 @@ const Text = styled.div`
   color: #666;
 `
 
-const Article = ({ title, uri, image, id }) => (
+const Article = ({ questionId, title, uri, image, id }) => (
   <Container>
-    <HeaderImage link={`/entries/${id}`} image={image} />
-    <Title><a href={`/entries/${id}`}>{title}</a></Title>
+    <HeaderImage
+      link={`/annotate/?entry=${id}&question=${questionId}`}
+      image={image}
+    />
+    <Title>
+      <a href={`/annotate/?entry=${id}&question=${questionId}`}>
+        {title}
+      </a>
+    </Title>
     <Metadata>
       <Avatar uri='/static/imgs/medium-logo.png' />
       <Text>
