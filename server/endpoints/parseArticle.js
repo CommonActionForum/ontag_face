@@ -1,11 +1,11 @@
-import { downloadArticle } from 'liqen-scrapper'
+import { downloadArticle } from '../scraper/download-article'
 
 export default function (req, res) {
   if (!req.query.uri) {
     return res.send({})
   }
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.ONTAG_FAKE_CORE === 'true') {
     res.send({
       body: {
         object: {
