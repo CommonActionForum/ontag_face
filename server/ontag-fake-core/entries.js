@@ -54,5 +54,9 @@ export default {
 
   create () {
     return Promise.resolve()
+  },
+
+  show () {
+    return Promise.resolve(entries[0])
   }
 }
