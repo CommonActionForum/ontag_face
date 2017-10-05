@@ -10,10 +10,8 @@ module.exports = {
   entry: {
     dashboard: ['webpack-hot-middleware/client', './dashboard'],
     'import-from-medium': ['webpack-hot-middleware/client', './import-from-medium'],
+    annotate: ['webpack-hot-middleware/client', 'react-hot-loader/patch', './annotate'],
     dumb: './dumb'
-    /*
-       annotate: ['webpack-hot-middleware/client', 'react-hot-loader/patch', './annotate']
-     */
   },
 
   output: {

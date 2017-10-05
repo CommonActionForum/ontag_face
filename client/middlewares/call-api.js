@@ -1,5 +1,5 @@
-import liqen from 'liqen'
-import fakeLiqen from '../../server/local-liqen'
+import liqen from '../../server/ontag-core/index'
+import fakeLiqen from '../../server/ontag-fake-core/index'
 import cookies from 'cookies-js'
 import * as ActionType from '../actions'
 
