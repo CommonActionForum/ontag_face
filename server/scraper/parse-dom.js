@@ -81,6 +81,7 @@ function getJson ($) {
 // private
 function getContainer ($) {
   const selectors = [
+    '.postArticle .section-inner',
     '[itemprop=articleBody] [itemProp=text]',
     '[itemprop=articleBody]',
     '#cuerpo_noticia',
@@ -110,7 +111,7 @@ function getContainer ($) {
 function convertToNode (element) {
   switch (element.type) {
     case 'tag':
-      if (['a', 'p', 'strong', 'em', 'b', 'em'].indexOf(element.name) === -1) {
+      if (['a', 'p', 'strong', 'em', 'b', 'em', 'h3', 'blockquote', 'pre'].indexOf(element.name) === -1) {
         return null
       }
 
