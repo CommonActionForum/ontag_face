@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
+import styled from 'styled-components'
 
 import Article from '../components/annotators/article-container'
 import { createAnnotation,
@@ -8,6 +9,22 @@ import { createAnnotation,
          removeAnnotationColor } from '../actions/index'
 
 const article = window.__ARTICLE__
+
+const UnstyledToggler = ({className, onClick}) => (
+  <a className={className} onClick={onClick}>
+    <i className='fa fa-angle-right fa-3x' />
+    <div>Show the answers to this question</div>
+  </a>
+)
+
+const Toggler = styled(UnstyledToggler)`
+  max-width: 300px;
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: #999 !important;
+  font-size: 0.8rem;
+`
 
 export class Annotate extends React.Component {
   constructor (props) {
@@ -43,20 +60,19 @@ export class Annotate extends React.Component {
 
     return (
       <div>
-        <div className='article-positioner'>
-          <div className='article-container'>
-            <main className='article-body'>
-              <Article
-                colors={colors}
-                annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
-                body={this.state.articleBody}
-                tags={tags}
-                onAnnotate={onCreateAnnotation}
-                onAddAnnotationColor={onAddAnnotationColor}
-                onRemoveAnnotationColor={onRemoveAnnotationColor}
-              />
-            </main>
-          </div>
+        <div className='article-container'>
+          <Toggler />
+          <main className='article-body'>
+            <Article
+              colors={colors}
+              annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
+              body={this.state.articleBody}
+              tags={tags}
+              onAnnotate={onCreateAnnotation}
+              onAddAnnotationColor={onAddAnnotationColor}
+              onRemoveAnnotationColor={onRemoveAnnotationColor}
+            />
+          </main>
         </div>
       </div>
     )
