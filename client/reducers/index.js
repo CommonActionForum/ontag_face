@@ -1,60 +1,27 @@
 import * as ActionTypes from '../actions/index'
 
 const initialState = {
+  entry: {
+    id: '1',
+    title: 'Front-end Roles and Responsibilities',
+    entry_type: 'medium_post'
+  },
   question: {
-    id: 12,
-    title: 'Title of the question',
-    answer: [
-      {
-        tag: 't1',
-        required: true
-      }
+    id: '1',
+    title: 'Describe the migration flow of the people',
+    required_tags: [
+      '1', '2'
+    ],
+    optional_tags: [
+      '3'
     ]
   },
-  article: {
-    id: 100,
-    title: 'Title of the article'
-  },
-  annotations: {
-    a1: {
-      id: 908,
-      tag: 't1',
-      target: {
-        prefix: 'como ',
-        exact: 'analista',
-        suffix: ' económico en una organización no gubernamental.'
-      },
-      checked: false,
-      pending: false
-    }
-  },
-  liqens: {
-    'l1': {
-      id: 9,
-      annotations: ['a1']
-    }
-  },
+  annotations: {},
+  answers: {},
   tags: {
-    't1': {
-      id: 1209,
-      title: 'tag 1'
-    },
-    't2': {
-      id: 1238,
-      title: 'tag 2'
-    }
-  },
-  colors: {
-    '#FFAB40': undefined,
-    '#E91E63': undefined,
-    '#E040FB': undefined,
-    '#AA00FF': undefined,
-    '#9FA8DA': undefined,
-    '#2962FF': undefined,
-    '#18FFFF': undefined,
-    '#B2FF59': undefined,
-    '#EEFF41': undefined,
-    '#FFFFFF': undefined
+    '1': {id: '1', title: 'Place of origin'},
+    '2': {id: '2', title: 'Destination'},
+    '3': {id: '3', title: 'Reason'}
   }
 }
 

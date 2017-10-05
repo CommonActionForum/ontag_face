@@ -152,9 +152,7 @@ const mapStateToProps = (state) => ({
   annotations: mapStateToAnnotations(state),
   liqens: mapStateToLiqens(state),
   colors: mapStateToColors(state),
-  tags: state.question.answer.map(
-    ({tag}) => ({ref: tag, title: state.tags[tag].title})
-  )
+  tags: []
 })
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
