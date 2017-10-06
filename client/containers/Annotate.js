@@ -65,7 +65,7 @@ export class Annotate extends React.Component {
           <main className='article-body'>
             <Article
               colors={colors}
-              annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
+              annotations={annotations}
               body={this.state.articleBody}
               tags={tags}
               onAnnotate={onCreateAnnotation}
@@ -88,16 +88,31 @@ function objectToArray (object) {
   return ret
 }
 
+const colors = ['#ff0000']
+
 const mapStateToAnnotations = (state) => {
+  const coloredAnswers = objectToArray(state.answers)
+    .map((ans, i) => ({
+      annotations: ans.annotations,
+      cid: ans.cid,
+      color: colors[i % colors.length]
+    }))
+
+  function getColors (annotation) {
+    return coloredAnswers
+      .filter(ans => ans.annotations.indexOf(annotation) !== -1)
+      .map(a => a.color)
+  }
+
   return objectToArray(state.annotations)
+    .map(ann => ({
+      fragment: ann.target,
+      colors: getColors(ann.cid)
+    }))
 }
 
-const mapStateToAnswers = (state) => {
-  return []
-}
-
-const mapStateToColors = (state) => {
-  return []
+const mapStateToColors = () => {
+  return colors
 }
 
 const mapStateToTags = (state) => {
@@ -111,7 +126,6 @@ const mapStateToTags = (state) => {
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
-  liqens: mapStateToAnswers(state),
   colors: mapStateToColors(state),
   tags: mapStateToTags(state)
 })

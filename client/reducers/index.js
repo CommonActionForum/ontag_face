@@ -30,7 +30,7 @@ export default function reducer (state = initialState, action = {}) {
     question: state.question,
     entry: state.entry,
     annotations: annotationReducer(state.annotations, action),
-    liqens: liqenReducer(state.liqens, action),
+    answers: liqenReducer(state.answers, action),
     tags: state.tags,
     colors: colorReducer(state.colors, action)
   }
