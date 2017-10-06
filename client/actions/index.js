@@ -28,15 +28,26 @@ export function createAnnotation (target, tag) {
   return {
     [CALL_API]: {
       type: CREATE_ANNOTATION,
+      remotePayload (store) {
+        return {
+          entry_id: store.getState().entry.id,
+          tag_id: store.getState().tags[tag].id,
+          target
+        }
+      },
+      localPayload (store) {
+        return {
+          entry_id: store.getState().entry.id,
+          tag_id: store.getState().tags[tag].id,
+          target
+        }
+      },
       actions: [
         CREATE_ANNOTATION_PENDING,
         CREATE_ANNOTATION_SUCCESS,
         CREATE_ANNOTATION_FAILURE
       ],
-      annotation: {
-        target,
-        tag
-      },
+      key: 'annotation',
       cid
     }
   }

@@ -28,7 +28,7 @@ const initialState = {
 export default function reducer (state = initialState, action = {}) {
   return {
     question: state.question,
-    article: state.article,
+    entry: state.entry,
     annotations: annotationReducer(state.annotations, action),
     liqens: liqenReducer(state.liqens, action),
     tags: state.tags,

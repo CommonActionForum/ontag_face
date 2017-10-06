@@ -1,9 +1,24 @@
-import liqen from '../../server/ontag-core/index'
-import fakeLiqen from '../../server/ontag-fake-core/index'
+import ontagCore from '../../server/ontag-core/index'
+import fakeOntagCore from '../../server/ontag-fake-core/index'
 import cookies from 'cookies-js'
 import * as ActionType from '../actions'
 
 export const CALL_API = Symbol('call api')
+
+function getFunctionCall (type) {
+  const token = cookies.get('access_token')
+  const options = {
+    apiURI: process.env.ONTAG_API_URI
+  }
+  const core = process.env.ONTAG_FAKE_CORE === 'true'
+             ? fakeOntagCore(token, options)
+             : ontagCore(token, options)
+
+  switch (type) {
+    case ActionType.CREATE_ANNOTATION:
+      return core.annotations.create
+  }
+}
 
 export default store => next => action => {
   const callAPI = action[CALL_API]
@@ -12,106 +27,27 @@ export default store => next => action => {
     return next(action)
   }
 
-  const token = cookies.get('access_token')
-  const options = {
-    apiURI: process.env.LIQEN_API_URI
-  }
-
-  let core = liqen(token, options)
-
-  if (process.env.NODE_ENV === 'development') {
-    core = fakeLiqen(token, options)
-  }
+  console.log('MW call api >', callAPI.type)
 
   // Middleware starts here
-  const { cid, type, actions } = callAPI
+  const { cid, type, actions, remotePayload, localPayload, key } = callAPI
+  const fn = getFunctionCall(type)
 
-  // Prepare things to send to the server
-  let payload = {}
-  let fn = function fn () {}
-  let key = ''
-
-  switch (type) {
-    case ActionType.CREATE_ANNOTATION:
-      const tag = callAPI.annotation.tag
-      payload = {
-        article_id: store.getState().article.id,
-        target: {
-          type: 'TextQuoteSelector',
-          prefix: callAPI.annotation.target.prefix,
-          exact: callAPI.annotation.target.exact,
-          suffix: callAPI.annotation.target.suffix
-        },
-        tags: [store.getState().tags[tag].id]
-      }
-      fn = core.annotations.create
-      key = 'annotation'
-      break
-
-    case ActionType.CREATE_LIQEN:
-      payload = {
-        question_id: store.getState().question.id,
-        annotations: callAPI.liqen.answer.map(
-          a => store.getState().annotations[a].id
-        )
-      }
-      fn = core.liqens.create
-      key = 'liqen'
-      break
-
-    case ActionType.EDIT_LIQEN:
-      payload = {
-        annotations: callAPI.liqen.answer.map(a => store.getState().annotations[a].id)
-      }
-      fn = (pl) => core.liqens.update(
-        store.getState().liqens[callAPI.cid].id,
-        pl
-      )
-
-      key = 'liqen'
-      break
-  }
-
-  // Prepare what to send to the Store
-  let localPayload = {}
-  switch (type) {
-    case ActionType.CREATE_ANNOTATION:
-      localPayload = {
-        tag: callAPI.annotation.tag,
-        target: callAPI.annotation.target
-      }
-      break
-
-    case ActionType.CREATE_LIQEN:
-      localPayload = {
-        answer: callAPI.liqen.answer
-      }
-      break
-
-    case ActionType.EDIT_LIQEN:
-      localPayload = {
-        answer: callAPI.liqen.answer
-      }
-      break
-  }
-
-  // Send a pending
   next({
-    cid,
     type: actions[0],
-    [key]: localPayload
+    [key]: localPayload(store),
+    cid
   })
 
-  // Call API
-  fn(payload)
-    .then(object => next({
-      cid,
+  return fn(remotePayload(store))
+    .then(obj => next({
       type: actions[1],
-      [key]: object
+      [key]: obj,
+      cid
     }))
     .catch(err => next({
-      cid,
       type: actions[2],
-      error: err
+      error: err,
+      cid
     }))
 }

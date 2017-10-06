@@ -52,7 +52,8 @@ export default async function annotate (req, res) {
         question: reduxQuestion,
         tags: arrayToObject(reduxTags),
         annotations: arrayToObject(annotations),
-        answers: arrayToObject(reduxAnswers)
+        answers: arrayToObject(reduxAnswers),
+        entry
       }
 
       res.render('annotate', {entry, question, state: reduxState})
