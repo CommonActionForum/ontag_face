@@ -92,7 +92,8 @@ const mapStateToColors = (state) => {
 }
 
 const mapStateToTags = (state) => {
-  return []
+  const tags = state.question.required_tags.concat(state.question.optional_tags)
+  return tags.map(tagCid => state.tags[tagCid])
 }
 
 const mapStateToProps = (state) => ({
@@ -104,7 +105,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
+  onCreateAnnotation: ({target, tag}) =>
+    dispatch(createAnnotation(target, tag)),
   onAddAnnotationColor: (annotation, color) =>
     dispatch(addAnnotationColor(annotation, color)),
   onRemoveAnnotationColor: (annotation, color) =>
