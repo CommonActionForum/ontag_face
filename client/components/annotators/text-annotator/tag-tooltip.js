@@ -62,9 +62,9 @@ const Tooltip = ({ list, onSelect, position }) => (
     <div className='tooltip-inner'>
       <List>
         {
-          list.map(({ref, title}) => (
-            <ListItem key={ref}>
-              <Button onClick={() => onSelect(ref)}>
+          list.map(({cid, title}) => (
+            <ListItem key={cid}>
+              <Button onClick={() => onSelect(cid)}>
                 {title}
               </Button>
             </ListItem>
@@ -78,7 +78,7 @@ const Tooltip = ({ list, onSelect, position }) => (
 Tooltip.propTypes = {
   list: PropTypes.arrayOf(
     PropTypes.shape({
-      ref: PropTypes.oneOfType([
+      cid: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
       ]).isRequired,
