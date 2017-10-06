@@ -6,6 +6,11 @@ export const CREATE_ANNOTATION_SUCCESS = 'CREATE_ANNOTATION_SUCCESS'
 export const CREATE_ANNOTATION_PENDING = 'CREATE_ANNOTATION_PENDING'
 export const CREATE_ANNOTATION_FAILURE = 'CREATE_ANNOTATION_FAILURE'
 
+export const ADD_ANSWER_ANNOTATION = 'ADD_ANSWER_ANNOTATION'
+export const ADD_ANSWER_ANNOTATION_SUCCESS = 'ADD_ANSWER_ANNOTATION_SUCCESS'
+export const ADD_ANSWER_ANNOTATION_PENDING = 'ADD_ANSWER_ANNOTATION_PENDING'
+export const ADD_ANSWER_ANNOTATION_FAILURE = 'ADD_ANSWER_ANNOTATION_FAILURE'
+
 export const CREATE_LIQEN = 'CREATE_LIQEN'
 export const CREATE_LIQEN_SUCCESS = 'CREATE_LIQEN_SUCCESS'
 export const CREATE_LIQEN_PENDING = 'CREATE_LIQEN_PENDING'
@@ -53,36 +58,51 @@ export function createAnnotation (target, tag) {
   }
 }
 
-let nextLiqenCid = 0
-// answer = array of strings (annotation cid)
-export function createLiqen (answer) {
-  const cid = `c-${nextLiqenCid}`
-  nextLiqenCid++
+// answer = string (cid)
+// annotation = string (cid)
+export function addAnswerAnnotation (color, annotationCid, colors) {
+  function objectToArray (object) {
+    const ret = []
+    for (let i in object) {
+      ret.push(Object.assign({}, object[i], {cid: i}))
+    }
+
+    return ret
+  }
+
+  function coloredAnswers (store) {
+    return objectToArray(store.getState().answers)
+      .map((ans, i) => ({
+        id: ans.id,
+        annotations: ans.annotations,
+        cid: ans.cid,
+        color: i < colors.length ? colors[i] : null
+      }))
+  }
 
   return {
     [CALL_API]: {
-      type: CREATE_LIQEN,
-      actions: [
-        CREATE_LIQEN_PENDING,
-        CREATE_LIQEN_SUCCESS,
-        CREATE_LIQEN_FAILURE
-      ],
-      liqen: {
-        answer
+      type: ADD_ANSWER_ANNOTATION,
+      remotePayload (store) {
+        return {
+          annotation_id: store.getState().annotations[annotationCid].id,
+          answer_id: coloredAnswers(store)
+            .filter(ans => ans.color === color)[0].id
+        }
       },
-      cid
-    }
-  }
-}
-
-// annotation = string (cid)
-// color = string
-export function addAnnotationColor (annotation, color) {
-  return {
-    [CHANGE_ANNOTATION_COLOR]: {
-      operation: 'add',
-      annotation,
-      color
+      localPayload (store) {
+        return {
+          annotation_cid: annotationCid,
+          answer_cid: coloredAnswers(store)
+            .filter(ans => ans.color === color)[0].cid
+        }
+      },
+      actions: [
+        ADD_ANSWER_ANNOTATION_PENDING,
+        ADD_ANSWER_ANNOTATION_SUCCESS,
+        ADD_ANSWER_ANNOTATION_FAILURE
+      ],
+      key: 'answer_annotation'
     }
   }
 }

@@ -30,7 +30,7 @@ export default function reducer (state = initialState, action = {}) {
     question: state.question,
     entry: state.entry,
     annotations: annotationReducer(state.annotations, action),
-    answers: liqenReducer(state.answers, action),
+    answers: answerReducer(state.answers, action),
     tags: state.tags,
     colors: colorReducer(state.colors, action)
   }
@@ -67,37 +67,22 @@ function annotationReducer (state = initialState.annotations, action = {}) {
   }
 }
 
-function liqenReducer (liqens = initialState.liqens, action = {}) {
+function answerReducer (answers = initialState.answers, action = {}) {
   switch (action.type) {
-    case ActionTypes.CREATE_LIQEN_PENDING:
-      const liqen = {
-        answer: action.liqen.answer
-      }
+    case ActionTypes.ADD_ANSWER_ANNOTATION_PENDING:
+      const {annotation_cid: annCid, answer_cid: ansCid} = action.answer_annotation
 
-      return Object.assign({}, liqens, {
-        [action.cid]: liqen
-      })
-
-    case ActionTypes.CREATE_LIQEN_SUCCESS:
-      return Object.assign({}, liqens, {
-        [action.cid]: {
-          answer: liqens[action.cid].answer,
-          id: action.liqen.id.toString()
+      return Object.assign({}, answers, {
+        [ansCid]: {
+          id: answers[ansCid].id,
+          question_id: answers[ansCid].question_id,
+          annotations: answers[ansCid].annotations.concat(annCid)
         }
       })
-
-    case ActionTypes.EDIT_LIQEN_PENDING:
-      return Object.assign({}, liqens, {
-        [action.cid]: {
-          answer: action.liqen.answer,
-          id: liqens[action.cid].id.toString()
-        }
-      })
-
-      // case ActionTypes.EDIT_LIQEN_SUCCESS
-      // case ActionTypes.EDIT_LIQEN_FAILURE
+    case ActionTypes.ADD_ANSWER_ANNOTATION_SUCCESS:
+      return answers
     default:
-      return liqens
+      return answers
   }
 }
 

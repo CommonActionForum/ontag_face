@@ -15,5 +15,13 @@ export default {
 
   show () {
     return Promise.resolve(ans1)
+  },
+
+  add_annotation (/* id, annotation_id */) {
+    return Promise.resolve(ans1)
+  },
+
+  remove_annotation (/* id, annotation_id */) {
+    return Promise.resolve(ans1)
   }
 }

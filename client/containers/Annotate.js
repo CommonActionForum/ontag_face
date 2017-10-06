@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import Article from '../components/annotators/article-container'
 import { createAnnotation,
-         addAnnotationColor,
+         addAnswerAnnotation,
          removeAnnotationColor } from '../actions/index'
 
 const article = window.__ARTICLE__
@@ -95,7 +95,7 @@ const mapStateToAnnotations = (state) => {
     .map((ans, i) => ({
       annotations: ans.annotations,
       cid: ans.cid,
-      color: colors[i % colors.length]
+      color: i < colors.length ? colors[i] : null
     }))
 
   function getColors (annotation) {
@@ -106,6 +106,7 @@ const mapStateToAnnotations = (state) => {
 
   return objectToArray(state.annotations)
     .map(ann => ({
+      cid: ann.cid,
       fragment: ann.target,
       colors: getColors(ann.cid)
     }))
@@ -134,7 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) =>
     dispatch(createAnnotation(target, tag)),
   onAddAnnotationColor: (annotation, color) =>
-    dispatch(addAnnotationColor(annotation, color)),
+    dispatch(addAnswerAnnotation(color, annotation, colors)),
   onRemoveAnnotationColor: (annotation, color) =>
     dispatch(removeAnnotationColor(annotation, color))
 })

@@ -53,10 +53,10 @@ export default class ArticleContainer extends React.Component {
     const selectedAnnotation = this.annotations[this.state.selectedNode]
 
     if (selectedAnnotation.colors.indexOf(colorCode) !== -1) {
-      console.log('remove', colorCode)
+      console.log('remove', colorCode, selectedAnnotation)
       this.props.onRemoveAnnotationColor(selectedAnnotation.cid, colorCode)
     } else {
-      console.log('add', colorCode)
+      console.log('add', colorCode, selectedAnnotation)
       this.props.onAddAnnotationColor(selectedAnnotation.cid, colorCode)
     }
   }
