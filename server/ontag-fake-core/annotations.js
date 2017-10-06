@@ -16,9 +16,9 @@ export const a2 = {
   entry_id: '1',
   target: {
     type: 'TextQuoteSelector',
-    prefix: 'One of my biggest regrets in life is that I failed to ',
-    exact: 'understand the significance',
-    suffix: ' of that lesson early on. I learned the essence of software design far too late in life.'
+    prefix: 'Composition: “The act of ',
+    exact: 'combining parts or elements',
+    suffix: ' to form a whole.” ~ Dictionary.com'
   }
 }
 
@@ -28,9 +28,9 @@ export const a3 = {
   entry_id: '1',
   target: {
     type: 'TextQuoteSelector',
-    prefix: 'One of my biggest regrets in life is that I failed to ',
-    exact: 'understand the significance',
-    suffix: ' of that lesson early on. I learned the essence of software design far too late in life.'
+    prefix: '',
+    exact: 'We must do better.',
+    suffix: ''
   }
 }
 

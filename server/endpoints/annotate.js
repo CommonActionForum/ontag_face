@@ -42,9 +42,17 @@ export default async function annotate (req, res) {
 
       const reduxTags = question.required_tags.concat(question.optional_tags)
 
+      const reduxAnswers = answers.map(a => ({
+        id: a.id,
+        question_id: a.question_id,
+        annotations: a.annotations.map(a => a.id)
+      }))
+
       const reduxState = {
         question: reduxQuestion,
-        tags: arrayToObject(reduxTags)
+        tags: arrayToObject(reduxTags),
+        annotations: arrayToObject(annotations),
+        answers: arrayToObject(reduxAnswers)
       }
 
       res.render('annotate', {entry, question, state: reduxState})
