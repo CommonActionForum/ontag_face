@@ -3,12 +3,12 @@ import * as ActionTypes from '../actions/index'
 const initialState = {
   entry: {
     id: '1',
-    title: 'Front-end Roles and Responsibilities',
+    title: 'Things that happen',
     entry_type: 'medium_post'
   },
   question: {
     id: '1',
-    title: 'Describe the migration flow of the people',
+    title: 'Answer this question',
     required_tags: [
       '1', '2'
     ],
@@ -19,9 +19,9 @@ const initialState = {
   annotations: {},
   answers: {},
   tags: {
-    '1': {id: '1', title: 'Place of origin'},
-    '2': {id: '2', title: 'Destination'},
-    '3': {id: '3', title: 'Reason'}
+    '1': {id: '-102', title: 'Good tag'},
+    '2': {id: '-101', title: 'Wrong tag'},
+    '3': {id: '-103', title: 'Medium size tag'}
   }
 }
 
