@@ -26,7 +26,7 @@
       <h1 class="annotate-article-title">
         <%= entry.title %>
       </h1>
-      <p>Source: Medium. <a href="<%= entry.medium_post.uri %>">Read the original article</a></p>
+      <p>This is a Medium post originally published in <a href="<%= entry.medium_post.uri %>"><%= entry.medium_post.uri %></a></p>
     </header>
     <div id="react-root">
       <main class="article-body" id="article-body">Loading article</main>
