@@ -79,8 +79,17 @@ export class Annotate extends React.Component {
   }
 }
 
+function objectToArray (object) {
+  const ret = []
+  for (let i in object) {
+    ret.push(Object.assign({}, object[i], {cid: i}))
+  }
+
+  return ret
+}
+
 const mapStateToAnnotations = (state) => {
-  return []
+  return objectToArray(state.annotations)
 }
 
 const mapStateToAnswers = (state) => {
@@ -93,7 +102,10 @@ const mapStateToColors = (state) => {
 
 const mapStateToTags = (state) => {
   const tags = state.question.required_tags.concat(state.question.optional_tags)
-  return tags.map(tagCid => state.tags[tagCid])
+  return tags.map(tagCid => ({
+    title: state.tags[tagCid].title,
+    cid: tagCid
+  }))
 }
 
 const mapStateToProps = (state) => ({
