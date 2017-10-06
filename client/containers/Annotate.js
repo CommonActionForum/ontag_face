@@ -80,96 +80,29 @@ export class Annotate extends React.Component {
 }
 
 const mapStateToAnnotations = (state) => {
-  // Copy of all the annotations
-  const ret = []
-  const colors = []
-
-  // Colored annotations
-  for (let color in state.colors) {
-    colors.push(color)
-  }
-
-  // Not colored annotations
-  for (let cid in state.annotations) {
-    const {tag, checked, pending, target} = state.annotations[cid]
-
-    ret.push({
-      tag: state.tags[tag].title,
-      colors: colors
-        .filter(color => {
-          const liqenRef = state.colors[color]
-          return liqenRef && state.liqens[liqenRef].answer.indexOf(cid) !== -1
-        }),
-      target,
-      cid,
-      checked,
-      pending
-    })
-  }
-
-  return ret
+  return []
 }
 
-const mapStateToLiqens = (state) => {
-  const ret = []
-
-  for (let color in state.colors) {
-    if (state.colors[color]) {
-      const liqen = state.liqens[state.colors[color]]
-      const answer = state.question.answer
-        .map(qa => {
-          const annotations = liqen.answer
-            .filter(la =>
-              state.annotations[la]
-            )
-            .filter(la =>
-              state.annotations[la].tag === qa.tag
-            )
-            .map(annotation =>
-              Object.assign(
-                {},
-                state.annotations[annotation],
-                {ref: annotation}
-              )
-            )
-
-          return {
-            tag: state.tags[qa.tag],
-            annotations
-          }
-        })
-
-      const sum = answer.reduce((acc, a) => acc + a.annotations.length, 0)
-
-      if (sum > 0) {
-        ret.push({
-          color,
-          answer
-        })
-      }
-    }
-  }
-
-  return ret
+const mapStateToAnswers = (state) => {
+  return []
 }
 
-const mapStateToColors = state => {
-  const ret = []
+const mapStateToColors = (state) => {
+  return []
+}
 
-  for (let cid in state.colors) {
-    ret.push(cid)
-  }
-
-  return ret
+const mapStateToTags = (state) => {
+  return []
 }
 
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
-  liqens: mapStateToLiqens(state),
+  liqens: mapStateToAnswers(state),
   colors: mapStateToColors(state),
-  tags: []
+  tags: mapStateToTags(state)
 })
+
 const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
   onAddAnnotationColor: (annotation, color) =>
