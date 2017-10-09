@@ -8,6 +8,7 @@ module.exports = {
 
   entry: {
     dashboard: './dashboard',
+    'import-from-medium': './import-from-medium',
     annotate: './annotate',
     dumb: './dumb'
   },
