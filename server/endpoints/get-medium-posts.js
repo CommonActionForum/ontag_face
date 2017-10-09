@@ -49,7 +49,7 @@ export default function getMediumPosts (req, res) {
 
         const entries = items
           .map(
-            ({title, link}) => ({title, uri: link, image: ''})
+            ({title, guid}) => ({title, uri: guid, image: ''})
           )
         res.send(entries)
       })
