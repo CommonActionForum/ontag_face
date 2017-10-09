@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
 import { createAnnotation,
          addAnswerAnnotation,
-         removeAnnotationColor } from '../actions/index'
+         removeAnswerAnnotation } from '../actions/index'
 
 const article = window.__ARTICLE__
 
@@ -137,7 +137,7 @@ const mapDispatchToProps = (dispatch) => ({
   onAddAnnotationColor: (annotation, color) =>
     dispatch(addAnswerAnnotation(color, annotation, colors)),
   onRemoveAnnotationColor: (annotation, color) =>
-    dispatch(removeAnnotationColor(annotation, color))
+    dispatch(removeAnswerAnnotation(color, annotation, colors))
 })
 
 export default connect(

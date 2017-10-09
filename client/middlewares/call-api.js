@@ -17,9 +17,14 @@ function getFunctionCall (type) {
   switch (type) {
     case ActionType.CREATE_ANNOTATION:
       return core.annotations.create
+
     case ActionType.ADD_ANSWER_ANNOTATION:
       return ({annotation_id, answer_id}) =>
         core.answers.add_annotation(answer_id, {annotation_id})
+
+    case ActionType.REMOVE_ANSWER_ANNOTATION:
+      return ({annotation_id, answer_id}) =>
+        core.answers.remove_annotation(answer_id, {annotation_id})
   }
 }
 

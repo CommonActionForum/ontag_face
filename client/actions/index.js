@@ -11,6 +11,11 @@ export const ADD_ANSWER_ANNOTATION_SUCCESS = 'ADD_ANSWER_ANNOTATION_SUCCESS'
 export const ADD_ANSWER_ANNOTATION_PENDING = 'ADD_ANSWER_ANNOTATION_PENDING'
 export const ADD_ANSWER_ANNOTATION_FAILURE = 'ADD_ANSWER_ANNOTATION_FAILURE'
 
+export const REMOVE_ANSWER_ANNOTATION = 'REMOVE_ANSWER_ANNOTATION'
+export const REMOVE_ANSWER_ANNOTATION_SUCCESS = 'REMOVE_ANSWER_ANNOTATION_SUCCESS'
+export const REMOVE_ANSWER_ANNOTATION_PENDING = 'REMOVE_ANSWER_ANNOTATION_PENDING'
+export const REMOVE_ANSWER_ANNOTATION_FAILURE = 'REMOVE_ANSWER_ANNOTATION_FAILURE'
+
 export const CREATE_LIQEN = 'CREATE_LIQEN'
 export const CREATE_LIQEN_SUCCESS = 'CREATE_LIQEN_SUCCESS'
 export const CREATE_LIQEN_PENDING = 'CREATE_LIQEN_PENDING'
@@ -101,6 +106,53 @@ export function addAnswerAnnotation (color, annotationCid, colors) {
         ADD_ANSWER_ANNOTATION_PENDING,
         ADD_ANSWER_ANNOTATION_SUCCESS,
         ADD_ANSWER_ANNOTATION_FAILURE
+      ],
+      key: 'answer_annotation'
+    }
+  }
+}
+
+export function removeAnswerAnnotation (color, annotationCid, colors) {
+  function objectToArray (object) {
+    const ret = []
+    for (let i in object) {
+      ret.push(Object.assign({}, object[i], {cid: i}))
+    }
+
+    return ret
+  }
+
+  function coloredAnswers (store) {
+    return objectToArray(store.getState().answers)
+      .map((ans, i) => ({
+        id: ans.id,
+        annotations: ans.annotations,
+        cid: ans.cid,
+        color: i < colors.length ? colors[i] : null
+      }))
+  }
+
+  return {
+    [CALL_API]: {
+      type: REMOVE_ANSWER_ANNOTATION,
+      remotePayload (store) {
+        return {
+          annotation_id: store.getState().annotations[annotationCid].id,
+          answer_id: coloredAnswers(store)
+            .filter(ans => ans.color === color)[0].id
+        }
+      },
+      localPayload (store) {
+        return {
+          annotation_cid: annotationCid,
+          answer_cid: coloredAnswers(store)
+            .filter(ans => ans.color === color)[0].cid
+        }
+      },
+      actions: [
+        REMOVE_ANSWER_ANNOTATION_PENDING,
+        REMOVE_ANSWER_ANNOTATION_SUCCESS,
+        REMOVE_ANSWER_ANNOTATION_FAILURE
       ],
       key: 'answer_annotation'
     }

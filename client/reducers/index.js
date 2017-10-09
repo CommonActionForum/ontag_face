@@ -79,8 +79,21 @@ function answerReducer (answers = initialState.answers, action = {}) {
           annotations: answers[ansCid].annotations.concat(annCid)
         }
       })
+
     case ActionTypes.ADD_ANSWER_ANNOTATION_SUCCESS:
       return answers
+
+    case ActionTypes.REMOVE_ANSWER_ANNOTATION_PENDING:
+      const {annotation_cid: annCid2, answer_cid: ansCid2} = action.answer_annotation
+
+      return Object.assign({}, answers, {
+        [ansCid2]: {
+          id: answers[ansCid2].id,
+          question_id: answers[ansCid2].question_id,
+          annotations: answers[ansCid2].annotations.filter(a => a !== annCid2)
+        }
+      })
+
     default:
       return answers
   }
