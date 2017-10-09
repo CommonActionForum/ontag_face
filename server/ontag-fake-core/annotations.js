@@ -59,5 +59,9 @@ export default {
     return Promise.resolve(Object.assign(params, {
       id: parseInt(Math.random() * 1000)
     }))
+  },
+
+  delete () {
+    return Promise.resolve(a1)
   }
 }
