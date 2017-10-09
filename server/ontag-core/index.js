@@ -1,6 +1,7 @@
 import url from 'url'
 import resourceFactory from './resource-factory'
 import { fetchJSON } from './resource-factory'
+import answers from './answers'
 
 // Default options related to the API
 const DEFAULT_OPTIONS = {
@@ -18,7 +19,7 @@ function createClient (token, options = DEFAULT_OPTIONS) {
 
   return {
     annotations: r('annotations'),
-    answers: r('answers'),
+    answers: answers(options.apiURI, headers),
     entries: r('entries'),
     questions: r('questions'),
     sessions: r('sessions'),
