@@ -54,7 +54,7 @@ function getMedia (hostname) {
  *
  * @return {Promise<Article>} Promise of the article
  */
-module.exports = function downloadArticle (uri) {
+export function downloadArticle (uri) {
   const media = getMedia(url.parse(uri).hostname)
 
   if (!media) {
