@@ -52,7 +52,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
-      LIQEN_API_URI: process.env.LIQEN_API_URI,
+      ONTAG_API_URI: process.env.ONTAG_API_URI,
       ONTAG_FAKE_CORE: process.env.ONTAG_FAKE_CORE
     })
   ]
