@@ -25,6 +25,11 @@ const initialState = {
   }
 }
 
+const addObject = oldState => (key, value) => Object.assign({}, oldState, {[key]: value})
+const replaceObject = oldState => (key, value) => Object.assign({}, oldState, {
+  [key]: Object.assign({}, oldState[key], value)
+})
+
 export default function reducer (state = initialState, action = {}) {
   return {
     question: state.question,
@@ -37,28 +42,22 @@ export default function reducer (state = initialState, action = {}) {
 }
 
 function annotationReducer (state = initialState.annotations, action = {}) {
+  const addAnnotation = addObject(state)
+  const replaceAnnotation = replaceObject(state)
+
   switch (action.type) {
     case ActionTypes.CREATE_ANNOTATION_PENDING:
-      const annotation = {
+      return addAnnotation(action.cid, {
         tag: action.annotation.tag,
         target: action.annotation.target,
         checked: false,
         pending: true
-      }
-
-      return Object.assign({}, state, {
-        [action.cid]: annotation
       })
 
     case ActionTypes.CREATE_ANNOTATION_SUCCESS:
-      return Object.assign({}, state, {
-        [action.cid]: {
-          tag: state[action.cid].tag,
-          target: state[action.cid].target,
-          checked: state[action.cid].checked,
-          pending: false,
-          id: action.annotation.id.toString()
-        }
+      return replaceAnnotation(action.cid, {
+        pending: false,
+        id: action.annotation.id.toString()
       })
 
       // case ActionTypes.CREATE_ANNOTATION_FAILURE
@@ -68,16 +67,14 @@ function annotationReducer (state = initialState.annotations, action = {}) {
 }
 
 function answerReducer (answers = initialState.answers, action = {}) {
+  const replaceAnswer = replaceObject(answers)
+
   switch (action.type) {
     case ActionTypes.ADD_ANSWER_ANNOTATION_PENDING:
       const {annotation_cid: annCid, answer_cid: ansCid} = action.answer_annotation
 
-      return Object.assign({}, answers, {
-        [ansCid]: {
-          id: answers[ansCid].id,
-          question_id: answers[ansCid].question_id,
-          annotations: answers[ansCid].annotations.concat(annCid)
-        }
+      return replaceAnswer(ansCid, {
+        annotations: answers[ansCid].annotations.concat(annCid)
       })
 
     case ActionTypes.ADD_ANSWER_ANNOTATION_SUCCESS:
@@ -86,12 +83,8 @@ function answerReducer (answers = initialState.answers, action = {}) {
     case ActionTypes.REMOVE_ANSWER_ANNOTATION_PENDING:
       const {annotation_cid: annCid2, answer_cid: ansCid2} = action.answer_annotation
 
-      return Object.assign({}, answers, {
-        [ansCid2]: {
-          id: answers[ansCid2].id,
-          question_id: answers[ansCid2].question_id,
-          annotations: answers[ansCid2].annotations.filter(a => a !== annCid2)
-        }
+      return replaceAnswer(ansCid2, {
+        annotations: answers[ansCid2].annotations.filter(a => a !== annCid2)
       })
 
     default:
@@ -100,11 +93,11 @@ function answerReducer (answers = initialState.answers, action = {}) {
 }
 
 function colorReducer (colors = initialState.colors, action = {}) {
+  const addColor = addObject(colors)
+
   switch (action.type) {
     case ActionTypes.CHANGE_LIQEN_COLOR:
-      return Object.assign({}, colors, {
-        [action.color]: action.liqen
-      })
+      return addColor(action.color, action.liqen)
 
     default:
       return colors
