@@ -2,11 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 import styled from 'styled-components'
-
 import Article from '../components/annotators/article-container'
+
 import { createAnnotation,
          addAnswerAnnotation,
-         removeAnswerAnnotation } from '../actions/index'
+         removeAnswerAnnotation,
+         deleteAnnotation } from '../actions/index'
 
 const article = window.__ARTICLE__
 
@@ -55,7 +56,8 @@ export class Annotate extends React.Component {
       colors,
       onCreateAnnotation,
       onAddAnnotationColor,
-      onRemoveAnnotationColor
+      onRemoveAnnotationColor,
+      onDeleteAnnotation
     } = this.props
 
     return (
@@ -71,6 +73,7 @@ export class Annotate extends React.Component {
               onAnnotate={onCreateAnnotation}
               onAddAnnotationColor={onAddAnnotationColor}
               onRemoveAnnotationColor={onRemoveAnnotationColor}
+              onDeleteAnnotation={onDeleteAnnotation}
             />
           </main>
         </div>
@@ -137,7 +140,9 @@ const mapDispatchToProps = (dispatch) => ({
   onAddAnnotationColor: (annotation, color) =>
     dispatch(addAnswerAnnotation(color, annotation, colors)),
   onRemoveAnnotationColor: (annotation, color) =>
-    dispatch(removeAnswerAnnotation(color, annotation, colors))
+    dispatch(removeAnswerAnnotation(color, annotation, colors)),
+  onDeleteAnnotation: (cid) =>
+    dispatch(deleteAnnotation(cid))
 })
 
 export default connect(

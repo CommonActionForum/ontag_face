@@ -6,6 +6,11 @@ export const CREATE_ANNOTATION_SUCCESS = 'CREATE_ANNOTATION_SUCCESS'
 export const CREATE_ANNOTATION_PENDING = 'CREATE_ANNOTATION_PENDING'
 export const CREATE_ANNOTATION_FAILURE = 'CREATE_ANNOTATION_FAILURE'
 
+export const DELETE_ANNOTATION = 'DELETE_ANNOTATION'
+export const DELETE_ANNOTATION_SUCCESS = 'DELETE_ANNOTATION_SUCCESS'
+export const DELETE_ANNOTATION_PENDING = 'DELETE_ANNOTATION_PENDING'
+export const DELETE_ANNOTATION_FAILURE = 'DELETE_ANNOTATION_FAILURE'
+
 export const ADD_ANSWER_ANNOTATION = 'ADD_ANSWER_ANNOTATION'
 export const ADD_ANSWER_ANNOTATION_SUCCESS = 'ADD_ANSWER_ANNOTATION_SUCCESS'
 export const ADD_ANSWER_ANNOTATION_PENDING = 'ADD_ANSWER_ANNOTATION_PENDING'
@@ -59,6 +64,27 @@ export function createAnnotation (target, tag) {
       ],
       key: 'annotation',
       cid
+    }
+  }
+}
+
+export function deleteAnnotation (annotationCid) {
+  return {
+    [CALL_API]: {
+      type: DELETE_ANNOTATION,
+      remotePayload () {
+        return annotationCid
+      },
+      localPayload () {
+        return {}
+      },
+      actions: [
+        DELETE_ANNOTATION_PENDING,
+        DELETE_ANNOTATION_SUCCESS,
+        DELETE_ANNOTATION_FAILURE
+      ],
+      key: 'annotation',
+      cid: annotationCid
     }
   }
 }

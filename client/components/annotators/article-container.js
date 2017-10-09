@@ -218,5 +218,6 @@ ArticleContainer.propTypes = {
   children: PropTypes.node,
   onAnnotate: PropTypes.func.isRequired,
   onAddAnnotationColor: PropTypes.func,
-  onRemoveAnnotationColor: PropTypes.func
+  onRemoveAnnotationColor: PropTypes.func,
+  onDeleteAnnotation: PropTypes.func
 }

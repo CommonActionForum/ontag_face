@@ -29,6 +29,15 @@ const addObject = oldState => (key, value) => Object.assign({}, oldState, {[key]
 const replaceObject = oldState => (key, value) => Object.assign({}, oldState, {
   [key]: Object.assign({}, oldState[key], value)
 })
+const removeObject = oldState => key => {
+  const obj = {}
+  for (let k in oldState) {
+    if (k !== key) {
+      obj[k] = oldState[k]
+    }
+  }
+  return obj
+}
 
 export default function reducer (state = initialState, action = {}) {
   return {
@@ -44,6 +53,7 @@ export default function reducer (state = initialState, action = {}) {
 function annotationReducer (state = initialState.annotations, action = {}) {
   const addAnnotation = addObject(state)
   const replaceAnnotation = replaceObject(state)
+  const removeAnnotation = removeObject(state)
 
   switch (action.type) {
     case ActionTypes.CREATE_ANNOTATION_PENDING:
@@ -61,6 +71,9 @@ function annotationReducer (state = initialState.annotations, action = {}) {
       })
 
       // case ActionTypes.CREATE_ANNOTATION_FAILURE
+    case ActionTypes.DELETE_ANNOTATION_PENDING:
+      return removeAnnotation(action.cid)
+
     default:
       return state
   }
