@@ -34,9 +34,21 @@ export const a3 = {
   }
 }
 
+export const a4 = {
+  id: '4',
+  tag_id: '1',
+  entry_id: '1',
+  target: {
+    type: 'TextQuoteSelector',
+    prefix: 'Note: This is the introduction to the “Composing Software” series on learning functional programming and compositional software techniques in ',
+    exact: 'JavaScript',
+    suffix: ' ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!'
+  }
+}
+
 export default {
   index () {
-    return Promise.resolve([a1, a2, a3])
+    return Promise.resolve([a1, a2, a3, a4])
   },
 
   show () {
