@@ -1,168 +1,65 @@
+function arrayToObject (array) {
+  const ret = {}
+  array.forEach(e => { ret[e.id] = e })
+  return ret
+}
+
 export default async function annotate (req, res) {
-  if (!req.query.article || !req.query.question) {
+  if (!req.query.entry || !req.query.question) {
+    console.log('ENDPOINT annotate > Missing query params `entry` or `question`')
     return res.redirect('/')
   }
 
-  const articleId = req.query.article
+  const entryId = req.query.entry
   const questionId = req.query.question
 
-  // Declare 4 functions that return promises
-  // Then call Promise.all() to paralelize the 4 functions
+  console.log('ENDPOINT annotate > Calling core.entries.show()')
+  const p1 = req
+    .core.entries.show(entryId)
 
-  async function getQuestionAndTags () {
-    try {
-      const question = await req.core.questions.show(questionId)
-      const tags = await Promise.all(question.answer.map(async (answer) => {
-        const tag = await req.core.tags.show(answer.tag)
-        return tag
+  console.log('ENDPOINT annotate > Calling core.questions.show()')
+  const p2 = req
+    .core.questions.show(questionId)
+
+  console.log('ENDPOINT annotate > Calling core.annotations.index()')
+  const p3 = req
+    .core.annotations.index()
+
+  console.log('ENDPOINT annotate > Calling core.answers.index()')
+  const p4 = req
+    .core.answers.index()
+
+  Promise.all([p1, p2, p3, p4])
+    .then(values => {
+      const [entry, question, annotations, answers] = values
+
+      const reduxQuestion = {
+        id: question.id.toString(),
+        title: question.title,
+        required_tags: question.required_tags.map(t => t.id.toString()),
+        optional_tags: question.optional_tags.map(t => t.id.toString())
+      }
+
+      const reduxTags = question.required_tags.concat(question.optional_tags)
+
+      const reduxAnswers = answers.map(a => ({
+        id: a.id.toString(),
+        question_id: a.question_id,
+        annotations: a.annotations.map(a => a.id.toString())
       }))
 
-      const tags2 = {}
-      for (let tag of tags) {
-        tags2[tag.id] = {
-          id: tag.id.toString(),
-          title: tag.title
-        }
+      const reduxState = {
+        question: reduxQuestion,
+        tags: arrayToObject(reduxTags),
+        annotations: arrayToObject(annotations),
+        answers: arrayToObject(reduxAnswers),
+        entry
       }
 
-      return {
-        question: {
-          id: question.id.toString(),
-          title: question.title,
-          answer: question.answer.map(a => ({
-            tag: a.tag.toString(),
-            required: a.required
-          }))
-        },
-        tags: tags2
-      }
-    } catch (e) {
-      console.log('error 1')
-      console.log(e)
-    }
-  }
-
-  async function getArticle () {
-    try {
-      const article = await req.core.articles.show(articleId)
-
-      return {
-        title: article.title,
-        source: article.source,
-        id: article.id.toString()
-      }
-    } catch (e) {
-      console.log('error 2')
-      console.log(e)
-    }
-  }
-
-  async function getAnnotations () {
-    try {
-      const list = await req.core.annotations.index({article_id: articleId})
-
-      const annotations = await Promise.all(list.map(async ({id, author, article_id}) => {
-        const annotation = await req.core.annotations.show(id)
-        return annotation
-      }))
-
-      const annotations2 = {}
-
-      for (let annotation of annotations) {
-        if (annotation.tags.length > 0) {
-          annotations2[annotation.id] = {
-            id: annotation.id.toString(),
-            tag: annotation.tags[0].id.toString(),
-            target: {
-              prefix: annotation.target.prefix,
-              exact: annotation.target.exact,
-              suffix: annotation.target.suffix
-            },
-            checked: false,
-            pending: false
-          }
-        }
-      }
-
-      return annotations2
-    } catch (e) {
-      console.log('error 3')
-      console.log(e)
-    }
-  }
-
-  async function getColoredLiqens () {
-    try {
-      const list = await req.core.liqens.index({question_id: questionId})
-
-      const liqens = await Promise.all(list.map(async ({question_id, id}) => {
-        const liqen = await req.core.liqens.show(id)
-        return liqen
-      }))
-
-      const liqens2 = {}
-      const colorsList = [
-        '#FFAB40',
-        '#E91E63',
-        '#E040FB',
-        '#AA00FF',
-        '#9FA8DA',
-        '#2962FF',
-        '#18FFFF',
-        '#B2FF59',
-        '#EEFF41',
-        '#FFFFFF'
-      ]
-      const colors = {}
-
-      let i = 0
-      for (let liqen of liqens) {
-        liqens2[liqen.id] = {
-          id: liqen.id.toString(),
-          answer: liqen.annotations.map(a => a.id.toString()),
-          pending: false
-        }
-        if (i < 10) {
-          colors[colorsList[i]] = liqen.id.toString()
-          i++
-        }
-      }
-
-      for (; i < 10; i++) {
-        colors[colorsList[i]] = null
-      }
-
-      return {
-        colors,
-        liqens: liqens2
-      }
-    } catch (e) {
-      console.log('error 4')
-      console.log(e)
-    }
-  }
-
-  // Paralelize
-  try {
-    const [{question, tags}, article, annotations, {liqens, colors}] = await Promise.all([
-      getQuestionAndTags(),
-      getArticle(),
-      getAnnotations(),
-      getColoredLiqens()
-    ])
-
-    const state = {
-      question,
-      article,
-      tags,
-      annotations,
-      liqens,
-      colors
-    }
-
-    return res.render('annotate', {article, state})
-  } catch (e) {
-    console.log('error 3')
-    console.log(e)
-  }
+      res.render('annotate', {entry, question, state: reduxState})
+    })
+    .catch(e => {
+      console.log('ENDPOINT annotate > Failed some request to the core')
+      res.send('failed')
+    })
 }

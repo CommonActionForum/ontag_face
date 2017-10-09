@@ -4,36 +4,73 @@ import styled from 'styled-components'
 
 import { fragmentArray } from './fragment'
 
-const UnstyledBall = ({nodeRef, style, className, color, onSelect}) => (
-  <span ref={nodeRef}
-    style={style}
-    className={className}
-  >
-    <BallButton color={color} onSelect={onSelect} />
+const Ball = ({nodeRef, style, className, colors, onSelect}) => (
+  <BallEnvelope>
+    <BallContainer nodeRef={nodeRef}>
+      <BallButton onClick={onSelect} />
+      <BallColors colors={colors}/>
+    </BallContainer>
+  </BallEnvelope>
+)
+
+const UnstyledBallContainer = ({nodeRef, children, className}) => (
+  <span ref={nodeRef} className={className}>
+    {children}
   </span>
 )
 
-const UnstyledBallButton = ({className, color, onSelect}) => (
-  <button
-    className={className}
-    onClick={onSelect}
-    style={{
-      background: `radial-gradient(ellipse at center, ${color} 0%, rgba(255,255,255,0) 60%)`
-    }} />
+const UnstyledBallButton = ({onClick, className}) => (
+  <button className={className} onClick={onClick}>
+    <i className='fa fa-asterisk' />
+  </button>
 )
 
-const Ball = styled(UnstyledBall)`
-  position:relative;
+const UnstyledBallColors = ({colors, className}) => (
+  <span className={className}>
+    {
+      colors.map(c => <BallColor key={c} color={c} />)
+    }
+  </span>
+)
+
+const BallEnvelope = styled.span`
+  position: relative;
+`
+
+const BallContainer = styled(UnstyledBallContainer)`
+  position: absolute;
+  top: -10px;
+  left: -4px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
 `
 
 const BallButton = styled(UnstyledBallButton)`
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
+  font-size: 20px;
+  color: #6ed200;
   border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+`
+
+const BallColors = styled(UnstyledBallColors)`
+  background: none;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 100%;
+`
+
+const BallColor = styled.span`
+  border-radius: 100%;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  background-color: ${p => p.color};
+  margin: 2px;
 `
 
 export default function SelectionMultiMarker ({ annotations, children }) {
@@ -74,7 +111,7 @@ export function renderSimple (thing, annotations, onSelect) {
     .filter(a => a.fragment.prefix + a.fragment.exact + a.fragment.suffix === thing)
     .map(a => ({
       nodeRef: a.nodeRef,
-      color: a.color,
+      colors: a.colors,
       onSelect: a.onSelect,
       size: (a.fragment.prefix + a.fragment.exact).length
     }))
@@ -91,7 +128,7 @@ export function renderSimple (thing, annotations, onSelect) {
         <Ball
           key={0}
           nodeRef={arr[0].nodeRef}
-          color={arr[0].color}
+          colors={arr[0].colors}
           onSelect={arr[0].onSelect}
         />
       )
@@ -105,7 +142,7 @@ export function renderSimple (thing, annotations, onSelect) {
           <Ball
             key={i}
             nodeRef={arr[i].nodeRef}
-            color={arr[i].color}
+            colors={arr[i].colors}
             onSelect={arr[i].onSelect}
           />
         )

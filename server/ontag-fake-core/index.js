@@ -1,4 +1,7 @@
 import entries from './entries'
+import questions from './questions'
+import annotations from './annotations'
+import answers from './answers'
 
 /**
  * This library simulates calls to a Ontag API.
@@ -55,15 +58,10 @@ const core = token => ({
     }
   },
 
-  questions: {
-    show (id) {
-      return Promise.resolve({
-        title: 'Describe the migration flow of the highly qualified people'
-      })
-    }
-  },
-
-  entries
+  questions,
+  entries,
+  annotations,
+  answers
 })
 
 export default core

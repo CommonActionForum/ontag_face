@@ -7,7 +7,7 @@ import checkSession from './middlewares/check-session'
 import login from './middlewares/login'
 
 import index from './endpoints/index'
-import parseArticle from './endpoints/parseArticle'
+import parseArticle from './endpoints/parse-article'
 import annotate from './endpoints/annotate'
 import importFromMedium from './endpoints/import-from-medium'
 import connectWithMedium from './endpoints/connect-with-medium'
@@ -18,7 +18,7 @@ const router = express.Router()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', checkSession, index)
-router.get('/parseArticle', parseArticle)
+router.get('/parse-article', parseArticle)
 router.get('/annotate', checkSession, annotate)
 router.get('/import-from-medium', checkSession, (req, res) => {
   console.log('ENDPOINT GET /import-from-medium. Checking if the user is connected to Medium')

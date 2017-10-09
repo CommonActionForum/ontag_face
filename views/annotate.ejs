@@ -5,7 +5,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Page Title</title>
+  <title><%= entry.title %> | Ontag</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/static/style.css">
@@ -13,17 +13,28 @@
 <body>
   <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <a class="navbar-brand" href="/">
-      <img src="/static/logo-inverse-h40.png" width="56" height="20" class="d-inline-block align-top my-1">
+      Ontag
     </a>
   </nav>
-  <div id="react-root">
-    <header>
-      <h1 class="article-title"><%= article.title %></h1>
+  <div class="container">
+    <header class="annotate-title-container">
+      <h1 class="annotate-question-title">
+        <a href="/">
+          Question: <%= question.title %>
+        </a>
+      </h1>
+      <h1 class="annotate-article-title">
+        <%= entry.title %>
+      </h1>
+      <p>This is a Medium post originally published in <a href="<%= entry.medium_post.uri %>"><%= entry.medium_post.uri %></a></p>
     </header>
-    <main class="article-body" id="article-body">Loading article</main>
+    <div id="react-root">
+      <main class="article-body" id="article-body">Loading article</main>
+    </div>
   </div>
+
   <script>
-   window.__ARTICLE__ = <%- JSON.stringify(article) %>
+   window.__ARTICLE__ = <%- JSON.stringify(entry) %>
    window.__INITIAL_STATE__ = <%- JSON.stringify(state) %>
   </script>
   <script src="/static/dist/annotate.js"></script>

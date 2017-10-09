@@ -1,14 +1,31 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
-
+import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
-import LiqenLine from '../components/lists/liqen-line'
+
 import { createAnnotation,
-         addAnnotationColor,
-         removeAnnotationColor } from '../actions/index'
+         addAnswerAnnotation,
+         removeAnswerAnnotation,
+         deleteAnnotation } from '../actions/index'
 
 const article = window.__ARTICLE__
+
+const UnstyledToggler = ({className, onClick}) => (
+  <a className={className} onClick={onClick}>
+    <i className='fa fa-angle-right fa-3x' />
+    <div>Show the answers to this question</div>
+  </a>
+)
+
+const Toggler = styled(UnstyledToggler)`
+  max-width: 300px;
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: #999 !important;
+  font-size: 0.8rem;
+`
 
 export class Annotate extends React.Component {
   constructor (props) {
@@ -23,7 +40,9 @@ export class Annotate extends React.Component {
   }
 
   componentDidMount () {
-    fetch(`/parseArticle?uri=${article.source.uri}`)
+    const uri = article.entry_type === 'medium_post' ? article.medium_post.uri : ''
+
+    fetch(`/parse-article?uri=${uri}`)
       .then(response => response.json())
       .then(obj => {
         this.setState({articleBody: obj.body.object})
@@ -32,200 +51,98 @@ export class Annotate extends React.Component {
 
   render () {
     const {
-      question,
       annotations,
-      liqens,
-      colors,
       tags,
+      colors,
       onCreateAnnotation,
       onAddAnnotationColor,
-      onRemoveAnnotationColor
+      onRemoveAnnotationColor,
+      onDeleteAnnotation
     } = this.props
 
     return (
       <div>
-        <aside className='night-panel'>
-          {
-            annotations.length > 0 && liqens.length === 0 && (
-              <div className='text-center'>
-                <div className='h6 text-uppercase'>Step 2</div>
-                <div>Join annotations to create liqens (answers)</div>
-                <div
-                  className='rounded-circle d-block my-3 mx-auto'
-                  style={{
-                    background: 'url(/static/gifs/create-liqen.gif)',
-                    backgroundSize: 'contain',
-                    width: '160px',
-                    height: '160px'
-                  }}
-                />
-              </div>
-            )
-          }
-          {
-            annotations.length === 0 && liqens.length === 0 && (
-              <div className='text-center'>
-                <div className='h6'>Step 1</div>
-                <div>Create annotations in the text</div>
-                <div
-                  className='rounded-circle d-block my-3 mx-auto'
-                  style={{
-                    background: 'url(/static/gifs/create-annotation.gif)',
-                    backgroundSize: 'contain',
-                    width: '160px',
-                    height: '160px'
-                  }}
-                />
-              </div>
-            )
-          }
-          <h2 className='h6 text-uppercase'>Question</h2>
-          <p>{question}</p>
-          {
-            liqens.length > 0 &&
-            <h2 className='h6 text-uppercase'>Liqens</h2>
-          }
-          <div>
-            {
-              liqens.map(liqen => (
-                <LiqenLine key={liqen.ref} answer={liqen.answer} color={liqen.color} />
-              ))
-            }
-          </div>
-          {
-            annotations.length > 0 &&
-            <h2 className='h6 text-uppercase'>Annotations</h2>
-          }
-          <ul>
-            {
-              annotations.map(annotation => (
-                <li>{annotation.target.exact}</li>
-              ))
-            }
-          </ul>
-        </aside>
-        <div className='article-positioner'>
-          <div className='article-container'>
-            <header>
-              <h1 className="article-title">{article.title}</h1>
-            </header>
-            <main className='article-body'>
-              <Article
-                colors={colors}
-                annotations={annotations.map(a => Object.assign({}, a, {fragment: a.target}))}
-                body={this.state.articleBody}
-                tags={tags}
-                onAnnotate={onCreateAnnotation}
-                onAddAnnotationColor={onAddAnnotationColor}
-                onRemoveAnnotationColor={onRemoveAnnotationColor}
-              />
-            </main>
-          </div>
+        <div className='article-container'>
+          <Toggler />
+          <main className='article-body'>
+            <Article
+              colors={colors}
+              annotations={annotations}
+              body={this.state.articleBody}
+              tags={tags}
+              onAnnotate={onCreateAnnotation}
+              onAddAnnotationColor={onAddAnnotationColor}
+              onRemoveAnnotationColor={onRemoveAnnotationColor}
+              onDeleteAnnotation={onDeleteAnnotation}
+            />
+          </main>
         </div>
       </div>
     )
   }
 }
 
+function objectToArray (object) {
+  const ret = []
+  for (let i in object) {
+    ret.push(Object.assign({}, object[i], {cid: i}))
+  }
+
+  return ret
+}
+
+const colors = ['#ff0000']
+
 const mapStateToAnnotations = (state) => {
-  // Copy of all the annotations
-  const ret = []
-  const colors = []
+  const coloredAnswers = objectToArray(state.answers)
+    .map((ans, i) => ({
+      annotations: ans.annotations,
+      cid: ans.cid,
+      color: i < colors.length ? colors[i] : null
+    }))
 
-  // Colored annotations
-  for (let color in state.colors) {
-    colors.push(color)
+  function getColors (annotation) {
+    return coloredAnswers
+      .filter(ans => ans.annotations.indexOf(annotation) !== -1)
+      .map(a => a.color)
   }
 
-  // Not colored annotations
-  for (let cid in state.annotations) {
-    const {tag, checked, pending, target} = state.annotations[cid]
-
-    ret.push({
-      tag: state.tags[tag].title,
-      colors: colors
-        .filter(color => {
-          const liqenRef = state.colors[color]
-          return liqenRef && state.liqens[liqenRef].answer.indexOf(cid) !== -1
-        }),
-      target,
-      cid,
-      checked,
-      pending
-    })
-  }
-
-  return ret
+  return objectToArray(state.annotations)
+    .map(ann => ({
+      cid: ann.cid,
+      fragment: ann.target,
+      colors: getColors(ann.cid)
+    }))
 }
 
-const mapStateToLiqens = (state) => {
-  const ret = []
-
-  for (let color in state.colors) {
-    if (state.colors[color]) {
-      const liqen = state.liqens[state.colors[color]]
-      const answer = state.question.answer
-        .map(qa => {
-          const annotations = liqen.answer
-            .filter(la =>
-              state.annotations[la]
-            )
-            .filter(la =>
-              state.annotations[la].tag === qa.tag
-            )
-            .map(annotation =>
-              Object.assign(
-                {},
-                state.annotations[annotation],
-                {ref: annotation}
-              )
-            )
-
-          return {
-            tag: state.tags[qa.tag],
-            annotations
-          }
-        })
-
-      const sum = answer.reduce((acc, a) => acc + a.annotations.length, 0)
-
-      if (sum > 0) {
-        ret.push({
-          color,
-          answer
-        })
-      }
-    }
-  }
-
-  return ret
+const mapStateToColors = () => {
+  return colors
 }
 
-const mapStateToColors = state => {
-  const ret = []
-
-  for (let cid in state.colors) {
-    ret.push(cid)
-  }
-
-  return ret
+const mapStateToTags = (state) => {
+  const tags = state.question.required_tags.concat(state.question.optional_tags)
+  return tags.map(tagCid => ({
+    title: state.tags[tagCid].title,
+    cid: tagCid
+  }))
 }
 
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
-  liqens: mapStateToLiqens(state),
   colors: mapStateToColors(state),
-  tags: state.question.answer.map(
-    ({tag}) => ({ref: tag, title: state.tags[tag].title})
-  )
+  tags: mapStateToTags(state)
 })
+
 const mapDispatchToProps = (dispatch) => ({
-  onCreateAnnotation: ({target, tag}) => dispatch(createAnnotation(target, tag)),
+  onCreateAnnotation: ({target, tag}) =>
+    dispatch(createAnnotation(target, tag)),
   onAddAnnotationColor: (annotation, color) =>
-    dispatch(addAnnotationColor(annotation, color)),
+    dispatch(addAnswerAnnotation(color, annotation, colors)),
   onRemoveAnnotationColor: (annotation, color) =>
-    dispatch(removeAnnotationColor(annotation, color))
+    dispatch(removeAnswerAnnotation(color, annotation, colors)),
+  onDeleteAnnotation: (cid) =>
+    dispatch(deleteAnnotation(cid))
 })
 
 export default connect(
