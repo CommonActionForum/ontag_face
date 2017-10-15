@@ -124,7 +124,8 @@ export default class ArticleContainer extends React.Component {
             .state.nodes
             .filter(filterByColor(color))
             .map(
-              ({x, y}) => ({
+              ({x, y, colors}) => ({
+                offset: colors.indexOf(color),
                 x: x - container.left - window.scrollX,
                 y: y - container.top - window.scrollY
               })
