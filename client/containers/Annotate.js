@@ -100,8 +100,7 @@ const colors = [
   '#2962FF',
   '#18FFFF',
   '#B2FF59',
-  '#EEFF41',
-  '#FFFFFF'
+  '#EEFF41'
 ]
 
 const mapStateToAnnotations = (state) => {
@@ -126,8 +125,8 @@ const mapStateToAnnotations = (state) => {
     }))
 }
 
-const mapStateToColors = () => {
-  return colors
+const mapStateToColors = (state) => {
+  return colors.slice(0, objectToArray(state.answers).length + 1)
 }
 
 const mapStateToTags = (state) => {
