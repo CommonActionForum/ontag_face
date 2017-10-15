@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 
 export default function ArticleBackground ({width, height, paths, style}) {
   const renderedPaths = paths.map((p, i) => {
-    const [firstNode, ...restNodes] = p.nodes
-    const d = `M ${firstNode.x} ${firstNode.y}` + ' ' +
-              restNodes.map(({x, y}) => `L ${x} ${y}`).join(' ')
+    const nodes = p.nodes.sort((a, b) => a.y - b.y)
+
+    const [firstNode, ...restNodes] = nodes
+    const d = `M ${firstNode.x + 10} ${firstNode.y + 10}` + ' ' +
+              restNodes.map(({x, y}) => `L ${x + 10} ${y + 10}`).join(' ')
 
     return <path key={i} d={d} fill='transparent' stroke={p.color || 'black'} />
   })
