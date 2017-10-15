@@ -17,6 +17,12 @@ export default {
     return Promise.resolve(ans1)
   },
 
+  create () {
+    return Promise.resolve({
+      id: Math.floor(Math.random() * 1000)
+    })
+  },
+
   add_annotation (/* id, annotation_id */) {
     return Promise.resolve(ans1)
   },

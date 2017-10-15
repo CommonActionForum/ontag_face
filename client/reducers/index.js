@@ -80,9 +80,16 @@ function annotationReducer (state = initialState.annotations, action = {}) {
 }
 
 function answerReducer (answers = initialState.answers, action = {}) {
+  const addAnswer = addObject(answers)
   const replaceAnswer = replaceObject(answers)
 
   switch (action.type) {
+    case ActionTypes.CREATE_ANSWER_PENDING:
+      return addAnswer(action.cid, {
+        question_id: action.answer.question_id,
+        annotations: action.answer.annotations
+      })
+
     case ActionTypes.ADD_ANSWER_ANNOTATION_PENDING:
       const {annotation_cid: annCid, answer_cid: ansCid} = action.answer_annotation
 

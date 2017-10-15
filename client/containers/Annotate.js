@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
 
 import { createAnnotation,
-         addAnswerAnnotation,
+         addAnnotationColor,
          removeAnswerAnnotation,
          deleteAnnotation } from '../actions/index'
 
@@ -91,7 +91,18 @@ function objectToArray (object) {
   return ret
 }
 
-const colors = ['#ff0000']
+const colors = [
+  '#FFAB40',
+  '#E91E63',
+  '#E040FB',
+  '#AA00FF',
+  '#9FA8DA',
+  '#2962FF',
+  '#18FFFF',
+  '#B2FF59',
+  '#EEFF41',
+  '#FFFFFF'
+]
 
 const mapStateToAnnotations = (state) => {
   const coloredAnswers = objectToArray(state.answers)
@@ -138,7 +149,7 @@ const mapDispatchToProps = (dispatch) => ({
   onCreateAnnotation: ({target, tag}) =>
     dispatch(createAnnotation(target, tag)),
   onAddAnnotationColor: (annotation, color) =>
-    dispatch(addAnswerAnnotation(color, annotation, colors)),
+    dispatch(addAnnotationColor(color, annotation, colors)),
   onRemoveAnnotationColor: (annotation, color) =>
     dispatch(removeAnswerAnnotation(color, annotation, colors)),
   onDeleteAnnotation: (cid) =>

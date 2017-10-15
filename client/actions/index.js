@@ -1,5 +1,5 @@
 import { CALL_API } from '../middlewares/call-api'
-import { CHANGE_ANNOTATION_COLOR } from '../middlewares/change-annotation-color'
+import { ADD_ANNOTATION_COLOR } from '../middlewares/add-annotation-color'
 
 export const CREATE_ANNOTATION = 'CREATE_ANNOTATION'
 export const CREATE_ANNOTATION_SUCCESS = 'CREATE_ANNOTATION_SUCCESS'
@@ -21,10 +21,10 @@ export const REMOVE_ANSWER_ANNOTATION_SUCCESS = 'REMOVE_ANSWER_ANNOTATION_SUCCES
 export const REMOVE_ANSWER_ANNOTATION_PENDING = 'REMOVE_ANSWER_ANNOTATION_PENDING'
 export const REMOVE_ANSWER_ANNOTATION_FAILURE = 'REMOVE_ANSWER_ANNOTATION_FAILURE'
 
-export const CREATE_LIQEN = 'CREATE_LIQEN'
-export const CREATE_LIQEN_SUCCESS = 'CREATE_LIQEN_SUCCESS'
-export const CREATE_LIQEN_PENDING = 'CREATE_LIQEN_PENDING'
-export const CREATE_LIQEN_FAILURE = 'CREATE_LIQEN_FAILURE'
+export const CREATE_ANSWER = 'CREATE_ANSWER'
+export const CREATE_ANSWER_SUCCESS = 'CREATE_ANSWER_SUCCESS'
+export const CREATE_ANSWER_PENDING = 'CREATE_ANSWER_PENDING'
+export const CREATE_ANSWER_FAILURE = 'CREATE_ANSWER_FAILURE'
 
 export const EDIT_LIQEN = 'EDIT_LIQEN'
 export const EDIT_LIQEN_SUCCESS = 'EDIT_LIQEN_SUCCESS'
@@ -89,51 +89,12 @@ export function deleteAnnotation (annotationCid) {
   }
 }
 
-// answer = string (cid)
-// annotation = string (cid)
-export function addAnswerAnnotation (color, annotationCid, colors) {
-  function objectToArray (object) {
-    const ret = []
-    for (let i in object) {
-      ret.push(Object.assign({}, object[i], {cid: i}))
-    }
-
-    return ret
-  }
-
-  function coloredAnswers (store) {
-    return objectToArray(store.getState().answers)
-      .map((ans, i) => ({
-        id: ans.id,
-        annotations: ans.annotations,
-        cid: ans.cid,
-        color: i < colors.length ? colors[i] : null
-      }))
-  }
-
+export function addAnnotationColor (color, annotationCid, colors) {
   return {
-    [CALL_API]: {
-      type: ADD_ANSWER_ANNOTATION,
-      remotePayload (store) {
-        return {
-          annotation_id: store.getState().annotations[annotationCid].id,
-          answer_id: coloredAnswers(store)
-            .filter(ans => ans.color === color)[0].id
-        }
-      },
-      localPayload (store) {
-        return {
-          annotation_cid: annotationCid,
-          answer_cid: coloredAnswers(store)
-            .filter(ans => ans.color === color)[0].cid
-        }
-      },
-      actions: [
-        ADD_ANSWER_ANNOTATION_PENDING,
-        ADD_ANSWER_ANNOTATION_SUCCESS,
-        ADD_ANSWER_ANNOTATION_FAILURE
-      ],
-      key: 'answer_annotation'
+    [ADD_ANNOTATION_COLOR]: {
+      color,
+      annotationCid,
+      colors
     }
   }
 }
@@ -181,45 +142,6 @@ export function removeAnswerAnnotation (color, annotationCid, colors) {
         REMOVE_ANSWER_ANNOTATION_FAILURE
       ],
       key: 'answer_annotation'
-    }
-  }
-}
-
-export function removeAnnotationColor (annotation, color) {
-  return {
-    [CHANGE_ANNOTATION_COLOR]: {
-      operation: 'remove',
-      annotation,
-      color
-    }
-  }
-}
-
-// liqen = string (cid)
-// color = string
-export function changeLiqenColor (liqen, color) {
-  return {
-    type: CHANGE_LIQEN_COLOR,
-    liqen,
-    color
-  }
-}
-
-// annotation = string (cid)
-// answer = array of annotation cids
-export function editLiqen (liqen, answer) {
-  return {
-    [CALL_API]: {
-      type: EDIT_LIQEN,
-      cid: liqen,
-      actions: [
-        EDIT_LIQEN_PENDING,
-        EDIT_LIQEN_SUCCESS,
-        EDIT_LIQEN_FAILURE
-      ],
-      liqen: {
-        answer
-      }
     }
   }
 }

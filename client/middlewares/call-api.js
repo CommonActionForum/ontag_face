@@ -21,6 +21,9 @@ function getFunctionCall (type) {
     case ActionType.DELETE_ANNOTATION:
       return core.annotations.delete
 
+    case ActionType.CREATE_ANSWER:
+      return core.answers.create
+
     case ActionType.ADD_ANSWER_ANNOTATION:
       return ({annotation_id, answer_id}) =>
         core.answers.add_annotation(answer_id, {annotation_id})
