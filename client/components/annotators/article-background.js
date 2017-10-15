@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 
 export default function ArticleBackground ({width, height, paths, style}) {
   const renderedPaths = paths.map((p, i) => {
-    const nodes = p.nodes.sort((a, b) => a.y - b.y)
+    const nodes = p.nodes
+                   .sort((a, b) => a.x - b.x)
+                   .sort((a, b) => a.y - b.y)
 
     const [firstNode, ...restNodes] = nodes
     const d = `M ${firstNode.x + 10} ${firstNode.y + 10}` + ' ' +
