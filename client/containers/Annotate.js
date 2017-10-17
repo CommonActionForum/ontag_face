@@ -12,11 +12,14 @@ import { createAnnotation,
 
 const article = window.__ARTICLE__
 
-const UnstyledToggler = ({className, onClick}) => (
-  <a className={className} onClick={onClick}>
-    <i className='fa fa-angle-right fa-3x' />
-    <div>Show the answers to this question</div>
-  </a>
+const UnstyledToggler = ({className, onClick, direction}) => (
+  <button className={className} onClick={onClick}>
+    <i className={`fa fa-angle-${direction} fa-3x`} />
+    { direction === 'right' &&
+      <div>Show the answers to this question</div> }
+    { direction === 'left' &&
+      <div>Back to the article</div> }
+  </button>
 )
 
 const Toggler = styled(UnstyledToggler)`
@@ -26,6 +29,8 @@ const Toggler = styled(UnstyledToggler)`
   margin: 1rem auto;
   color: #999 !important;
   font-size: 0.8rem;
+  background: none;
+  border: none;
 `
 
 export class Annotate extends React.Component {
@@ -36,7 +41,8 @@ export class Annotate extends React.Component {
         name: 'div',
         attrs: {},
         children: []
-      }
+      },
+      showArticle: true
     }
   }
 
@@ -48,6 +54,13 @@ export class Annotate extends React.Component {
       .then(obj => {
         this.setState({articleBody: obj.body.object})
       })
+  }
+
+  handleToggleDirection () {
+    this.setState(prevState => ({
+      articleBody: prevState.articleBody,
+      showArticle: !prevState.showArticle
+    }))
   }
 
   render () {
@@ -65,10 +78,13 @@ export class Annotate extends React.Component {
     return (
       <div>
         <div className='article-container'>
-          <Toggler />
+          <Toggler
+            direction={this.state.showArticle ? 'right' : 'left'}
+            onClick={() => this.handleToggleDirection()}
+          />
           <div>
             {
-              false &&
+              this.state.showArticle &&
               <main className='article-body'>
                 <Article
                   colors={colors}
@@ -85,10 +101,11 @@ export class Annotate extends React.Component {
           </div>
           <div>
             {
-              true && <AnswersPanel
-                        answers={answers}
-                        tags={tags}
-                      />
+              !this.state.showArticle &&
+              <AnswersPanel
+                answers={answers}
+                tags={tags}
+              />
             }
           </div>
         </div>
