@@ -40,7 +40,12 @@ export default async function annotate (req, res) {
         optional_tags: question.optional_tags.map(t => t.id.toString())
       }
 
-      const reduxTags = question.required_tags.concat(question.optional_tags)
+      const reduxTags = question
+        .required_tags.concat(question.optional_tags)
+        .map(t => ({
+          id: t.id.toString(),
+          title: t.title
+        }))
 
       const reduxAnswers = answers.map(a => ({
         id: a.id.toString(),

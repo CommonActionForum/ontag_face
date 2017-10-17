@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
+import AnswersPanel from '../components/answers-panel'
 
 import { createAnnotation,
          addAnnotationColor,
@@ -11,11 +12,14 @@ import { createAnnotation,
 
 const article = window.__ARTICLE__
 
-const UnstyledToggler = ({className, onClick}) => (
-  <a className={className} onClick={onClick}>
-    <i className='fa fa-angle-right fa-3x' />
-    <div>Show the answers to this question</div>
-  </a>
+const UnstyledToggler = ({className, onClick, direction}) => (
+  <button className={className} onClick={onClick}>
+    <i className={`fa fa-angle-${direction} fa-3x`} />
+    { direction === 'right' &&
+      <div>Show the answers to this question</div> }
+    { direction === 'left' &&
+      <div>Back to the article</div> }
+  </button>
 )
 
 const Toggler = styled(UnstyledToggler)`
@@ -25,6 +29,8 @@ const Toggler = styled(UnstyledToggler)`
   margin: 1rem auto;
   color: #999 !important;
   font-size: 0.8rem;
+  background: none;
+  border: none;
 `
 
 export class Annotate extends React.Component {
@@ -35,7 +41,8 @@ export class Annotate extends React.Component {
         name: 'div',
         attrs: {},
         children: []
-      }
+      },
+      showArticle: true
     }
   }
 
@@ -49,6 +56,13 @@ export class Annotate extends React.Component {
       })
   }
 
+  handleToggleDirection () {
+    this.setState(prevState => ({
+      articleBody: prevState.articleBody,
+      showArticle: !prevState.showArticle
+    }))
+  }
+
   render () {
     const {
       annotations,
@@ -57,25 +71,43 @@ export class Annotate extends React.Component {
       onCreateAnnotation,
       onAddAnnotationColor,
       onRemoveAnnotationColor,
-      onDeleteAnnotation
+      onDeleteAnnotation,
+      answers
     } = this.props
 
     return (
       <div>
         <div className='article-container'>
-          <Toggler />
-          <main className='article-body'>
-            <Article
-              colors={colors}
-              annotations={annotations}
-              body={this.state.articleBody}
-              tags={tags}
-              onAnnotate={onCreateAnnotation}
-              onAddAnnotationColor={onAddAnnotationColor}
-              onRemoveAnnotationColor={onRemoveAnnotationColor}
-              onDeleteAnnotation={onDeleteAnnotation}
-            />
-          </main>
+          <Toggler
+            direction={this.state.showArticle ? 'right' : 'left'}
+            onClick={() => this.handleToggleDirection()}
+          />
+          <div>
+            {
+              this.state.showArticle &&
+              <main className='article-body'>
+                <Article
+                  colors={colors}
+                  annotations={annotations}
+                  body={this.state.articleBody}
+                  tags={tags}
+                  onAnnotate={onCreateAnnotation}
+                  onAddAnnotationColor={onAddAnnotationColor}
+                  onRemoveAnnotationColor={onRemoveAnnotationColor}
+                  onDeleteAnnotation={onDeleteAnnotation}
+                />
+            </main>
+            }
+          </div>
+          <div>
+            {
+              !this.state.showArticle &&
+              <AnswersPanel
+                answers={answers}
+                tags={tags}
+              />
+            }
+          </div>
         </div>
       </div>
     )
@@ -100,8 +132,7 @@ const colors = [
   '#2962FF',
   '#18FFFF',
   '#B2FF59',
-  '#EEFF41',
-  '#FFFFFF'
+  '#EEFF41'
 ]
 
 const mapStateToAnnotations = (state) => {
@@ -126,23 +157,34 @@ const mapStateToAnnotations = (state) => {
     }))
 }
 
-const mapStateToColors = () => {
-  return colors
+const mapStateToColors = (state) => {
+  return colors.slice(0, objectToArray(state.answers).length + 1)
 }
 
 const mapStateToTags = (state) => {
   const tags = state.question.required_tags.concat(state.question.optional_tags)
+
   return tags.map(tagCid => ({
     title: state.tags[tagCid].title,
+    id: state.tags[tagCid].id,
     cid: tagCid
   }))
+}
+
+const mapStateToAnswers = (state) => {
+  return objectToArray(state.answers)
+    .map(ans => ({
+      id: ans.id,
+      annotations: ans.annotations.map(a => state.annotations[a])
+    }))
 }
 
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
   colors: mapStateToColors(state),
-  tags: mapStateToTags(state)
+  tags: mapStateToTags(state),
+  answers: mapStateToAnswers(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
