@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
+import AnswersPanel from '../components/answers-panel'
 
 import { createAnnotation,
          addAnnotationColor,
@@ -57,25 +58,39 @@ export class Annotate extends React.Component {
       onCreateAnnotation,
       onAddAnnotationColor,
       onRemoveAnnotationColor,
-      onDeleteAnnotation
+      onDeleteAnnotation,
+      answers
     } = this.props
 
     return (
       <div>
         <div className='article-container'>
           <Toggler />
-          <main className='article-body'>
-            <Article
-              colors={colors}
-              annotations={annotations}
-              body={this.state.articleBody}
-              tags={tags}
-              onAnnotate={onCreateAnnotation}
-              onAddAnnotationColor={onAddAnnotationColor}
-              onRemoveAnnotationColor={onRemoveAnnotationColor}
-              onDeleteAnnotation={onDeleteAnnotation}
-            />
-          </main>
+          <div>
+            {
+              false &&
+              <main className='article-body'>
+                <Article
+                  colors={colors}
+                  annotations={annotations}
+                  body={this.state.articleBody}
+                  tags={tags}
+                  onAnnotate={onCreateAnnotation}
+                  onAddAnnotationColor={onAddAnnotationColor}
+                  onRemoveAnnotationColor={onRemoveAnnotationColor}
+                  onDeleteAnnotation={onDeleteAnnotation}
+                />
+            </main>
+            }
+          </div>
+          <div>
+            {
+              true && <AnswersPanel
+                        answers={answers}
+                        tags={tags}
+                      />
+            }
+          </div>
         </div>
       </div>
     )
@@ -131,17 +146,28 @@ const mapStateToColors = (state) => {
 
 const mapStateToTags = (state) => {
   const tags = state.question.required_tags.concat(state.question.optional_tags)
+
   return tags.map(tagCid => ({
     title: state.tags[tagCid].title,
+    id: state.tags[tagCid].id,
     cid: tagCid
   }))
+}
+
+const mapStateToAnswers = (state) => {
+  return objectToArray(state.answers)
+    .map(ans => ({
+      id: ans.id,
+      annotations: ans.annotations.map(a => state.annotations[a])
+    }))
 }
 
 const mapStateToProps = (state) => ({
   question: state.question.title,
   annotations: mapStateToAnnotations(state),
   colors: mapStateToColors(state),
-  tags: mapStateToTags(state)
+  tags: mapStateToTags(state),
+  answers: mapStateToAnswers(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
