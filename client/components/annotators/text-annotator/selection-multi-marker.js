@@ -192,7 +192,7 @@ export function renderArray (node, annotations) {
 
       return arr
         .map(fragment => ({
-          color: annotation.color,
+          colors: annotation.colors,
           nodeRef: fragment.nodeRef,
           onSelect: annotation.onSelect,
           fragment
