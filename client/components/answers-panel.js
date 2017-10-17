@@ -1,4 +1,20 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Row = styled.tr`
+  border-bottom: 1px #ccc solid;
+`
+
+const Cell = styled.td`
+  vertical-align: top;
+  padding: 10px;
+`
+
+const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`
 
 export default function AnswersPanel ({ answers, tags }) {
   const sortedAnswers = answers
@@ -24,24 +40,24 @@ export default function AnswersPanel ({ answers, tags }) {
       <tbody>
         {
           sortedAnswers.map(ans =>
-            <tr key={ans.id}>
-              <td key='header-for-answer'>#{ans.id}</td>
+            <Row key={ans.id}>
+              <Cell key='header-for-answer'>#{ans.id}</Cell>
               {
                 ans.annotations.map(a =>
-                  <td>
+                  <Cell>
                     {
-                      <ul>
+                      <List>
                         {
                           a.map(target =>
                             <li>{target.exact}</li>
                           )
                         }
-                      </ul>
+                      </List>
                     }
-                  </td>
+                  </Cell>
                 )
               }
-            </tr>
+            </Row>
           )
         }
       </tbody>
