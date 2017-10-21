@@ -4,6 +4,7 @@ import fetch from 'isomorphic-fetch'
 import styled from 'styled-components'
 import Article from '../components/annotators/article-container'
 import AnswersPanel from '../components/answers-panel'
+import Tutorial from '../components/tutorial'
 
 import { createAnnotation,
          addAnnotationColor,
@@ -109,6 +110,7 @@ export class Annotate extends React.Component {
             }
           </div>
         </div>
+        <Tutorial />
       </div>
     )
   }
