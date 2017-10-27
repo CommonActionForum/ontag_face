@@ -22,7 +22,7 @@ router.get('/parse-article', parseArticle)
 router.get('/annotate', checkSession, annotate)
 router.get('/import-from-medium', checkSession, (req, res) => {
   console.log('ENDPOINT GET /import-from-medium. Checking if the user is connected to Medium')
-  if (req.currentUser.medium_credential) {
+  if (req.currentUser.medium_credential && req.currentUser.medium_credential.user_id) {
     res.render('import-from-medium-step2', {user: req.currentUser.medium_credential})
   } else {
     res.render('import-from-medium-step1')

@@ -30,7 +30,8 @@ const core = token => ({
       if (token === 'valid_token') {
         return Promise.resolve({
           username: 'john_example',
-          name: 'John Example'
+          name: 'John Example',
+          medium_credential: {}
         })
       } else if (token === 'valid_medium_token') {
         return Promise.resolve({
