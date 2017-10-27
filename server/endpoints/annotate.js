@@ -47,6 +47,13 @@ export default async function annotate (req, res) {
           title: t.title
         }))
 
+      const reduxAnnotations = annotations.map(a => ({
+        id: a.id.toString(),
+        target: a.target,
+        tag_id: a.tag_id.toString(),
+        entry_id: a.entry_id.toString()
+      }))
+
       const reduxAnswers = answers.map(a => ({
         id: a.id.toString(),
         question_id: a.question_id,
@@ -56,7 +63,7 @@ export default async function annotate (req, res) {
       const reduxState = {
         question: reduxQuestion,
         tags: arrayToObject(reduxTags),
-        annotations: arrayToObject(annotations),
+        annotations: arrayToObject(reduxAnnotations),
         answers: arrayToObject(reduxAnswers),
         entry
       }
